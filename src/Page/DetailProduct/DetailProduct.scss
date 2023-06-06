@@ -1,0 +1,70 @@
+.detail-content {
+  background-color: var(--bg-content);
+  .detail-container {
+    .detail-title {
+      font-weight: 700;
+    }
+    .detail-address {
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .detail-info {
+      border-top: 1px solid #ddd;
+      border-bottom: 1px solid #ddd;
+      .detail-info-title {
+        line-height: 20px;
+        color: var(--silver);
+        font-size: 14px;
+      }
+      .detail-info-value {
+        line-height: 28px;
+        font-size: 18px;
+        font-weight: 500;
+      }
+    }
+    .detail-descriptions {
+      .detail-descriptions-title {
+        line-height: 28px;
+        font-size: 18px;
+        font-weight: 500;
+      }
+      .detail-desciptions-value {
+        line-height: 24px;
+        font-size: 14px;
+      }
+    }
+    .detail-characterize {
+      .detail-characterize-title {
+        line-height: 28px;
+        font-size: 18px;
+        font-weight: 500;
+      }
+      .detail-characterize-value {
+        // margin-left: 16px;
+
+        line-height: 24px;
+        font-size: 14px;
+        .detail-characterize-list {
+          .detail-characterize-item {
+            background-color: transparent;
+            line-height: 20px;
+            .detail-characterize-item-title {
+              font-size: 14px;
+              font-weight: 500;
+            }
+          }
+        }
+      }
+    }
+    .personal-info {
+      .personal-info-title {
+        font-size: 14px;
+        color: var(--silver);
+      }
+      .personal-info-name {
+        font-size: 16px;
+        font-weight: 500;
+      }
+    }
+  }
+}

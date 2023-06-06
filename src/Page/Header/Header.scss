@@ -1,0 +1,36 @@
+.header-container {
+  height: 100px;
+
+  .nav-right {
+    font-weight: 500;
+    .nav-item {
+      margin-left: 20px;
+    }
+    :hover {
+      cursor: pointer;
+    }
+  }
+  .nav-left {
+    .nav-item {
+      //   margin-right: 20px;
+      .nav-item-button {
+        font-weight: 500;
+        padding: 15px 10px;
+        background-color: transparent;
+        border: 0;
+      }
+      .nav-item-button-special {
+        font-weight: 500;
+        padding: 15px 10px;
+        background-color: transparent;
+        border: 1px solid #e0e0e0;
+      }
+      :hover {
+        background-color: #e0e0e0;
+      }
+    }
+    .nav-space {
+      color: rgb(242, 242, 242);
+    }
+  }
+}

@@ -1,0 +1,14 @@
+.content-signup {
+  min-height: 600px;
+  background-color: var(--bg-primary);
+
+  .form {
+    width: 600px;
+    .form-submit {
+      :hover {
+        background-color: red;
+        opacity: 0.5;
+      }
+    }
+  }
+}

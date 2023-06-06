@@ -1,0 +1,34 @@
+.home-content {
+  // height: 100px;
+  background-color: var(--bg-content);
+  .home-container {
+    // height: 600px;
+    .home-product-card {
+      box-shadow: 0 0.125rem 0.25rem rgba(#000000, 0.075);
+
+      &:hover {
+        box-shadow: 0 1rem 3rem rgba($color: #000000, $alpha: 0.175);
+      }
+    }
+
+    .home-container-title {
+      font-weight: 500;
+    }
+  }
+}
+.home-product-title {
+  font-weight: 600;
+}
+.home-product-price {
+  font-weight: 700;
+  font-size: 16px;
+  color: #e03c31;
+}
+.home-product-address {
+  font-size: 16px;
+  color: #505050;
+}
+.home-product-date {
+  color: #999;
+  font-size: 14px;
+}

@@ -1,0 +1,32 @@
+.container-fluid {
+  background-color: rgb(242, 242, 242);
+  .container {
+    .contact {
+      .contact-item {
+        .icon {
+          font-size: 32px;
+        }
+      }
+      // .logo {
+      //   width: 33%;
+      // }
+      // .hotline {
+      //   width: 17%;
+      // }
+      // .support {
+      //   width: 25%;
+      // }
+      // .care {
+      //   width: 25%;
+      // }
+    }
+    .info {
+      .info-item {
+        // width: 33%;
+        .icon {
+          font-size: 24px;
+        }
+      }
+    }
+  }
+}
