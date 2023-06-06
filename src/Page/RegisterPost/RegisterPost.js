@@ -18,24 +18,52 @@ import provinceApi from "../../api/provinceApi";
 import { text } from "@fortawesome/fontawesome-svg-core";
 function RegisterPost() {
   //Chọn loại BĐS
-  const [loaiBDS, setLoaiBDS] = useState("VD: Nhà riêng");
-  const handleSelectLoaiBDS = (eventKey) => {
-    switch (eventKey) {
-      case "l1":
-        setLoaiBDS("Bán căn hộ chung cư");
-        break;
-      case "l2":
-        setLoaiBDS("Bán nhà riêng");
-        break;
-      case "l3":
-        setLoaiBDS("Bán đất");
-        break;
-      default:
-        break;
+  const id = Date.now().toString();
+  const status = "";
+  const thumbnail = "";
+
+  const [category, setCategory] = useState("nha-dat-ban");
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [listProvinces, setListProvinces] = useState([]);
+  const [listDistrict, setListDistrict] = useState([]);
+  const [listWards, setListWards] = useState([]);
+  const [nameProvince, setNameProvince] = useState("");
+  const [nameDistrict, setNameDistrict] = useState("");
+  const [nameWards, setNameWards] = useState("");
+  const [type, setType] = useState();
+  const [expiration, setExpiration] = useState();
+  const [cost, setCost] = useState();
+
+  const real_easte_id = "";
+  const [acreage, setacreage] = useState("");
+  const [price, setprice] = useState("");
+  // const [title, setTitle] = useState("");
+  // const [title, setTitle] = useState("");
+  // const [title, setTitle] = useState("");
+  // const [title, setTitle] = useState("");
+
+  const [district, setDistrict] = useState("");
+  const handleRegisterPost = () => {
+    console.log({
+      content: content,
+      title: title,
+      expiration: expiration,
+      type: type,
+      status: status,
+      category: category,
+      id: id,
+    });
+  };
+
+  const handleCategory = (value) => {
+    if (value == 11) {
+      setCategory("nha-dat-ban");
+    } else if (value == 12) {
+      setCategory("nha-dat-cho-thue");
     }
   };
   //Lấy danh sách tỉnh thành
-  const [listProvinces, setListProvinces] = useState([]);
   useEffect(() => {
     getAllProvince();
   }, []);
@@ -49,11 +77,14 @@ function RegisterPost() {
       console.log("err", err);
     }
   };
-  const [nameProvince, setNameProvince] = useState("Tỉnh/Thành Phố");
   const [province, setProvince] = useState("");
   const handleSelectProvince = (eventKey) => {
     {
       setProvince(eventKey);
+      setNameDistrict("");
+      setDistrict("");
+      setNameWards("");
+      setWards("");
       {
         listProvinces.forEach((element) => {
           if (element.code == eventKey) {
@@ -65,7 +96,6 @@ function RegisterPost() {
   };
   //Lấy danh sách quận huyện
 
-  const [listDistrict, setListDistrict] = useState([]);
   useEffect(() => {
     getAllDistrict();
   }, [province]);
@@ -82,11 +112,11 @@ function RegisterPost() {
       console.log("err", err);
     }
   };
-  const [nameDistrict, setNameDistrict] = useState("Quận/Huyện");
-  const [district, setDistrict] = useState("");
   const handleSelectDistrict = (eventKey) => {
     {
       setDistrict(eventKey);
+      setNameWards("");
+      setWards("");
       {
         listDistrict.forEach((element) => {
           if (element.code == eventKey) {
@@ -98,7 +128,6 @@ function RegisterPost() {
   };
   //Lấy danh sách phường xã
 
-  const [listWards, setListWards] = useState([]);
   useEffect(() => {
     getAllWards();
   }, [district]);
@@ -115,7 +144,6 @@ function RegisterPost() {
       console.log("err", err);
     }
   };
-  const [nameWards, setNameWards] = useState("Phường/Xã");
   const [wards, setWards] = useState("");
   const handleSelectWards = (eventKey) => {
     {
@@ -129,6 +157,7 @@ function RegisterPost() {
       }
     }
   };
+
   //Chọn loại đơn vị giá bán
   const [loaiDV, setLoaiDV] = useState("VND");
   const handleSelectLoaiDV = (eventKey) => {
@@ -147,22 +176,19 @@ function RegisterPost() {
     }
   };
   // Chọn loại tin
-  const [cost, setCost] = useState();
-  const [loaiTin, setloaiTin] = useState();
-  const [day, setDay] = useState();
 
   const [totalCost, setTotalCost] = useState();
 
-  const handleLoaiTin = (value) => {
+  const handleType = (value) => {
     switch (value) {
       case 1:
-        return setCost(2000), setloaiTin("Tin thường");
+        return setCost(2000), setType("Tin thường");
       case 2:
-        return setCost(10000), setloaiTin("Tin vip 1");
+        return setCost(10000), setType("Tin vip 1");
       case 3:
-        return setCost(20000), setloaiTin("Tin vip 2");
+        return setCost(20000), setType("Tin vip 2");
       case 4:
-        return setCost(50000), setloaiTin("Tin vip 3");
+        return setCost(50000), setType("Tin vip 3");
       default:
         break;
     }
@@ -170,13 +196,17 @@ function RegisterPost() {
   const handleMucGia = (value) => {
     switch (value) {
       case 5:
-        return setTotalCost(cost * 7), setDay("7 ngày");
+        return setTotalCost(cost * 7), setExpiration("7 ngày");
       case 6:
-        return setTotalCost((cost - cost * 0.03) * 10), setDay("10 ngày");
+        return (
+          setTotalCost((cost - cost * 0.03) * 10), setExpiration("10 ngày")
+        );
       case 7:
-        return setTotalCost((cost - cost * 0.05) * 15), setDay("15 ngày");
+        return (
+          setTotalCost((cost - cost * 0.05) * 15), setExpiration("15 ngày")
+        );
       case 8:
-        return setTotalCost((cost - cost * 0.1) * 30), setDay("30 ngày");
+        return setTotalCost((cost - cost * 0.1) * 30), setExpiration("30 ngày");
       default:
         break;
     }
@@ -191,23 +221,33 @@ function RegisterPost() {
               <div className="px-4  py-4 ">
                 <div className="fs-3 register-post-title">Thông tin cơ bản</div>
                 <div className="py-2">
-                  <Button
-                    className="w-50 border  form-submit"
-                    variant="light"
-                    type="submit"
-                    active={true}
+                  <ToggleButtonGroup
+                    className="w-100"
+                    type="radio"
+                    name="sdasd"
+                    defaultValue={11}
+                    onChange={handleCategory}
                   >
-                    Bán
-                  </Button>
-                  <Button
-                    className="w-50 border  form-submit"
-                    variant="light"
-                    type="submit"
-                  >
-                    Cho thuê
-                  </Button>
+                    <ToggleButton
+                      id="11"
+                      value={11}
+                      variant="light"
+                      className="w-50"
+                    >
+                      Nhà đất bán
+                    </ToggleButton>
+
+                    <ToggleButton
+                      id="12"
+                      value={12}
+                      variant="light"
+                      className="w-50"
+                    >
+                      Nhà đất cho thuê
+                    </ToggleButton>
+                  </ToggleButtonGroup>
                 </div>
-                <div className="py-2">
+                {/* <div className="py-2">
                   <div className="py-2 register-post-sub-title">
                     Loại bất động sản<sup className="text-danger fs-7">*</sup>
                   </div>
@@ -230,7 +270,7 @@ function RegisterPost() {
                       </DropdownMenu>
                     </Dropdown>
                   </div>
-                </div>
+                </div> */}
                 <Row className="py-2">
                   <Col md={4} sm={12} className="py-2">
                     <div className="py-2 register-post-sub-title">
@@ -251,7 +291,7 @@ function RegisterPost() {
                         variant="light"
                         className="w-100 text-start"
                       >
-                        {nameProvince}
+                        {nameProvince ? nameProvince : "Tỉnh/Thành Phố"}
                       </DropdownToggle>
                       <DropdownMenu className="w-100">
                         {listProvinces.map((item, index) => {
@@ -275,7 +315,7 @@ function RegisterPost() {
                         variant="light"
                         className="w-100 text-start"
                       >
-                        {nameDistrict}
+                        {nameDistrict ? nameDistrict : "Quận/Huyện"}
                       </DropdownToggle>
                       <DropdownMenu className="w-100">
                         {listDistrict &&
@@ -300,7 +340,7 @@ function RegisterPost() {
                         variant="light"
                         className="w-100 text-start"
                       >
-                        {nameWards}
+                        {nameWards ? nameWards : "Phường/Xã"}
                       </DropdownToggle>
                       <DropdownMenu className="w-100">
                         {listWards &&
@@ -355,6 +395,8 @@ function RegisterPost() {
                       //   className="mb-3"
                     >
                       <Form.Control
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
                         as="textarea"
                         placeholder="Leave a comment here"
                       />
@@ -371,6 +413,8 @@ function RegisterPost() {
                       //   label="Comments"
                     >
                       <Form.Control
+                        value={content}
+                        onChange={(e) => setContent(e.target.value)}
                         as="textarea"
                         placeholder="Leave a comment here"
                         style={{ height: "100px" }}
@@ -525,7 +569,7 @@ function RegisterPost() {
                         type="radio"
                         name="abc"
                         // defaultValue={1}
-                        onChange={handleLoaiTin}
+                        onChange={handleType}
                       >
                         <ToggleButton
                           id="1"
@@ -633,7 +677,7 @@ function RegisterPost() {
                     </Row>
                   </div>
                 </div>
-                <div className="py-2">
+                {/* <div className="py-2">
                   <div className="py-2 register-post-sub-title">
                     Ngày bắt đầu
                   </div>
@@ -645,7 +689,7 @@ function RegisterPost() {
                       // placeholder="Nhập email"
                     />
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </Col>
@@ -662,7 +706,7 @@ function RegisterPost() {
                 <div className="py-2 ">
                   <div className="py-2 register-post-sub-title d-flex justify-content-between">
                     <div>Loại tin</div>
-                    <div>{loaiTin ? loaiTin : ""}</div>
+                    <div>{type ? type : ""}</div>
                   </div>
                 </div>
                 <div className="py-2 ">
@@ -674,7 +718,7 @@ function RegisterPost() {
                 <div className="py-2 ">
                   <div className="py-2 register-post-sub-title d-flex justify-content-between">
                     <div>Thời gian đăng tin</div>
-                    <div>{day ? day : ""}</div>
+                    <div>{expiration ? expiration : ""}</div>
                   </div>
                 </div>
                 <div className="py-2 ">
@@ -688,6 +732,15 @@ function RegisterPost() {
                     <div>Tổng tiền</div>
                     <div>{totalCost ? totalCost : ""}</div>
                   </div>
+                </div>
+                <div className="">
+                  <Button
+                    type="submit"
+                    className="fs-4 bg-danger "
+                    onClick={handleRegisterPost}
+                  >
+                    Thanh Toán
+                  </Button>
                 </div>
               </div>
             </div>

@@ -3,10 +3,13 @@ import Sidebar from "../Sidebar/Sidebar";
 import { Table, Modal, Button, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
-function Category() {
-  const [show, setShow] = useState(false);
+import { useState, useEffect } from "react";
+import categoryApi from "../../api/categoryApi";
 
+function Category() {
+  let stt = 1;
+  const [listCategory, setListCategory] = useState([]);
+  const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleUpdate = () => {
@@ -14,6 +17,18 @@ function Category() {
   };
   const handleDelete = () => {
     console.log("xyz");
+  };
+
+  useEffect(() => {
+    getAllCategory();
+  }, []);
+  const getAllCategory = async () => {
+    try {
+      let res = await categoryApi.getAll();
+      console.log(res);
+    } catch (err) {
+      console.log("err", err);
+    }
   };
   return (
     <>
@@ -28,39 +43,14 @@ function Category() {
             <thead>
               <tr>
                 <th>STT</th>
-                <th>Mã danh mục</th>
                 <th>Tên danh mục</th>
                 <th>Thao tác</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>1</td>
-                <td>abc</td>
+                <td>{stt++}</td>
                 <td>Nhà đất bán</td>
-                <td>
-                  <div className="d-flex">
-                    <div className="category-icon">
-                      <FontAwesomeIcon
-                        icon={faInfoCircle}
-                        style={{ color: "#0d6efd" }}
-                        onClick={handleShow}
-                      ></FontAwesomeIcon>
-                    </div>
-                    <div className="ps-3 category-icon">
-                      <FontAwesomeIcon
-                        icon={faCircleXmark}
-                        style={{ color: "#dc3545" }}
-                        onClick={handleDelete}
-                      ></FontAwesomeIcon>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>xyz</td>
-                <td>Nhà đất cho thuê</td>
                 <td>
                   <div className="d-flex">
                     <div className="category-icon">

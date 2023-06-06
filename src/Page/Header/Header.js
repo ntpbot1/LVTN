@@ -10,7 +10,7 @@ function Header() {
   const handleLogOut = () => {
     dispatch(logout());
   };
-  console.log(inforUser, localStorage.getItem("token"));
+  console.log(inforUser.isLogin);
   return (
     <>
       <div className="d-flex justify-content-between align-items-centers header-container">
@@ -46,12 +46,7 @@ function Header() {
                 variant="light"
                 onClick={handleLogOut}
               >
-                {/* <Link
-                  className="text-decoration-none text-dark bg-transparent"
-                  to={"/dang-xuat"}
-                > */}
                 Đăng xuất
-                {/* </Link> */}
               </Button>
             </div>
             <div className="nav-space">|</div>
@@ -93,7 +88,7 @@ function Header() {
             <div className="nav-item mx-4">
               <Link
                 className="text-decoration-none text-dark bg-transparent"
-                to={"/dang-tin"}
+                to={"/dang-nhap"}
               >
                 <Button className="nav-item-button-special" variant="light">
                   Đăng tin
