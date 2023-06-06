@@ -19,17 +19,17 @@ function Category() {
     console.log("xyz");
   };
 
-  useEffect(() => {
-    getAllCategory();
-  }, []);
-  const getAllCategory = async () => {
-    try {
-      let res = await categoryApi.getAll();
-      console.log(res);
-    } catch (err) {
-      console.log("err", err);
-    }
-  };
+  // useEffect(() => {
+  //   getAllCategory();
+  // }, []);
+  // const getAllCategory = async () => {
+  //   try {
+  //     let res = await categoryApi.getAll();
+  //     console.log(res);
+  //   } catch (err) {
+  //     console.log("err", err);
+  //   }
+  // };
   return (
     <>
       {/* <div className="d-flex">

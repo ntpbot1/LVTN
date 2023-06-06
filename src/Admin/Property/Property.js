@@ -2,7 +2,9 @@ import Sidebar from "../Sidebar/Sidebar";
 import { Table, Modal, Button, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import propertyApi from "../../api/propertyApi";
+
 function Property() {
   const [show, setShow] = useState(false);
 
@@ -14,6 +16,29 @@ function Property() {
   const handleDelete = () => {
     console.log("xyz");
   };
+  // useEffect(() => {
+  //   getAllProperty();
+  // }, []);
+  // const getAllProperty = async () => {
+  //   try {
+  //     let res = await propertyApi.getAll();
+  //     console.log(res);
+  //   } catch (err) {
+  //     console.log("err", err);
+  //   }
+  // };
+  useEffect(() => {
+    const getAllProperty = async () => {
+      try {
+        const res = await propertyApi.getAll();
+        console.log(res);
+      } catch (err) {
+        console.log("err", err);
+      }
+    };
+    getAllProperty();
+  }, []);
+
   return (
     <>
       {/* <div className="d-flex">
