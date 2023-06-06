@@ -2,6 +2,7 @@ import Carousel from "react-bootstrap/Carousel";
 import "./DetailProduct.scss";
 import ListGroup from "react-bootstrap/ListGroup";
 import Image from "react-bootstrap/Image";
+import Map from './map'
 import { Button } from "react-bootstrap";
 
 function DetailProduct() {
@@ -234,6 +235,12 @@ function DetailProduct() {
                 </Figure> */}
               </div>
             </div>
+          </div>
+        </div>
+        <div className="container detail-container">
+          <h1 className="display-4">MAP</h1>
+          <div className="map px-5" style={{"width":"100%","height":"800px", "borderRadius":"5px"}}>
+            <Map/>
           </div>
         </div>
       </div>
