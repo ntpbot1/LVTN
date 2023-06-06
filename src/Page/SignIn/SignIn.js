@@ -133,7 +133,7 @@ function SignIn() {
           <Form noValidate onSubmit={handleSubmit}>
             <Row className="mb-3">
               <Form.Group as={Col} md="4" controlId="validationFormik01">
-                <Form.Label>First name</Form.Label>
+                <Form.Label>Email</Form.Label>
                 <Form.Control
                   type="text"
                   name="email"
@@ -144,7 +144,7 @@ function SignIn() {
                 <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
               </Form.Group>
               <Form.Group as={Col} md="4" controlId="validationFormik02">
-                <Form.Label>Last name</Form.Label>
+                <Form.Label>Password</Form.Label>
                 <Form.Control
                   type="text"
                   name="password"

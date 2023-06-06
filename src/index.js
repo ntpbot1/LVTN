@@ -8,7 +8,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import GlobalStyle from "./components/GlobalStyle/GlobalStyle";
 import store from "./redux/store";
 import { Provider } from "react-redux";
-
+//import 'mapbox-gl/dist/mapbox-gl.css';
 // import "normalize.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

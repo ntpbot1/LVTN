@@ -66,5 +66,15 @@
         font-weight: 500;
       }
     }
+
+    
   }
+}
+.mapboxgl-map{
+  overflow:visible;
+  position: relative;
+}
+
+.mapboxgl-ctrl-logo {
+  margin: 0;
 }
