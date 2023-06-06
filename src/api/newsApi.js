@@ -1,9 +1,8 @@
 import axiosClient from "./apiClient";
-const propertyApi = {
+const newsApi = {
   getAll() {
-    const url = "/real-easte/getall";
+    const url = "/news/getall";
     return axiosClient.get(url);
   },
 };
-
-export default propertyApi;
+export default newsApi;

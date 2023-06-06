@@ -33,6 +33,9 @@ function SignIn() {
         localStorage.setItem("token", res.refreshToken);
         navigate("/");
       }
+      if (res.error) {
+        setData({ ...data, message: res.error.message });
+      }
       // console.log(data);
     }
     setValidated(true);
@@ -43,7 +46,7 @@ function SignIn() {
         <Form
           noValidate
           validated={validated}
-          onClick={handleLogin}
+          onSubmit={handleLogin}
           className="mx-auto py-5 px-5 bg-white form rounded shadow-sm "
         >
           <div className="fs-3 pt-5">Xin chào bạn</div>

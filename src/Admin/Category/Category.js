@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 import categoryApi from "../../api/categoryApi";
+import newsApi from "../../api/newsApi";
+import axios from "axios";
 
 function Category() {
   let stt = 1;
@@ -30,6 +32,37 @@ function Category() {
   //     console.log("err", err);
   //   }
   // };
+  // useEffect(() => {
+  //   getAllNews();
+  // }, []);
+  // const getAllNews = async () => {
+  //   try {
+  //     let res = await newsApi.getAll();
+  //     console.log(res);
+  //   } catch (err) {
+  //     console.log("err", err);
+  //   }
+  // };
+  // const [data, setData] = useState(null);
+  // const url =
+  //   "https://8834-2405-4802-9115-60d0-75cb-fe75-52cd-9616.ngrok-free.app/catgory/getall";
+  // useEffect(() => {
+  //   fetch(url, { mode: "cors" })
+  //     .then((res) => res.json())
+  //     .then((data) => setData(data));
+  // }, [url]);
+  // console.log(data);
+  axios
+    .get(
+      "https://8834-2405-4802-9115-60d0-75cb-fe75-52cd-9616.ngrok-free.app/catgory/getall",
+      { crossdomain: true }
+    )
+    .then((result) => {
+      console.log("result", result);
+    })
+    .catch((error) => {
+      console.log("Error", error);
+    });
   return (
     <>
       {/* <div className="d-flex">

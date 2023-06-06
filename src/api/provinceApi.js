@@ -1,9 +1,8 @@
-import axios from "axios";
-import axiosProvince from "./axiosProvince";
+import axiosProvince from "./provincesApi";
 const provinceApi = {
-  getAll(params) {
+  getAllProvinces() {
     const url = "/api/?depth=2";
-    return axiosProvince.get(url, { params });
+    return axiosProvince.get(url);
   },
   get(id) {},
   add(data) {},

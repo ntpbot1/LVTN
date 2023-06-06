@@ -10,7 +10,7 @@ function Header() {
   const handleLogOut = () => {
     dispatch(logout());
   };
-  console.log(inforUser.isLogin);
+
   return (
     <>
       <div className="d-flex justify-content-between align-items-centers header-container">

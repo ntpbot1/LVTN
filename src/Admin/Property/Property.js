@@ -16,28 +16,29 @@ function Property() {
   const handleDelete = () => {
     console.log("xyz");
   };
-  // useEffect(() => {
-  //   getAllProperty();
-  // }, []);
-  // const getAllProperty = async () => {
-  //   try {
-  //     let res = await propertyApi.getAll();
-  //     console.log(res);
-  //   } catch (err) {
-  //     console.log("err", err);
-  //   }
-  // };
+
   useEffect(() => {
-    const getAllProperty = async () => {
-      try {
-        const res = await propertyApi.getAll();
-        console.log(res);
-      } catch (err) {
-        console.log("err", err);
-      }
-    };
     getAllProperty();
   }, []);
+  const getAllProperty = async () => {
+    try {
+      let res = await propertyApi.getAll();
+      console.log(res);
+    } catch (err) {
+      console.log("err", err);
+    }
+  };
+  // useEffect(() => {
+  //   const getAllProperty = async () => {
+  //     try {
+  //       const res = await propertyApi.getAll();
+  //       console.log(res);
+  //     } catch (err) {
+  //       console.log("err", err);
+  //     }
+  //   };
+  //   getAllProperty();
+  // }, []);
 
   return (
     <>

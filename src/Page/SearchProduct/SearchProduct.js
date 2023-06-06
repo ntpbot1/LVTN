@@ -16,6 +16,7 @@ import "./SearchProduct.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import provinceApi from "../../api/provinceApi";
 function SearchProduct() {
   const [hinhThuc, setHinhThuc] = useState("nha-dat-ban");
   const handleHinhThuc = (value) => {

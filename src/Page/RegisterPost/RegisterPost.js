@@ -182,13 +182,13 @@ function RegisterPost() {
   const handleType = (value) => {
     switch (value) {
       case 1:
-        return setCost(2000), setType("Tin thường");
+        return setCost(2000), setType(1);
       case 2:
-        return setCost(10000), setType("Tin vip 1");
+        return setCost(10000), setType(2);
       case 3:
-        return setCost(20000), setType("Tin vip 2");
+        return setCost(20000), setType(3);
       case 4:
-        return setCost(50000), setType("Tin vip 3");
+        return setCost(50000), setType(4);
       default:
         break;
     }
@@ -196,17 +196,13 @@ function RegisterPost() {
   const handleMucGia = (value) => {
     switch (value) {
       case 5:
-        return setTotalCost(cost * 7), setExpiration("7 ngày");
+        return setTotalCost(cost * 7), setExpiration(7);
       case 6:
-        return (
-          setTotalCost((cost - cost * 0.03) * 10), setExpiration("10 ngày")
-        );
+        return setTotalCost((cost - cost * 0.03) * 10), setExpiration(10);
       case 7:
-        return (
-          setTotalCost((cost - cost * 0.05) * 15), setExpiration("15 ngày")
-        );
+        return setTotalCost((cost - cost * 0.05) * 15), setExpiration(15);
       case 8:
-        return setTotalCost((cost - cost * 0.1) * 30), setExpiration("30 ngày");
+        return setTotalCost((cost - cost * 0.1) * 30), setExpiration(30);
       default:
         break;
     }

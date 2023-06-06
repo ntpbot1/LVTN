@@ -35,7 +35,7 @@ function SignUp() {
     <>
       <div className="content-signup py-5">
         <Form
-          onClick={handleSignUp}
+          onSubmit={handleSignUp}
           noValidate
           validated={validated}
           className="mx-auto py-5 px-5 bg-white form rounded shadow-sm "
