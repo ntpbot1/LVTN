@@ -19,12 +19,15 @@ function SignUp() {
     const form = e.currentTarget;
     if (form.checkValidity() === true) {
       e.preventDefault();
-
-      let res = await SignUpApi.signUp(data);
-      if (res.message) {
-        setData({ ...data, message: res.message });
+      try {
+        let res = await SignUpApi.signUp(data);
+        console.log(res);
+        if (res.data.message) {
+          setData({ ...data, message: res.data.message });
+        }
+      } catch (error) {
+        console.log(error);
       }
-      console.log(res);
     }
     // console.log(data);
 

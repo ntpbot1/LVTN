@@ -1,37 +1,67 @@
 import "./Category.scss";
-import Sidebar from "../Sidebar/Sidebar";
+
 import { Table, Modal, Button, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 import categoryApi from "../../api/categoryApi";
-import newsApi from "../../api/newsApi";
-import axios from "axios";
-
+import { ToggleButton, ToggleButtonGroup } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 function Category() {
   let stt = 1;
+  const navigate = useNavigate();
+  const [name, setName] = useState("");
+  const [type, setType] = useState(true);
+  const [id, setId] = useState("");
+  const [status, setStatus] = useState("");
   const [listCategory, setListCategory] = useState([]);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const handleUpdate = () => {
-    console.log("acb");
-  };
-  const handleDelete = () => {
-    console.log("xyz");
+  const handleShow = (catId) => {
+    setId(catId);
+    setShow(true);
   };
 
-  // useEffect(() => {
-  //   getAllCategory();
-  // }, []);
-  // const getAllCategory = async () => {
-  //   try {
-  //     let res = await categoryApi.getAll();
-  //     console.log(res);
-  //   } catch (err) {
-  //     console.log("err", err);
-  //   }
-  // };
+  useEffect(() => {
+    getAllCategory();
+  }, []);
+  const getAllCategory = async () => {
+    try {
+      let res = await categoryApi.getAll();
+      setListCategory(res.data);
+    } catch (err) {
+      console.log("err", err);
+    }
+  };
+  const handleType = (value) => {
+    if (value === 1) {
+      setType(true);
+    } else if (value === 2) {
+      setType(false);
+    }
+  };
+  //
+
+  const handleUpdateCategory = async () => {
+    try {
+      await categoryApi.update(name, type, id);
+      await getAllCategory();
+      setName("");
+      handleClose();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  //
+
+  const handleDeleteCategory = async (catId) => {
+    try {
+      await categoryApi.delete(catId);
+      await getAllCategory();
+    } catch (error) {
+      console.log(error);
+    }
+  };
   // useEffect(() => {
   //   getAllNews();
   // }, []);
@@ -43,30 +73,9 @@ function Category() {
   //     console.log("err", err);
   //   }
   // };
-  // const [data, setData] = useState(null);
-  // const url =
-  //   "https://8834-2405-4802-9115-60d0-75cb-fe75-52cd-9616.ngrok-free.app/catgory/getall";
-  // useEffect(() => {
-  //   fetch(url, { mode: "cors" })
-  //     .then((res) => res.json())
-  //     .then((data) => setData(data));
-  // }, [url]);
-  // console.log(data);
-  axios
-    .get(
-      "https://8834-2405-4802-9115-60d0-75cb-fe75-52cd-9616.ngrok-free.app/catgory/getall",
-      { crossdomain: true }
-    )
-    .then((result) => {
-      console.log("result", result);
-    })
-    .catch((error) => {
-      console.log("Error", error);
-    });
+
   return (
     <>
-      {/* <div className="d-flex">
-        <Sidebar /> */}
       <div className="category-content w-75">
         <div className=" ps-3 py-3 bg-primary text-light category-title">
           Danh sách danh mục
@@ -77,32 +86,36 @@ function Category() {
               <tr>
                 <th>STT</th>
                 <th>Tên danh mục</th>
+                <th>Hình thức</th>
                 <th>Thao tác</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>{stt++}</td>
-                <td>Nhà đất bán</td>
-                <td>
-                  <div className="d-flex">
-                    <div className="category-icon">
-                      <FontAwesomeIcon
-                        icon={faInfoCircle}
-                        style={{ color: "#0d6efd" }}
-                        onClick={handleShow}
-                      ></FontAwesomeIcon>
+              {listCategory.map((cat, index) => (
+                <tr key={index}>
+                  <td>{stt++}</td>
+                  <td>{cat.name}</td>
+                  <td>{cat.type ? "Bán" : "Cho thuê"}</td>
+                  <td>
+                    <div className="d-flex">
+                      <div className="category-icon">
+                        <FontAwesomeIcon
+                          icon={faInfoCircle}
+                          style={{ color: "#0d6efd" }}
+                          onClick={() => handleShow(cat.id)}
+                        ></FontAwesomeIcon>
+                      </div>
+                      <div className="ps-3 category-icon">
+                        <FontAwesomeIcon
+                          icon={faCircleXmark}
+                          style={{ color: "#dc3545" }}
+                          onClick={() => handleDeleteCategory(cat.id)}
+                        ></FontAwesomeIcon>
+                      </div>
                     </div>
-                    <div className="ps-3 category-icon">
-                      <FontAwesomeIcon
-                        icon={faCircleXmark}
-                        style={{ color: "#dc3545" }}
-                        onClick={handleDelete}
-                      ></FontAwesomeIcon>
-                    </div>
-                  </div>
-                </td>
-              </tr>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </Table>
         </div>
@@ -115,8 +128,39 @@ function Category() {
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="formBasicEmail">
+              <ToggleButtonGroup
+                className="w-100"
+                type="radio"
+                name="sdasd"
+                defaultValue={1}
+                onChange={handleType}
+              >
+                <ToggleButton
+                  id="11"
+                  value={1}
+                  variant="light"
+                  className="w-50"
+                >
+                  Nhà đất bán
+                </ToggleButton>
+
+                <ToggleButton
+                  id="12"
+                  value={2}
+                  variant="light"
+                  className="w-50"
+                >
+                  Nhà đất cho thuê
+                </ToggleButton>
+              </ToggleButtonGroup>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Tên danh mục</Form.Label>
-              <Form.Control type="text" />
+              <Form.Control
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -124,7 +168,7 @@ function Category() {
           <Button variant="secondary" onClick={handleClose}>
             Thoát
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={handleUpdateCategory}>
             Sửa
           </Button>
         </Modal.Footer>

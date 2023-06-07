@@ -32,5 +32,16 @@
     .nav-space {
       color: rgb(242, 242, 242);
     }
+    .nav-info {
+      .info-select {
+        border: none;
+      }
+      :hover {
+        cursor: pointer;
+      }
+      .menu-item-name {
+        font-size: 14px;
+      }
+    }
   }
 }

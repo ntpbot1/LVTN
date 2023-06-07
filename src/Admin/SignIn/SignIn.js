@@ -2,13 +2,12 @@ import { useState } from "react";
 import "./SignIn.scss";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import LoginApi from "../../api/SignIn";
+import LoginAdminApi from "../../api/adminApi";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { isLogin } from "./SignInSlice";
 import { Modal } from "react-bootstrap";
 import Spinner from "react-bootstrap/Spinner";
-
 function SignIn() {
   const [validated, setValidated] = useState(false);
   const [show, setShow] = useState(false);
@@ -29,15 +28,14 @@ function SignIn() {
     if (form.checkValidity() === true) {
       try {
         handleShow();
-        let res = await LoginApi.login(data);
+        let res = await LoginAdminApi.login(data);
         if (res.message) {
           setData({ ...data, message: res.message });
         }
         if (res.data) {
           dispatch(isLogin(res.data.fullname));
-          sessionStorage.setItem("token", res.refreshToken);
+          sessionStorage.setItem("tokenAdmin", res.data.refreshToken);
           handleClose();
-          navigate("/");
         }
         if (res.error) {
           setData({ ...data, message: res.error.message });
@@ -53,7 +51,7 @@ function SignIn() {
   };
   return (
     <>
-      <div className="content-signin py-5">
+      <div className="content-signin-admin py-5">
         <Form
           noValidate
           validated={validated}
@@ -97,8 +95,8 @@ function SignIn() {
       </div>
       <Modal className="loading" show={show} onHide={handleClose}>
         {/* <Modal.Header closeButton>
-          <Modal.Title>Sửa danh mục</Modal.Title>
-        </Modal.Header> */}
+    <Modal.Title>Sửa danh mục</Modal.Title>
+  </Modal.Header> */}
 
         <Spinner
           className="bg-transparent mx-auto my-auto"
@@ -106,13 +104,13 @@ function SignIn() {
         />
 
         {/* <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Thoát
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Sửa
-          </Button>
-        </Modal.Footer> */}
+    <Button variant="secondary" onClick={handleClose}>
+      Thoát
+    </Button>
+    <Button variant="primary" onClick={handleClose}>
+      Sửa
+    </Button>
+  </Modal.Footer> */}
       </Modal>
     </>
   );

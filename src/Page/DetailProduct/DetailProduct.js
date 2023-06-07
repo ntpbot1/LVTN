@@ -2,16 +2,16 @@ import Carousel from "react-bootstrap/Carousel";
 import "./DetailProduct.scss";
 import ListGroup from "react-bootstrap/ListGroup";
 import Image from "react-bootstrap/Image";
-import Map from './map'
-import { Button } from "react-bootstrap";
+import Map from "./map";
+import { Button, Col, Row } from "react-bootstrap";
 
 function DetailProduct() {
   return (
     <>
       <div className="detail-content">
         <div className="container py-5 detail-container">
-          <div className="row">
-            <div className="col-9">
+          <Row className="">
+            <Col lg={9} sm={12}>
               <Carousel slide={false} interval={null}>
                 <Carousel.Item>
                   <img
@@ -77,134 +77,163 @@ function DetailProduct() {
                   Đặc điểm bất động sản
                 </div>
                 <div className="row py-3 detail-characterize-value">
-                  <ListGroup
-                    className="col-6 detail-characterize-list"
-                    variant="flush"
+                  <Row>
+                    <Col lg={6} sm={12}>
+                      <ListGroup
+                        className="col-6 detail-characterize-list w-100"
+                        variant="flush"
+                      >
+                        <ListGroup.Item className="border-top detail-characterize-item ">
+                          <div className="row">
+                            <div className="col-6 detail-characterize-item-title">
+                              Diện tích
+                            </div>
+                            <div className="col-6 detail-characterize-item-value">
+                              108 m<sup>2</sup>
+                            </div>
+                          </div>
+                        </ListGroup.Item>
+                        <ListGroup.Item className=" detail-characterize-item ">
+                          <div className="row">
+                            <div className="col-6 detail-characterize-item-title">
+                              Mặt tiền
+                            </div>
+                            <div className="col-6 detail-characterize-item-value">
+                              10 m<sup>2</sup>
+                            </div>
+                          </div>
+                        </ListGroup.Item>
+                        <ListGroup.Item className=" detail-characterize-item ">
+                          <div className="row">
+                            <div className="col-6 detail-characterize-item-title">
+                              Hướng nhà
+                            </div>
+                            <div className="col-6 detail-characterize-item-value">
+                              Bắc
+                            </div>
+                          </div>
+                        </ListGroup.Item>
+                        <ListGroup.Item className=" detail-characterize-item ">
+                          <div className="row">
+                            <div className="col-6 detail-characterize-item-title">
+                              Số tầng
+                            </div>
+                            <div className="col-6 detail-characterize-item-value">
+                              1 tầng
+                            </div>
+                          </div>
+                        </ListGroup.Item>
+                        <ListGroup.Item className="border-bottom detail-characterize-item ">
+                          <div className="row">
+                            <div className="col-6 detail-characterize-item-title">
+                              Số toilet
+                            </div>
+                            <div className="col-6 detail-characterize-item-value">
+                              2 phòng
+                            </div>
+                          </div>
+                        </ListGroup.Item>
+                      </ListGroup>
+                    </Col>
+                    <Col lg={6} sm={12}>
+                      <ListGroup
+                        className="col-6 detail-characterize-list w-100"
+                        variant="flush"
+                      >
+                        <ListGroup.Item className="border-top detail-characterize-item ">
+                          <div className="row">
+                            <div className="col-6 detail-characterize-item-title">
+                              Mức giá
+                            </div>
+                            <div className="col-6 detail-characterize-item-value">
+                              2.1 tỷ
+                            </div>
+                          </div>
+                        </ListGroup.Item>
+                        <ListGroup.Item className=" detail-characterize-item ">
+                          <div className="row">
+                            <div className="col-6 detail-characterize-item-title">
+                              Đường vào
+                            </div>
+                            <div className="col-6 detail-characterize-item-value">
+                              5 m
+                            </div>
+                          </div>
+                        </ListGroup.Item>
+                        <ListGroup.Item className=" detail-characterize-item ">
+                          <div className="row">
+                            <div className="col-6 detail-characterize-item-title">
+                              Hướng ban công
+                            </div>
+                            <div className="col-6 detail-characterize-item-value">
+                              Bắc
+                            </div>
+                          </div>
+                        </ListGroup.Item>
+                        <ListGroup.Item className=" detail-characterize-item ">
+                          <div className="row">
+                            <div className="col-6 detail-characterize-item-title">
+                              Số phòng ngủ
+                            </div>
+                            <div className="col-6 detail-characterize-item-value">
+                              4 phòng
+                            </div>
+                          </div>
+                        </ListGroup.Item>
+                        <ListGroup.Item className="border-bottom detail-characterize-item ">
+                          <div className="row">
+                            <div className="col-6 detail-characterize-item-title">
+                              Pháp lý
+                            </div>
+                            <div className="col-6 detail-characterize-item-value">
+                              Sổ đỏ/ Sổ hồng
+                            </div>
+                          </div>
+                        </ListGroup.Item>
+                      </ListGroup>
+                    </Col>
+                  </Row>
+                </div>
+              </div>
+              <div className="py-3 detail-descriptions">
+                <div className="py-3 detail-descriptions-title">
+                  Xem trên bản đồ
+                </div>
+                <div className="container detail-container">
+                  <div
+                    className="map w-100 rounded"
+                    style={{
+                      height: "400px",
+                    }}
                   >
-                    <ListGroup.Item className="border-top detail-characterize-item ">
-                      <div className="row">
-                        <div className="col-6 detail-characterize-item-title">
-                          Diện tích
-                        </div>
-                        <div className="col-6 detail-characterize-item-value">
-                          108 m<sup>2</sup>
-                        </div>
-                      </div>
-                    </ListGroup.Item>
-                    <ListGroup.Item className=" detail-characterize-item ">
-                      <div className="row">
-                        <div className="col-6 detail-characterize-item-title">
-                          Mặt tiền
-                        </div>
-                        <div className="col-6 detail-characterize-item-value">
-                          10 m<sup>2</sup>
-                        </div>
-                      </div>
-                    </ListGroup.Item>
-                    <ListGroup.Item className=" detail-characterize-item ">
-                      <div className="row">
-                        <div className="col-6 detail-characterize-item-title">
-                          Hướng nhà
-                        </div>
-                        <div className="col-6 detail-characterize-item-value">
-                          Bắc
-                        </div>
-                      </div>
-                    </ListGroup.Item>
-                    <ListGroup.Item className=" detail-characterize-item ">
-                      <div className="row">
-                        <div className="col-6 detail-characterize-item-title">
-                          Số tầng
-                        </div>
-                        <div className="col-6 detail-characterize-item-value">
-                          1 tầng
-                        </div>
-                      </div>
-                    </ListGroup.Item>
-                    <ListGroup.Item className="border-bottom detail-characterize-item ">
-                      <div className="row">
-                        <div className="col-6 detail-characterize-item-title">
-                          Số toilet
-                        </div>
-                        <div className="col-6 detail-characterize-item-value">
-                          2 phòng
-                        </div>
-                      </div>
-                    </ListGroup.Item>
-                  </ListGroup>
-                  <ListGroup
-                    className="col-6 detail-characterize-list"
-                    variant="flush"
-                  >
-                    <ListGroup.Item className="border-top detail-characterize-item ">
-                      <div className="row">
-                        <div className="col-6 detail-characterize-item-title">
-                          Mức giá
-                        </div>
-                        <div className="col-6 detail-characterize-item-value">
-                          2.1 tỷ
-                        </div>
-                      </div>
-                    </ListGroup.Item>
-                    <ListGroup.Item className=" detail-characterize-item ">
-                      <div className="row">
-                        <div className="col-6 detail-characterize-item-title">
-                          Đường vào
-                        </div>
-                        <div className="col-6 detail-characterize-item-value">
-                          5 m
-                        </div>
-                      </div>
-                    </ListGroup.Item>
-                    <ListGroup.Item className=" detail-characterize-item ">
-                      <div className="row">
-                        <div className="col-6 detail-characterize-item-title">
-                          Hướng ban công
-                        </div>
-                        <div className="col-6 detail-characterize-item-value">
-                          Bắc
-                        </div>
-                      </div>
-                    </ListGroup.Item>
-                    <ListGroup.Item className=" detail-characterize-item ">
-                      <div className="row">
-                        <div className="col-6 detail-characterize-item-title">
-                          Số phòng ngủ
-                        </div>
-                        <div className="col-6 detail-characterize-item-value">
-                          4 phòng
-                        </div>
-                      </div>
-                    </ListGroup.Item>
-                    <ListGroup.Item className="border-bottom detail-characterize-item ">
-                      <div className="row">
-                        <div className="col-6 detail-characterize-item-title">
-                          Pháp lý
-                        </div>
-                        <div className="col-6 detail-characterize-item-value">
-                          Sổ đỏ/ Sổ hồng
-                        </div>
-                      </div>
-                    </ListGroup.Item>
-                  </ListGroup>
+                    <Map />
+                  </div>
                 </div>
               </div>
               <div className="py-3 d-flex detail-info">
-                <div className="d-flex flex-column">
-                  <div className="detail-info-title">Ngày đăng</div>
-                  <div className="detail-info-value">16/05/2023</div>
-                </div>
-                <div className="ps-5 d-flex flex-column">
-                  <div className="detail-info-title">Ngày hết hạn</div>
-                  <div className="detail-info-value">26/05/2023</div>
-                </div>
-                <div className="ps-5 d-flex flex-column">
-                  <div className="detail-info-title">Loại tin</div>
-                  <div className="detail-info-value">Tin thường</div>
-                </div>
+                <Row className="w-50">
+                  <Col lg={4} sm={12}>
+                    <div className="py-1 d-flex flex-column">
+                      <div className="detail-info-title">Ngày đăng</div>
+                      <div className="detail-info-value">16/05/2023</div>
+                    </div>
+                  </Col>
+                  <Col lg={4} sm={12}>
+                    <div className="py-1 d-flex flex-column">
+                      <div className="detail-info-title">Ngày hết hạn</div>
+                      <div className="detail-info-value">26/05/2023</div>
+                    </div>
+                  </Col>
+                  <Col lg={4} sm={12}>
+                    <div className="py-1 d-flex flex-column">
+                      <div className="detail-info-title">Loại tin</div>
+                      <div className="detail-info-value">Tin thường</div>
+                    </div>
+                  </Col>
+                </Row>
               </div>
-            </div>
-            <div className="col-3">
+            </Col>
+            <Col lg={3} sm={12}>
               <div className="border rounded ">
                 <div className="pt-4 pb-3 px-4 w-100 d-flex flex-column justify-content-center align-items-center personal-info">
                   <Image
@@ -234,14 +263,8 @@ function DetailProduct() {
                   />
                 </Figure> */}
               </div>
-            </div>
-          </div>
-        </div>
-        <div className="container detail-container">
-          <h1 className="display-4">MAP</h1>
-          <div className="map px-5" style={{"width":"100%","height":"800px", "borderRadius":"5px"}}>
-            <Map/>
-          </div>
+            </Col>
+          </Row>
         </div>
       </div>
     </>

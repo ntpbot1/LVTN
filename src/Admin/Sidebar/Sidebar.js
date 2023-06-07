@@ -4,7 +4,14 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faList, faNewspaper } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { logout } from "../SignIn/SignInSlice.js";
+
 function Sidebar() {
+  const dispatch = useDispatch();
+  const handleLogoutAdmin = () => {
+    dispatch(logout());
+  };
   const [key, setKey] = useState("");
   const handleSelect = (eventKey) => {
     setKey(eventKey);
@@ -60,20 +67,15 @@ function Sidebar() {
               </Link>
             </Accordion.Body>
           </Accordion.Item>
-          {/* <Accordion.Item eventKey="2">
+          <Accordion.Item eventKey="2" onClick={handleLogoutAdmin}>
             <Accordion.Button className="bg-light sidebar-button">
               <FontAwesomeIcon icon={faList} className="pe-2"></FontAwesomeIcon>
-              Quản lý danh mục
+              Quản lý thông tin cá nhân
             </Accordion.Button>
             <Accordion.Body className="px-0 py-0">
-              <Link
-                className="text-decoration-none text-dark bg-transparent"
-                to={"/nha-dat-ban"}
-              >
-                <div className="ps-4 py-3 bg-light">Nhà đất bán</div>
-              </Link>
+              <div className="ps-4 py-3 bg-light">Đăng xuất</div>
             </Accordion.Body>
-          </Accordion.Item> */}
+          </Accordion.Item>
         </Accordion>
         {/* <Link
           className="text-decoration-none text-dark bg-transparent"

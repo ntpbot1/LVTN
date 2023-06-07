@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-const loginSlice = createSlice({
-  name: "login",
+const loginAdminSlice = createSlice({
+  name: "loginAdmin",
   initialState: {
     userName: "",
     isLogin: false,
@@ -13,9 +13,9 @@ const loginSlice = createSlice({
     logout: (state) => {
       state.userName = "";
       state.isLogin = false;
-      sessionStorage.setItem("token", "");
+      sessionStorage.setItem("tokenAdmin", "");
     },
   },
 });
-export const { isLogin, logout } = loginSlice.actions;
-export default loginSlice.reducer;
+export const { isLogin, logout } = loginAdminSlice.actions;
+export default loginAdminSlice.reducer;

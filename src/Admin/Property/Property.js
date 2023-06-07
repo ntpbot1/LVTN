@@ -23,7 +23,7 @@ function Property() {
   const getAllProperty = async () => {
     try {
       let res = await propertyApi.getAll();
-      console.log(res);
+      // console.log(res);
     } catch (err) {
       console.log("err", err);
     }

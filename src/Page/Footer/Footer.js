@@ -67,7 +67,7 @@ function Footer() {
                 <div className="fw-bold title">61375</div>
               </div>
             </Col>
-            <Col sm={12} md={4} className="d-flex flex-column info-item">
+            <Col sm={12} md={4} className="d-flex flex-column pt-4 info-item">
               <div className="fw-bold text-uppercase">Hướng dẫn</div>
               <Link className="text-decoration-none text-dark py-1" to={"/"}>
                 Báo cáo & hỗ trợ
@@ -85,7 +85,7 @@ function Footer() {
                 Sitemap
               </Link>
             </Col>
-            <Col sm={12} md={4} className="d-flex flex-column info-item">
+            <Col sm={12} md={4} className="d-flex flex-column pt-4   info-item">
               <div className="fw-bold text-uppercase">Quy định</div>
               <Link className="text-decoration-none text-dark py-1" to={"/"}>
                 Quy định đăng tin
