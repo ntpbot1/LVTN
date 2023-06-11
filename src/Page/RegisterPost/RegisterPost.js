@@ -16,13 +16,18 @@ import DropdownToggle from "react-bootstrap/esm/DropdownToggle";
 import { useState, useEffect, forwardRef } from "react";
 import provinceApi from "../../api/provinceApi";
 import { text } from "@fortawesome/fontawesome-svg-core";
+import paymentApi from "../../api/paymentApi";
+import categoryApi from "../../api/categoryApi";
+import registerPost from "../../api/registerPostApi";
 function RegisterPost() {
   //Chọn loại BĐS
   const id = Date.now().toString();
-  const status = "";
-  const thumbnail = "";
-
-  const [category, setCategory] = useState("nha-dat-ban");
+  const [status, setStatus] = useState("");
+  const [thumbnail, setThumbnail] = useState("");
+  const [listCategory, setListCategory] = useState([]);
+  const [categoryName, setCategoryName] = useState("");
+  const [categoryId, setCategoryId] = useState("");
+  const [category, setCategory] = useState(true);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [listProvinces, setListProvinces] = useState([]);
@@ -31,38 +36,126 @@ function RegisterPost() {
   const [nameProvince, setNameProvince] = useState("");
   const [nameDistrict, setNameDistrict] = useState("");
   const [nameWards, setNameWards] = useState("");
-  const [type, setType] = useState();
-  const [expiration, setExpiration] = useState();
-  const [cost, setCost] = useState();
-
-  const real_easte_id = "";
-  const [acreage, setacreage] = useState("");
-  const [price, setprice] = useState("");
+  const [type, setType] = useState("");
+  const [expiration, setExpiration] = useState("");
+  const [cost, setCost] = useState("");
+  const [bedroom, setBedroom] = useState("");
+  const [bathroom, setBathroom] = useState("");
+  const [floor, setFloor] = useState("");
+  const [direction, setDirection] = useState("");
+  const [balconyDirection, setBalconyDirection] = useState("");
+  const [facade, setFacade] = useState("");
+  const [roadWidth, setRoadWidth] = useState("");
+  const [interior, setInterior] = useState("");
+  const [address, setAddress] = useState("");
+  const [length, setLength] = useState("");
+  const [width, setWidth] = useState("");
+  const [totalUsableArea, setTotalUsableArea] = useState("");
+  const [img, setImg] = useState([]);
+  const [realEasteId, setRealEasteId] = useState("");
+  const [acreage, setAcreage] = useState("");
+  const [price, setPrice] = useState("");
   // const [title, setTitle] = useState("");
   // const [title, setTitle] = useState("");
   // const [title, setTitle] = useState("");
   // const [title, setTitle] = useState("");
 
   const [district, setDistrict] = useState("");
-  const handleRegisterPost = () => {
-    console.log({
-      content: content,
-      title: title,
-      expiration: expiration,
-      type: type,
-      status: status,
-      category: category,
-      id: id,
-    });
+  const handleRegisterPost = async () => {
+    // const formDaTa = new FormData();
+    // formDaTa.append("content", content);
+    // formDaTa.append("title", title);
+    // formDaTa.append("expiration", expiration);
+    // formDaTa.append("type", type);
+    // formDaTa.append("thumbnail", thumbnail);
+    // formDaTa.append("status", status);
+    // formDaTa.append("category", categoryId);
+    // formDaTa.append("id", id);
+    // try {
+    //   const res = await registerPost.create(formDaTa);
+    //   if (res.data.slug) {
+    // setRealEasteId(res.data.slug);
+    const formDaTa2 = new FormData();
+    formDaTa2.append(
+      "real_easte_id",
+      "minh-chinh-chu-can-goc-69m2-2.25-va-73m2-2.3-ty-q7-riverside-0901-318-1754621"
+    );
+    formDaTa2.append("acreage", acreage);
+    formDaTa2.append("price", price);
+    formDaTa2.append("status", status);
+    formDaTa2.append("number_bedrooms", bedroom);
+    formDaTa2.append("number_bathrooms", bathroom);
+    formDaTa2.append("number_floors", floor);
+    formDaTa2.append("direction", direction);
+    formDaTa2.append("balcony_direction", balconyDirection);
+    formDaTa2.append("facade", facade);
+    formDaTa2.append("road_width", roadWidth);
+    formDaTa2.append("interior", interior);
+    formDaTa2.append("address", address);
+    formDaTa2.append("length", length);
+    formDaTa2.append("width", width);
+    formDaTa2.append("total_usable_area", totalUsableArea);
+    formDaTa2.append("ward", nameWards);
+    formDaTa2.append("district", nameDistrict);
+    formDaTa2.append("city", nameProvince);
+    // Array.from(img).forEach((image) => {
+    formDaTa2.append("images", img);
+    // });
+    for (let v of formDaTa2.values()) {
+      console.log(v);
+    }
+    // try {
+    //   const res2 = await registerPost.createInfo(formDaTa2);
+    //   console.log("resInfo", res2);
+    // } catch (error) {
+    //   console.log(error);
+    // }
+    // Array.from(img).forEach((image) => {
+    //   console.log(image);
+    // });
+    //   }
+    //   console.log(res);
+    //   console.log("abc");
+    // } catch (error) {
+    //   console.log(error);
+    // }
+
+    // console.log({
+    //   content: content,
+    //   title: title,
+    //   expiration: expiration,
+    //   type: type,
+    //   status: status,
+    //   category: categoryId,
+    //   id: id,
+    // });
+    // console.log({
+    //   img: img,
+    // acreage: acreage,
+    // price: price,
+    // status: status,
+    // bedroom: bedroom,
+    // bathroom: bathroom,
+    // floor: floor,
+    // direction: direction,
+    // balconyDirection: balconyDirection,
+    // facade: facade,
+    // roadWidth: roadWidth,
+    // interior: interior,
+    // address: `${nameWards} ${nameDistrict} ${nameProvince}`,
+    // length: length,
+    // width: width,
+    // totalUsableArea: totalUsableArea,
+    // ward: nameWards,
+    // district: nameDistrict,
+    // city: nameProvince,
+    // });
   };
 
   const handleCategory = (value) => {
-    if (value == 11) {
-      setCategory("nha-dat-ban");
-    } else if (value == 12) {
-      setCategory("nha-dat-cho-thue");
-    }
+    setCategory(value);
   };
+
   //Lấy danh sách tỉnh thành
   useEffect(() => {
     getAllProvince();
@@ -207,6 +300,29 @@ function RegisterPost() {
         break;
     }
   };
+  useEffect(() => {
+    getAllCategory();
+  }, []);
+  const getAllCategory = async () => {
+    try {
+      const res = await categoryApi.getAll();
+      setListCategory(res.data);
+      setCategoryName(listCategory[0].name);
+    } catch (err) {
+      console.log("err", err);
+    }
+  };
+  const handleCategoryName = (value) => {
+    const index = value.indexOf("-");
+    const nameCat = value.slice(0, index);
+    const idCat = value.slice(index + 1);
+    setCategoryName(nameCat);
+    setCategoryId(idCat);
+  };
+  const handleImg = (e) => {
+    e.preventDefault();
+    console.log(img);
+  };
   return (
     <>
       <div className="register-post-container ">
@@ -226,7 +342,7 @@ function RegisterPost() {
                   >
                     <ToggleButton
                       id="11"
-                      value={11}
+                      value={true}
                       variant="light"
                       className="w-50"
                     >
@@ -235,7 +351,7 @@ function RegisterPost() {
 
                     <ToggleButton
                       id="12"
-                      value={12}
+                      value={false}
                       variant="light"
                       className="w-50"
                     >
@@ -243,30 +359,28 @@ function RegisterPost() {
                     </ToggleButton>
                   </ToggleButtonGroup>
                 </div>
-                {/* <div className="py-2">
+                <div className="py-2">
                   <div className="py-2 register-post-sub-title">
                     Loại bất động sản<sup className="text-danger fs-7">*</sup>
                   </div>
                   <div>
-                    <Dropdown onSelect={handleSelectLoaiBDS}>
+                    <Dropdown onSelect={handleCategoryName}>
                       <DropdownToggle
                         variant="light"
                         className="w-100 text-start"
                       >
-                        {loaiBDS}
+                        {categoryName}
                       </DropdownToggle>
                       <DropdownMenu className="w-100">
-                        <DropdownItem eventKey={"l1"}>
-                          Bán căn hộ chung cư
-                        </DropdownItem>
-                        <DropdownItem eventKey={"l2"}>
-                          Bán căn nhà riêng
-                        </DropdownItem>
-                        <DropdownItem eventKey={"l3"}>Bán đất</DropdownItem>
+                        {listCategory.map((cat) => (
+                          <DropdownItem eventKey={`${cat.name}-${cat.slug}`}>
+                            {cat.name}
+                          </DropdownItem>
+                        ))}
                       </DropdownMenu>
                     </Dropdown>
                   </div>
-                </div> */}
+                </div>
                 <Row className="py-2">
                   <Col md={4} sm={12} className="py-2">
                     <div className="py-2 register-post-sub-title">
@@ -442,6 +556,8 @@ function RegisterPost() {
                       type="text"
                       className="w-100 py-2 px-2"
                       placeholder="Nhập diện tích, VD: 80"
+                      value={acreage}
+                      onChange={(e) => setAcreage(e.target.value)}
                     />
                   </div>
                 </div>
@@ -455,6 +571,8 @@ function RegisterPost() {
                         type="text"
                         className="w-100 py-2 px-2"
                         placeholder="Nhập mức giá, VD: 12000000"
+                        value={price}
+                        onChange={(e) => setPrice(e.target.value)}
                       />
                     </div>
                   </Col>
@@ -481,6 +599,249 @@ function RegisterPost() {
                     </div>
                   </Col>
                 </Row>
+                <div className="py-2">
+                  <div className="py-2">
+                    Giấy tờ pháp lý<sup className="text-danger fs-7">*</sup>
+                  </div>
+                  <div className="py-2">
+                    <input
+                      type="text"
+                      className="w-100 py-2 px-2"
+                      placeholder="Nhập giấy tờ, VD: Sổ đỏ/ Sổ hồng"
+                      value={status}
+                      onChange={(e) => setStatus(e.target.value)}
+                    />
+                  </div>
+                </div>
+
+                <Row className="py-2">
+                  <Col md={9} sm={12} className="d-flex align-items-center">
+                    <div className=" d-flex align-items-center">
+                      Số phòng ngủ<sup className="text-danger fs-7">*</sup>
+                    </div>
+                  </Col>
+                  <Col md={3} sm={12}>
+                    <div className="">
+                      <input
+                        type="text"
+                        className="w-100 py-2 px-2"
+                        // placeholder="Nhập mức giá, VD: 12000000"
+                        value={bedroom}
+                        onChange={(e) => setBedroom(e.target.value)}
+                      />
+                    </div>
+                  </Col>
+                </Row>
+                <Row className="py-2">
+                  <Col md={9} sm={12} className="d-flex align-items-center">
+                    <div className=" d-flex align-items-center">
+                      Số phòng tắm<sup className="text-danger fs-7">*</sup>
+                    </div>
+                  </Col>
+                  <Col md={3} sm={12}>
+                    <div className="">
+                      <input
+                        type="text"
+                        className="w-100 py-2 px-2"
+                        // placeholder="Nhập mức giá, VD: 12000000"
+                        value={bathroom}
+                        onChange={(e) => setBathroom(e.target.value)}
+                      />
+                    </div>
+                  </Col>
+                </Row>
+                <Row className="py-2">
+                  <Col md={9} sm={12} className="d-flex align-items-center">
+                    <div className=" d-flex align-items-center">
+                      Số tầng<sup className="text-danger fs-7">*</sup>
+                    </div>
+                  </Col>
+                  <Col md={3} sm={12}>
+                    <div className="">
+                      <input
+                        type="text"
+                        className="w-100 py-2 px-2"
+                        // placeholder="Nhập mức giá, VD: 12000000"
+                        value={floor}
+                        onChange={(e) => setFloor(e.target.value)}
+                      />
+                    </div>
+                  </Col>
+                </Row>
+                <Row className="py-2">
+                  <Col md={9} sm={12} className="d-flex align-items-center">
+                    <div className=" d-flex align-items-center">
+                      Hướng nhà<sup className="text-danger fs-7">*</sup>
+                    </div>
+                  </Col>
+                  <Col md={3} sm={12}>
+                    <div className="">
+                      <input
+                        type="text"
+                        className="w-100 py-2 px-2"
+                        // placeholder="Nhập mức giá, VD: 12000000"
+                        value={direction}
+                        onChange={(e) => setDirection(e.target.value)}
+                      />
+                    </div>
+                  </Col>
+                </Row>
+                <Row className="py-2">
+                  <Col md={9} sm={12} className="d-flex align-items-center">
+                    <div className=" d-flex align-items-center">
+                      Hướng ban công<sup className="text-danger fs-7">*</sup>
+                    </div>
+                  </Col>
+                  <Col md={3} sm={12}>
+                    <div className="">
+                      <input
+                        type="text"
+                        className="w-100 py-2 px-2"
+                        // placeholder="Nhập mức giá, VD: 12000000"
+                        value={balconyDirection}
+                        onChange={(e) => setBalconyDirection(e.target.value)}
+                      />
+                    </div>
+                  </Col>
+                </Row>
+                <Row className="py-2">
+                  <Col md={9} sm={12} className="d-flex align-items-center">
+                    <div className=" d-flex align-items-center">
+                      Mặt tiền<sup className="text-danger fs-7">*</sup>
+                    </div>
+                  </Col>
+                  <Col md={3} sm={12}>
+                    <div className="">
+                      <input
+                        type="text"
+                        className="w-100 py-2 px-2"
+                        // placeholder="Nhập mức giá, VD: 12000000"
+                        value={facade}
+                        onChange={(e) => setFacade(e.target.value)}
+                      />
+                    </div>
+                  </Col>
+                </Row>
+                <Row className="py-2">
+                  <Col md={9} sm={12} className="d-flex align-items-center">
+                    <div className=" d-flex align-items-center">
+                      Đường vào<sup className="text-danger fs-7">*</sup>
+                    </div>
+                  </Col>
+                  <Col md={3} sm={12}>
+                    <div className="">
+                      <input
+                        type="text"
+                        className="w-100 py-2 px-2"
+                        // placeholder="Nhập mức giá, VD: 12000000"
+                        value={roadWidth}
+                        onChange={(e) => setRoadWidth(e.target.value)}
+                      />
+                    </div>
+                  </Col>
+                </Row>
+
+                <Row className="py-2">
+                  <Col md={9} sm={12} className="d-flex align-items-center">
+                    <div className=" d-flex align-items-center">
+                      Nội thất<sup className="text-danger fs-7">*</sup>
+                    </div>
+                  </Col>
+                  <Col md={3} sm={12}>
+                    <div className="">
+                      <input
+                        type="text"
+                        className="w-100 py-2 px-2"
+                        // placeholder="Nhập mức giá, VD: 12000000"
+                        value={interior}
+                        onChange={(e) => setInterior(e.target.value)}
+                      />
+                    </div>
+                  </Col>
+                </Row>
+                <Row className="py-2">
+                  <Col md={9} sm={12} className="d-flex align-items-center">
+                    <div className=" d-flex align-items-center">
+                      Chiều dài<sup className="text-danger fs-7">*</sup>
+                    </div>
+                  </Col>
+                  <Col md={3} sm={12}>
+                    <div className="">
+                      <input
+                        type="text"
+                        className="w-100 py-2 px-2"
+                        // placeholder="Nhập mức giá, VD: 12000000"
+                        value={length}
+                        onChange={(e) => setLength(e.target.value)}
+                      />
+                    </div>
+                  </Col>
+                </Row>
+                <Row className="py-2">
+                  <Col md={9} sm={12} className="d-flex align-items-center">
+                    <div className=" d-flex align-items-center">
+                      Chiều rộng<sup className="text-danger fs-7">*</sup>
+                    </div>
+                  </Col>
+                  <Col md={3} sm={12}>
+                    <div className="">
+                      <input
+                        type="text"
+                        className="w-100 py-2 px-2"
+                        // placeholder="Nhập mức giá, VD: 12000000"
+                        value={width}
+                        onChange={(e) => setWidth(e.target.value)}
+                      />
+                    </div>
+                  </Col>
+                </Row>
+                <Row className="py-2">
+                  <Col md={9} sm={12} className="d-flex align-items-center">
+                    <div className=" d-flex align-items-center">
+                      Diện tích sử dụng<sup className="text-danger fs-7">*</sup>
+                    </div>
+                  </Col>
+                  <Col md={3} sm={12}>
+                    <div className="">
+                      <input
+                        type="text"
+                        className="w-100 py-2 px-2"
+                        // placeholder="Nhập mức giá, VD: 12000000"
+                        value={totalUsableArea}
+                        onChange={(e) => setTotalUsableArea(e.target.value)}
+                      />
+                    </div>
+                  </Col>
+                </Row>
+              </div>
+            </div>
+          </Col>
+          <Col sm={12} md={2}></Col>
+        </Row>
+      </div>
+      <div className="register-post-container ">
+        <Row>
+          <Col sm={12} md={2}></Col>
+          <Col sm={12} md={8}>
+            <div className="mb-4 shadow-sm rounded register-post-content">
+              <div className="px-4  py-4 ">
+                <div className="fs-3 register-post-title">Hình ảnh</div>
+                <div className="py-2">
+                  <div className="py-2 register-post-sub-title">
+                    Chọn hình ảnh<sup className="text-danger fs-7">*</sup>
+                  </div>
+                  <div className="py-2">
+                    <Form.Group controlId="formFileMultiple" className="mb-3">
+                      {/* <Form.Label>Multiple files input example</Form.Label> */}
+                      <Form.Control
+                        type="file"
+                        multiple
+                        placeholder="Chọn ảnh"
+                        onChange={(e) => setImg(e.target.files[0])}
+                      />
+                    </Form.Group>
+                  </div>
+                </div>
               </div>
             </div>
           </Col>

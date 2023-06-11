@@ -7,9 +7,11 @@ import propertyApi from "../../api/propertyApi";
 
 function Property() {
   const [show, setShow] = useState(false);
-
+  let stt = 1;
+  const [type, setType] = useState("");
+  const [listPropertyNew, setListPropertyNew] = useState([]);
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = (propertyInfo) => setShow(true);
   const handleUpdate = () => {
     console.log("acb");
   };
@@ -22,10 +24,32 @@ function Property() {
   }, []);
   const getAllProperty = async () => {
     try {
-      let res = await propertyApi.getAll();
-      // console.log(res);
+      let res = await propertyApi.getAllNew();
+      setListPropertyNew(res.data);
+      console.log(listPropertyNew);
     } catch (err) {
       console.log("err", err);
+    }
+  };
+  const handleType = (propertyType) => {
+    switch (propertyType) {
+      case 1:
+        setType("Loại 1");
+        break;
+      case 2:
+        setType("Loại 2");
+        return type;
+        break;
+      case 3:
+        setType("Loại 3");
+
+        break;
+      case 4:
+        setType("Loại 4");
+
+        break;
+      default:
+        break;
     }
   };
   // useEffect(() => {
@@ -52,7 +76,7 @@ function Property() {
           <Table className="shadow-sm" bordered hover>
             <thead>
               <tr>
-                <th>Mã tin</th>
+                <th>STT</th>
                 <th>Loại tin</th>
                 <th>Ngày đăng</th>
                 <th>Ngày hết hạn</th>
@@ -60,55 +84,34 @@ function Property() {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>abc</td>
-                <td>Loại 1</td>
-                <td>30/4/2023</td>
-                <td>30/5/2023</td>
+              {/* {listPropertyNew &&
+                listPropertyNew.map((propertyNew) => (
+                  <tr>
+                    <td>{stt++}</td>
+                    <td>{() => handleType(propertyNew.type) && handleType}</td>
+                    <td>30/4/2023</td>
+                    <td>30/5/2023</td>
 
-                <td>
-                  <div className="d-flex">
-                    <div className="category-icon">
-                      <FontAwesomeIcon
-                        icon={faInfoCircle}
-                        style={{ color: "#0d6efd" }}
-                        onClick={handleShow}
-                      ></FontAwesomeIcon>
-                    </div>
-                    <div className="ps-3 category-icon">
-                      <FontAwesomeIcon
-                        icon={faCircleXmark}
-                        style={{ color: "#dc3545" }}
-                        onClick={handleDelete}
-                      ></FontAwesomeIcon>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>xyz</td>
-                <td>Loại 2</td>
-                <td>30/4/2023</td>
-                <td>30/5/2023</td>
-                <td>
-                  <div className="d-flex">
-                    <div className="category-icon">
-                      <FontAwesomeIcon
-                        icon={faInfoCircle}
-                        style={{ color: "#0d6efd" }}
-                        onClick={handleShow}
-                      ></FontAwesomeIcon>
-                    </div>
-                    <div className="ps-3 category-icon">
-                      <FontAwesomeIcon
-                        icon={faCircleXmark}
-                        style={{ color: "#dc3545" }}
-                        onClick={handleDelete}
-                      ></FontAwesomeIcon>
-                    </div>
-                  </div>
-                </td>
-              </tr>
+                    <td>
+                      <div className="d-flex">
+                        <div className="category-icon">
+                          <FontAwesomeIcon
+                            icon={faInfoCircle}
+                            style={{ color: "#0d6efd" }}
+                            onClick={() => handleShow(propertyNew)}
+                          ></FontAwesomeIcon>
+                        </div>
+                        <div className="ps-3 category-icon">
+                          <FontAwesomeIcon
+                            icon={faCircleXmark}
+                            style={{ color: "#dc3545" }}
+                            onClick={handleDelete}
+                          ></FontAwesomeIcon>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                ))} */}
             </tbody>
           </Table>
         </div>

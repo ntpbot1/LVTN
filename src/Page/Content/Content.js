@@ -6,6 +6,7 @@ import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { Col, Row } from "react-bootstrap";
 import SearchProduct from "../SearchProduct/SearchProduct";
+import News from "../News/News";
 function Content() {
   const listPosts = [
     {
@@ -52,9 +53,17 @@ function Content() {
   const postsFilter = listPosts.filter((post) => {
     return post.price == 2.1 || post.price < 3.2;
   });
+
+  // const handleOnMouseOver = (title) => {
+  //   console.log(title);
+  // };
+  // const handleOnMouseOut = (title) => {
+  //   console.log("out");
+  // };
   return (
     <>
       <SearchProduct />
+      <News />
       <div className="home-content">
         <div className="py-5 px-5 home-container ">
           <div className="fs-3 home-container-title">
@@ -64,6 +73,8 @@ function Content() {
             <Row className="pt-5 row">
               {postsFilter.map((post) => (
                 <Col
+                  // onMouseOver={() => handleOnMouseOver(post.title)}
+                  // onMouseOut={handleOnMouseOut}
                   md={4}
                   sm={6}
                   xs={12}

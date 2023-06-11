@@ -1,10 +1,10 @@
 import axiosClient from "./apiClient";
 const LoginApi = {
-  login(payload) {
+  login(email, password) {
     const url = "/user/login";
     return axiosClient.post(url, {
-      email: payload.email,
-      password: payload.password,
+      email: email,
+      password: password,
     });
   },
 };

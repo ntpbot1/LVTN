@@ -17,8 +17,10 @@ function Category() {
   const [listCategory, setListCategory] = useState([]);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
-  const handleShow = (catId) => {
+  const handleShow = (catId, catName, catType) => {
     setId(catId);
+    setName(catName);
+    setType(catType);
     setShow(true);
   };
 
@@ -102,7 +104,7 @@ function Category() {
                         <FontAwesomeIcon
                           icon={faInfoCircle}
                           style={{ color: "#0d6efd" }}
-                          onClick={() => handleShow(cat.id)}
+                          onClick={() => handleShow(cat.id, cat.name, cat.type)}
                         ></FontAwesomeIcon>
                       </div>
                       <div className="ps-3 category-icon">
@@ -132,7 +134,7 @@ function Category() {
                 className="w-100"
                 type="radio"
                 name="sdasd"
-                defaultValue={1}
+                defaultValue={type ? 1 : 2}
                 onChange={handleType}
               >
                 <ToggleButton

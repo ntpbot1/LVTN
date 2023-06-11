@@ -15,6 +15,7 @@ import DropdownToggle from "react-bootstrap/esm/DropdownToggle";
 
 function Header() {
   const inforUser = useSelector((state) => state.login);
+  console.log(inforUser);
   const dispatch = useDispatch();
   const handleLogOut = () => {
     dispatch(logout());
@@ -62,7 +63,9 @@ function Header() {
                       height={40}
                       src="https://blog.rever.vn/hubfs/Blog%20images/PhuLH/bannhapho.jpg"
                     ></Image>
-                    <div className="nav-item-name px-2">Nguyễn Văn A</div>
+                    <div className="nav-item-name px-2">
+                      {inforUser.userName}
+                    </div>
                   </DropdownToggle>
                   <DropdownMenu>
                     <DropdownItem className="d-flex align-items-center ">

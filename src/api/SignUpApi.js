@@ -1,11 +1,11 @@
 import axiosClient from "./apiClient";
 const SignUpApi = {
-  signUp(payload) {
+  signUp(fullName, email, password) {
     const url = "/user/sign-in";
     return axiosClient.post(url, {
-      fullName: payload.fullName,
-      email: payload.email,
-      password: payload.password,
+      fullName: fullName,
+      email: email,
+      password: password,
     });
   },
 };

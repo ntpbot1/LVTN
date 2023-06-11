@@ -1,10 +1,10 @@
 import axiosClient from "./apiClient";
 const adminApi = {
-  login(payload) {
+  login(email, password) {
     const url = "/user/login-admin";
     return axiosClient.post(url, {
-      email: payload.email,
-      password: payload.password,
+      email: email,
+      password: password,
     });
   },
 };

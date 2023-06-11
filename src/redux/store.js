@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import loginReducer from "../Page/SignIn/SignInSlice";
-import loginAdminReducer from "../Admin/SignIn.js/SignInSlice";
+import loginAdminReducer from "../Admin/SignIn/SignInSlice";
 
 const store = configureStore({
   reducer: {
