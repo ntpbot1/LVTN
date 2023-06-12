@@ -61,7 +61,8 @@ function RegisterPost() {
   // const [title, setTitle] = useState("");
 
   const [district, setDistrict] = useState("");
-  const handleRegisterPost = async () => {
+  const handleRegisterPost =  (e) => {
+    e.preventDefault()
     // const formDaTa = new FormData();
     // formDaTa.append("content", content);
     // formDaTa.append("title", title);
@@ -99,11 +100,19 @@ function RegisterPost() {
     formDaTa2.append("district", nameDistrict);
     formDaTa2.append("city", nameProvince);
     // Array.from(img).forEach((image) => {
-    formDaTa2.append("images", img);
-    // });
-    for (let v of formDaTa2.values()) {
-      console.log(v);
-    }
+    //formDaTa2.append("images", img);
+    
+    console.log("object:   ", img);
+  //   for (let i = 0 ; i < img.length ; i++) {
+  //     formDaTa2.append("images", img[i]);
+  // }
+  //console.log("QQQ: ",formDaTa2);
+    // console.log("object:  ", img);
+    // // });
+    // console.log('QQQ: ',img);
+    // for (let v of formDaTa2.values()) {
+    //   console.log(v);
+    // }
     // try {
     //   const res2 = await registerPost.createInfo(formDaTa2);
     //   console.log("resInfo", res2);
@@ -836,8 +845,9 @@ function RegisterPost() {
                       <Form.Control
                         type="file"
                         multiple
+                        accept="image/*"
                         placeholder="Chọn ảnh"
-                        onChange={(e) => setImg(e.target.files[0])}
+                        onChange={(e) => setImg([...img, e.target.files])}
                       />
                     </Form.Group>
                   </div>
