@@ -38,7 +38,9 @@ function SignIn() {
           setMessage(res.message);
         }
         if (res.data) {
-          dispatch(isLogin(res.data.data.fullname));
+          dispatch(
+            isLogin({ name: res.data.data.fullname, email: values.email })
+          );
           sessionStorage.setItem("token", res.data.refreshToken);
           handleClose();
           navigate("/");

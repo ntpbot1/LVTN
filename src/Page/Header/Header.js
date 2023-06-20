@@ -24,6 +24,9 @@ function Header() {
   const handleChangePass = () => {
     navigate("/doi-mat-khau");
   };
+  const handleChangeInfo = () => {
+    navigate("/doi-thong-tin");
+  };
   return (
     <>
       <div className="d-flex justify-content-between align-items-centers header-container">
@@ -74,6 +77,7 @@ function Header() {
                     <DropdownItem
                       eventKey={"1"}
                       className="d-flex align-items-center "
+                      onClick={handleChangeInfo}
                     >
                       <FontAwesomeIcon
                         style={{ color: "#6c757d" }}

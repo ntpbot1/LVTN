@@ -19,7 +19,6 @@ function Content() {
     try {
       const res = await propertyApi.getAll();
       setListProperty(res.data);
-      console.log(res.data);
     } catch (err) {
       console.log("err", err);
     }

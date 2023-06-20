@@ -5,8 +5,10 @@ import SignUpApi from "../../api/SignUpApi";
 import Form from "react-bootstrap/Form";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
 
 function SignUp() {
+  const navigate = useNavigate;
   const [message, setMessage] = useState("");
   const formik = useFormik({
     initialValues: {
@@ -29,8 +31,13 @@ function SignUp() {
           values.email,
           values.password
         );
+
         if (res.data.message) {
           setMessage(res.data.message);
+          if (res.data.message == "Please check mail to verify your account") {
+            sessionStorage.setItem("email-sign-up", values.email);
+            navigate("/xac-nhan-dang-ky");
+          }
         }
       } catch (error) {
         console.log(error);

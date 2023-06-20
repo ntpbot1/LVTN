@@ -18,8 +18,10 @@ import { useState, useEffect } from "react";
 // import paymentApi from "../../api/paymentApi";
 import categoryApi from "../../api/categoryApi";
 import registerPost from "../../api/registerPostApi";
+import paymentApi from "../../api/paymentApi";
 function RegisterPost() {
   // Chọn loại BĐS
+  // Mã thẻ : 9704198526191432198
   const id = Date.now().toString();
   const status1 = "xuat ban";
   const [status, setStatus] = useState("");
@@ -90,8 +92,23 @@ function RegisterPost() {
     formDaTa2.append("district", nameDistrict);
     formDaTa2.append("city", nameProvince);
     formDaTa2.append("status", status);
+
+    const formDaTa3 = new FormData();
+    formDaTa3.append("amount", totalCost);
+    formDaTa3.append("bankCode", "");
+    formDaTa3.append("language", "vn");
     try {
       const res = await registerPost.create(formDaTa);
+      if (res.data.id) {
+        formDaTa3.append("real_easte_id", res.data.id);
+        try {
+          const res3 = await paymentApi.getPayment(formDaTa3);
+          // console.log(res3);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
       if (res.data.slug) {
         formDaTa2.append("real_easte_id", res.data.slug);
         try {

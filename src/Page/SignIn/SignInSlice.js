@@ -3,11 +3,13 @@ const loginSlice = createSlice({
   name: "login",
   initialState: {
     userName: "",
+    email: "",
     isLogin: false,
   },
   reducers: {
     isLogin: (state, action) => {
-      state.userName = action.payload;
+      state.userName = action.payload.name;
+      state.email = action.payload.email;
       state.isLogin = true;
     },
     logout: (state) => {

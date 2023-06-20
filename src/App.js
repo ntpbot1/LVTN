@@ -14,6 +14,8 @@ import Content from "./Page/Content/Content.js";
 import ChangePass from "./Page/ChangePass/ChangePass.js";
 import News from "./Admin/News/News.js";
 import AddNew from "./Admin/News/AddNew/AddNew.js";
+import ChangeInfo from "./Page/ChangeInfo/ChangeInfo.js";
+import VerifySignUp from "./Page/SignUp/VerifySignUp/VerifySignUp.js";
 
 function App() {
   return (
@@ -22,11 +24,14 @@ function App() {
         <Route path="/" element={<Home />}>
           <Route path="dang-nhap" element={<SignIn />}></Route>
           <Route path="dang-ky" element={<SignUp />}></Route>
+          <Route path="xac-nhan-dang-ky" element={<VerifySignUp />}></Route>
+
           <Route path="chi-tiet" element={<DetailProduct />}></Route>
           <Route path="nha-dat-ban" element={<Product />}></Route>
           <Route path="nha-dat-cho-thue" element={<Product />}></Route>
           <Route path="dang-tin" element={<RegisterPost />}></Route>
           <Route path="doi-mat-khau" element={<ChangePass />}></Route>
+          <Route path="doi-thong-tin" element={<ChangeInfo />}></Route>
 
           <Route index element={<Content />}></Route>
         </Route>

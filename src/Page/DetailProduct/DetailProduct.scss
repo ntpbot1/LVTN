@@ -1,6 +1,9 @@
 .detail-content {
   background-color: var(--bg-content);
   .detail-container {
+    .carousel-inner {
+      min-height: 300px;
+    }
     .detail-title {
       font-weight: 700;
     }
@@ -66,12 +69,10 @@
         font-weight: 500;
       }
     }
-
-    
   }
 }
-.mapboxgl-map{
-  overflow:visible;
+.mapboxgl-map {
+  overflow: visible;
   position: relative;
 }
 
