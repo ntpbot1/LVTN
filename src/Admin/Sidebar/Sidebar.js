@@ -67,7 +67,30 @@ function Sidebar() {
               </Link>
             </Accordion.Body>
           </Accordion.Item>
-          <Accordion.Item eventKey="2" onClick={handleLogoutAdmin}>
+          <Accordion.Item eventKey="2">
+            <Accordion.Button className="bg-light sidebar-button">
+              <FontAwesomeIcon
+                icon={faNewspaper}
+                className="pe-2"
+              ></FontAwesomeIcon>
+              Quản lý tin tức
+            </Accordion.Button>
+            <Accordion.Body className="px-0 py-0">
+              <Link
+                className="text-decoration-none text-dark bg-transparent"
+                to={"/admin/news"}
+              >
+                <div className="ps-4 py-3 bg-light">Danh sách tin tức</div>
+              </Link>
+              <Link
+                className="text-decoration-none text-dark bg-transparent"
+                to={"/admin/news/add"}
+              >
+                <div className="ps-4 py-3 bg-light">Thêm tin tức</div>
+              </Link>
+            </Accordion.Body>
+          </Accordion.Item>
+          <Accordion.Item eventKey="5" onClick={handleLogoutAdmin}>
             <Accordion.Button className="bg-light sidebar-button">
               <FontAwesomeIcon icon={faList} className="pe-2"></FontAwesomeIcon>
               Quản lý thông tin cá nhân

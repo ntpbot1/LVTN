@@ -1,7 +1,7 @@
 import axiosClient from "./apiClient";
 const propertyApi = {
   getAll() {
-    const url = "/real-easte/getall";
+    const url = "/real-easte/";
     return axiosClient.get(url);
   },
   getAllNew() {

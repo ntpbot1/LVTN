@@ -1,44 +1,54 @@
 import { useState } from "react";
-import "./SignIn.scss";
+import "./ChangePass.scss";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import LoginAdminApi from "../../api/adminApi";
-import { useDispatch } from "react-redux";
-import { isLogin } from "./SignInSlice";
 import { Modal } from "react-bootstrap";
 import Spinner from "react-bootstrap/Spinner";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import changePassword from "../../api/changePasswordApi";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-function SignIn() {
+function ChangePass() {
+  const notify = () =>
+    toast.success("Đổi mật khẩu thành công", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const dispatch = useDispatch();
   const [message, setMessage] = useState("");
   const formik = useFormik({
     initialValues: {
-      email: "",
-      password: "",
+      oldPass: "",
+      newPass: "",
     },
     validationSchema: Yup.object({
-      email: Yup.string().email("Không đúng").required("Chưa nhập email"),
-      password: Yup.string()
+      oldPass: Yup.string()
         .required("Chưa nhập mật khẩu")
+        .min(6, "Tối thiểu 6 ký tự"),
+      newPass: Yup.string()
+        .required("Chưa nhập mật khẩu mới")
         .min(6, "Tối thiểu 6 ký tự"),
     }),
     onSubmit: async (values) => {
       setMessage("");
       try {
         handleShow();
-        let res = await LoginAdminApi.login(values.email, values.password);
+        let res = await changePassword.change(values.oldPass, values.newPass);
         if (res.message) {
-          setMessage(res.message);
-        }
-        if (res.data) {
-          dispatch(isLogin(res.data.fullname));
-          sessionStorage.setItem("tokenAdmin", res.data.refreshToken);
+          notify();
           handleClose();
+          values.oldPass = "";
+          values.newPass = "";
         }
         if (res.error) {
           setMessage(res.error.message);
@@ -46,32 +56,33 @@ function SignIn() {
       } catch (error) {
         console.log(error);
         handleClose();
-        setMessage("Thông tin đăng nhập không chính xác");
+        setMessage("Thông tin không chính xác");
       }
     },
   });
+
   return (
     <>
-      <div className="content-signin-admin py-5">
+      <div className="content-signin py-5">
         <Form
           onSubmit={formik.handleSubmit}
           className="mx-auto py-5 px-5 bg-white form rounded shadow-sm "
         >
-          <div className="fs-3 pt-5">Xin chào bạn</div>
-          <div className="fs-2 pb-5">Đăng nhập để tiếp tục</div>
+          {/* <div className="fs-3 pt-5">Xin chào bạn</div> */}
+          <div className="fs-2 pb-5">Thay đổi mật khẩu</div>
           <Form.Group className="mb-4" controlId="formBasicEmail">
             <Form.Control
               className="py-2"
-              type="email"
-              placeholder="Email"
-              name="email"
-              value={formik.values.email}
+              type="password"
+              name="oldPass"
+              placeholder="Mật khẩu cũ"
+              value={formik.values.oldPass}
               onChange={formik.handleChange}
-              isInvalid={!!formik.errors.email}
+              isInvalid={!!formik.errors.oldPass}
             />
-            {formik.errors.email && formik.touched.email && (
+            {formik.errors.oldPass && formik.touched.oldPass && (
               <Form.Control.Feedback type="invalid">
-                {formik.errors.email}
+                {formik.errors.oldPass}
               </Form.Control.Feedback>
             )}
           </Form.Group>
@@ -79,15 +90,15 @@ function SignIn() {
             <Form.Control
               className="py-2"
               type="password"
-              placeholder="Mật khẩu"
-              name="password"
-              value={formik.values.password}
+              name="newPass"
+              placeholder="Mật khẩu mới"
+              value={formik.values.newPass}
               onChange={formik.handleChange}
-              isInvalid={!!formik.errors.password}
+              isInvalid={!!formik.errors.newPass}
             />
-            {formik.errors.password && formik.touched.password && (
+            {formik.errors.newPass && formik.touched.newPass && (
               <Form.Control.Feedback type="invalid">
-                {formik.errors.password}
+                {formik.errors.newPass}
               </Form.Control.Feedback>
             )}
           </Form.Group>
@@ -97,7 +108,7 @@ function SignIn() {
             variant="danger"
             type="submit"
           >
-            Đăng nhập
+            Đổi mật khẩu
           </Button>
         </Form>
       </div>
@@ -107,8 +118,21 @@ function SignIn() {
           animation="border"
         />
       </Modal>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      <ToastContainer />
     </>
   );
 }
 
-export default SignIn;
+export default ChangePass;

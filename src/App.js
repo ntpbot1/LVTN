@@ -11,6 +11,10 @@ import AddCategory from "./Admin/Category/AddCategory/AddCategory.js";
 import Property from "./Admin/Property/Property.js";
 import CensorProperty from "./Admin/Property/CensorProperty/CensorProperty.js";
 import Content from "./Page/Content/Content.js";
+import ChangePass from "./Page/ChangePass/ChangePass.js";
+import News from "./Admin/News/News.js";
+import AddNew from "./Admin/News/AddNew/AddNew.js";
+
 function App() {
   return (
     <div className="App">
@@ -22,6 +26,8 @@ function App() {
           <Route path="nha-dat-ban" element={<Product />}></Route>
           <Route path="nha-dat-cho-thue" element={<Product />}></Route>
           <Route path="dang-tin" element={<RegisterPost />}></Route>
+          <Route path="doi-mat-khau" element={<ChangePass />}></Route>
+
           <Route index element={<Content />}></Route>
         </Route>
 
@@ -30,6 +36,8 @@ function App() {
           <Route path="category/add" element={<AddCategory />}></Route>
           <Route path="property" element={<Property />}></Route>
           <Route path="property/censor" element={<CensorProperty />}></Route>
+          <Route path="news" element={<News />}></Route>
+          <Route path="news/add" element={<AddNew />}></Route>
         </Route>
 
         <Route path="*" element={<Home />}></Route>

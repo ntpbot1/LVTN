@@ -1,0 +1,19 @@
+.register-post-container {
+  background-color: var(--bg-content);
+  .register-post-content {
+    background-color: rgb(255, 255, 255);
+    .register-post-title {
+      font-weight: 500;
+    }
+    .register-post-province {
+      height: 200px;
+    }
+    .register-post-sub-title {
+      font-weight: 500;
+    }
+    .search-button {
+      width: 100px;
+      height: 100px;
+    }
+  }
+}

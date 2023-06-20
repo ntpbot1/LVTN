@@ -8,26 +8,26 @@ import {
   FloatingLabel,
   ToggleButton,
   ToggleButtonGroup,
+  Image,
 } from "react-bootstrap";
 import DropdownMenu from "react-bootstrap/esm/DropdownMenu";
 import DropdownItem from "react-bootstrap/esm/DropdownItem";
 import DropdownToggle from "react-bootstrap/esm/DropdownToggle";
 
-import { useState, useEffect, forwardRef } from "react";
-import provinceApi from "../../api/provinceApi";
-import { text } from "@fortawesome/fontawesome-svg-core";
-import paymentApi from "../../api/paymentApi";
+import { useState, useEffect } from "react";
+// import paymentApi from "../../api/paymentApi";
 import categoryApi from "../../api/categoryApi";
 import registerPost from "../../api/registerPostApi";
 function RegisterPost() {
-  //Chọn loại BĐS
+  // Chọn loại BĐS
   const id = Date.now().toString();
+  const status1 = "xuat ban";
   const [status, setStatus] = useState("");
-  const [thumbnail, setThumbnail] = useState("");
+  const [thumbnail, setThumbnail] = useState();
   const [listCategory, setListCategory] = useState([]);
   const [categoryName, setCategoryName] = useState("");
   const [categoryId, setCategoryId] = useState("");
-  const [category, setCategory] = useState(true);
+  const [address, setAddress] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [listProvinces, setListProvinces] = useState([]);
@@ -47,42 +47,33 @@ function RegisterPost() {
   const [facade, setFacade] = useState("");
   const [roadWidth, setRoadWidth] = useState("");
   const [interior, setInterior] = useState("");
-  const [address, setAddress] = useState("");
+  // const [address, setAddress] = useState("");
   const [length, setLength] = useState("");
   const [width, setWidth] = useState("");
   const [totalUsableArea, setTotalUsableArea] = useState("");
   const [img, setImg] = useState([]);
-  const [realEasteId, setRealEasteId] = useState("");
+  // const [realEasteId, setRealEasteId] = useState("");
   const [acreage, setAcreage] = useState("");
   const [price, setPrice] = useState("");
-  // const [title, setTitle] = useState("");
-  // const [title, setTitle] = useState("");
-  // const [title, setTitle] = useState("");
-  // const [title, setTitle] = useState("");
-
   const [district, setDistrict] = useState("");
+  const resultTitle = title.replace(",", "");
+
   const handleRegisterPost = async () => {
-    // const formDaTa = new FormData();
-    // formDaTa.append("content", content);
-    // formDaTa.append("title", title);
-    // formDaTa.append("expiration", expiration);
-    // formDaTa.append("type", type);
-    // formDaTa.append("thumbnail", thumbnail);
-    // formDaTa.append("status", status);
-    // formDaTa.append("category", categoryId);
-    // formDaTa.append("id", id);
-    // try {
-    //   const res = await registerPost.create(formDaTa);
-    //   if (res.data.slug) {
-    // setRealEasteId(res.data.slug);
+    const formDaTa = new FormData();
+    formDaTa.append("content", content);
+    formDaTa.append("title", title);
+    formDaTa.append("expiration", expiration);
+    formDaTa.append("type", type);
+    formDaTa.append("thumbnail", thumbnail);
+    formDaTa.append("status", "xuat ban");
+    formDaTa.append("category", categoryId);
+    formDaTa.append("id", id);
     const formDaTa2 = new FormData();
-    formDaTa2.append(
-      "real_easte_id",
-      "minh-chinh-chu-can-goc-69m2-2.25-va-73m2-2.3-ty-q7-riverside-0901-318-1754621"
-    );
+    Array.from(img).forEach((image) => {
+      formDaTa2.append("images", image);
+    });
     formDaTa2.append("acreage", acreage);
     formDaTa2.append("price", price);
-    formDaTa2.append("status", status);
     formDaTa2.append("number_bedrooms", bedroom);
     formDaTa2.append("number_bathrooms", bathroom);
     formDaTa2.append("number_floors", floor);
@@ -98,63 +89,27 @@ function RegisterPost() {
     formDaTa2.append("ward", nameWards);
     formDaTa2.append("district", nameDistrict);
     formDaTa2.append("city", nameProvince);
-    // Array.from(img).forEach((image) => {
-    formDaTa2.append("images", img);
-    // });
-    for (let v of formDaTa2.values()) {
-      console.log(v);
+    formDaTa2.append("status", status);
+    try {
+      const res = await registerPost.create(formDaTa);
+      if (res.data.slug) {
+        formDaTa2.append("real_easte_id", res.data.slug);
+        try {
+          const res2 = await registerPost.createInfo(formDaTa2);
+          console.log(res2);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      console.log(res);
+    } catch (error) {
+      console.log(error);
     }
-    // try {
-    //   const res2 = await registerPost.createInfo(formDaTa2);
-    //   console.log("resInfo", res2);
-    // } catch (error) {
-    //   console.log(error);
-    // }
-    // Array.from(img).forEach((image) => {
-    //   console.log(image);
-    // });
-    //   }
-    //   console.log(res);
-    //   console.log("abc");
-    // } catch (error) {
-    //   console.log(error);
-    // }
-
-    // console.log({
-    //   content: content,
-    //   title: title,
-    //   expiration: expiration,
-    //   type: type,
-    //   status: status,
-    //   category: categoryId,
-    //   id: id,
-    // });
-    // console.log({
-    //   img: img,
-    // acreage: acreage,
-    // price: price,
-    // status: status,
-    // bedroom: bedroom,
-    // bathroom: bathroom,
-    // floor: floor,
-    // direction: direction,
-    // balconyDirection: balconyDirection,
-    // facade: facade,
-    // roadWidth: roadWidth,
-    // interior: interior,
-    // address: `${nameWards} ${nameDistrict} ${nameProvince}`,
-    // length: length,
-    // width: width,
-    // totalUsableArea: totalUsableArea,
-    // ward: nameWards,
-    // district: nameDistrict,
-    // city: nameProvince,
-    // });
   };
 
-  const handleCategory = (value) => {
-    setCategory(value);
-  };
+  // const handleCategory = (value) => {
+  //   setCategory(value);
+  // };
 
   //Lấy danh sách tỉnh thành
   useEffect(() => {
@@ -319,10 +274,7 @@ function RegisterPost() {
     setCategoryName(nameCat);
     setCategoryId(idCat);
   };
-  const handleImg = (e) => {
-    e.preventDefault();
-    console.log(img);
-  };
+
   return (
     <>
       <div className="register-post-container ">
@@ -338,7 +290,7 @@ function RegisterPost() {
                     type="radio"
                     name="sdasd"
                     defaultValue={11}
-                    onChange={handleCategory}
+                    // onChange={handleCategory}
                   >
                     <ToggleButton
                       id="11"
@@ -467,15 +419,12 @@ function RegisterPost() {
                   </Col>
                 </Row>
                 <div>
-                  <div className="py-2 register-post-sub-title">
-                    Địa chỉ hiển thị trên tin đăng
-                  </div>
+                  <div className="py-2 register-post-sub-title">Địa chỉ</div>
                   <input
                     type="text"
                     className="w-100 py-2 px-2"
-                    value={
-                      nameWards + ", " + nameDistrict + ", " + nameProvince
-                    }
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
                   />
                 </div>
               </div>
@@ -562,7 +511,7 @@ function RegisterPost() {
                   </div>
                 </div>
                 <Row className="py-2">
-                  <Col md={9} sm={12}>
+                  <Col md={12} sm={12}>
                     <div className="py-2">
                       Mức giá<sup className="text-danger fs-7">*</sup>
                     </div>
@@ -576,7 +525,7 @@ function RegisterPost() {
                       />
                     </div>
                   </Col>
-                  <Col md={3} sm={12}>
+                  {/* <Col md={3} sm={12}>
                     <div className="py-2 register-post-sub-title">Đơn vị</div>
                     <div className="py-2">
                       <Dropdown onSelect={handleSelectLoaiDV}>
@@ -597,7 +546,7 @@ function RegisterPost() {
                         </DropdownMenu>
                       </Dropdown>
                     </div>
-                  </Col>
+                  </Col> */}
                 </Row>
                 <div className="py-2">
                   <div className="py-2">
@@ -828,7 +777,38 @@ function RegisterPost() {
                 <div className="fs-3 register-post-title">Hình ảnh</div>
                 <div className="py-2">
                   <div className="py-2 register-post-sub-title">
-                    Chọn hình ảnh<sup className="text-danger fs-7">*</sup>
+                    Chọn ảnh chính<sup className="text-danger fs-7">*</sup>
+                  </div>
+                  <div className="py-2">
+                    <Form.Group className="mb-3">
+                      {/* <Form.Label>Multiple files input example</Form.Label> */}
+                      <Form.Control
+                        type="file"
+                        name="thumbnail"
+                        accept="image/*"
+                        placeholder="Chọn ảnh"
+                        onChange={(e) => setThumbnail(e.target.files[0])}
+                      />
+                      {thumbnail && (
+                        <>
+                          <Row>
+                            {
+                              <Col lg={3} md={3} sm={3}>
+                                <Image
+                                  // roundedCircle={true}
+                                  height={120}
+                                  src={URL.createObjectURL(thumbnail)}
+                                  className="pt-3  w-100"
+                                ></Image>
+                              </Col>
+                            }
+                          </Row>
+                        </>
+                      )}
+                    </Form.Group>
+                  </div>
+                  <div className="py-2 register-post-sub-title">
+                    Chọn ảnh phụ<sup className="text-danger fs-7">*</sup>
                   </div>
                   <div className="py-2">
                     <Form.Group controlId="formFileMultiple" className="mb-3">
@@ -836,9 +816,27 @@ function RegisterPost() {
                       <Form.Control
                         type="file"
                         multiple
+                        name="images"
+                        accept="image/*"
                         placeholder="Chọn ảnh"
-                        onChange={(e) => setImg(e.target.files[0])}
+                        onChange={(e) => setImg(e.target.files)}
                       />
+                      {img && (
+                        <>
+                          <Row>
+                            {Array.from(img).map((i) => (
+                              <Col lg={3} md={3} sm={3}>
+                                <Image
+                                  // roundedCircle={true}
+                                  height={120}
+                                  src={URL.createObjectURL(i)}
+                                  className="pt-3  w-100"
+                                ></Image>
+                              </Col>
+                            ))}
+                          </Row>
+                        </>
+                      )}
                     </Form.Group>
                   </div>
                 </div>
@@ -848,7 +846,7 @@ function RegisterPost() {
           <Col sm={12} md={2}></Col>
         </Row>
       </div>
-      <div className="register-post-container ">
+      {/* <div className="register-post-container ">
         <Row>
           <Col sm={12} md={2}></Col>
           <Col sm={12} md={8}>
@@ -906,7 +904,7 @@ function RegisterPost() {
           </Col>
           <Col sm={12} md={2}></Col>
         </Row>
-      </div>
+      </div> */}
       <div className="register-post-container ">
         <Row>
           <Col sm={12} md={2}></Col>
@@ -1059,7 +1057,7 @@ function RegisterPost() {
           <Col sm={12} md={8}>
             <div className="mb-4 shadow-sm rounded register-post-content">
               <div className="px-4  py-4 ">
-                <div className="fs-3 register-post-title">Thanh toán</div>
+                <div className="fs-3 register-post-title">Thanh Toán</div>
                 <div className="py-2 ">
                   <div className="py-2 register-post-sub-title d-flex justify-content-between">
                     <div>Loại tin</div>

@@ -7,52 +7,23 @@ import { Link } from "react-router-dom";
 import { Col, Row } from "react-bootstrap";
 import SearchProduct from "../SearchProduct/SearchProduct";
 import News from "../News/News";
+import { useState, useEffect } from "react";
+import propertyApi from "../../api/propertyApi";
 function Content() {
-  const listPosts = [
-    {
-      id: 1,
-      title: "Nhà bán khu vực Đức Hòa, Long An 1",
-      price: 2.1,
-      acreage: "108",
-      address: "Đức Hòa, Long An",
-      date: "05/06/2023",
-    },
-    {
-      id: 2,
-      title: "Nhà bán khu vực Đức Hòa, Long An 2",
-      price: 3.1,
-      acreage: "108",
-      address: "Đức Hòa, Long An",
-      date: "05/06/2023",
-    },
-    {
-      id: 3,
-      title: "Nhà bán khu vực Đức Hòa, Long An 3",
-      price: 4.1,
-      acreage: "108",
-      address: "Đức Hòa, Long An",
-      date: "05/06/2023",
-    },
-    {
-      id: 4,
-      title: "Nhà bán khu vực Đức Hòa, Long An 4",
-      price: 5.1,
-      acreage: "108",
-      address: "Đức Hòa, Long An",
-      date: "05/06/2023",
-    },
-    {
-      id: 5,
-      title: "Nhà bán khu vực Đức Hòa, Long An 5",
-      price: 6.1,
-      acreage: "108",
-      address: "Đức Hòa, Long An",
-      date: "05/06/2023",
-    },
-  ];
-  const postsFilter = listPosts.filter((post) => {
-    return post.price == 2.1 || post.price < 3.2;
-  });
+  const [listProperty, setListProperty] = useState([]);
+
+  useEffect(() => {
+    getAllProperty();
+  }, []);
+  const getAllProperty = async () => {
+    try {
+      const res = await propertyApi.getAll();
+      setListProperty(res.data);
+      console.log(res.data);
+    } catch (err) {
+      console.log("err", err);
+    }
+  };
 
   // const handleOnMouseOver = (title) => {
   //   console.log(title);
@@ -71,10 +42,9 @@ function Content() {
           </div>
           <div className="home-product">
             <Row className="pt-5 row">
-              {postsFilter.map((post) => (
+              {listProperty.map((post, index) => (
                 <Col
-                  // onMouseOver={() => handleOnMouseOver(post.title)}
-                  // onMouseOut={handleOnMouseOut}
+                  key={index}
                   md={4}
                   sm={6}
                   xs={12}
@@ -85,22 +55,26 @@ function Content() {
                     className="text-decoration-none text-dark bg-transparent"
                     to={"/chi-tiet"}
                   >
-                    <Card className=" home-product-card">
+                    <Card
+                      className=" home-product-card"
+                      style={{ minHeight: "400px" }}
+                    >
                       <Card.Img
                         variant="top"
-                        src="https://blog.rever.vn/hubfs/Blog%20images/PhuLH/bannhapho.jpg"
+                        height={200}
+                        src={post.real_easte_id.thumbnail}
                       />
                       <Card.Body>
                         <Card.Title className="fs-6 home-product-title">
-                          {post.title}
+                          {post.real_easte_id.title}
                         </Card.Title>
                         <Card.Text className="d-flex home-product-price">
                           <div className="text-danger ">
-                            {post.price}
+                            {post.real_easte_id.price}
                             Tỷ
                           </div>
                           <div className="text-danger  ps-3">
-                            {post.acreage}m<sup>2</sup>
+                            {post.real_easte_id.acreage}m<sup>2</sup>
                           </div>
                         </Card.Text>
                         <Card.Text className="d-flex home-product-address">
@@ -113,7 +87,7 @@ function Content() {
                           <div className="ps-3">Đức Hòa, Long An</div>
                         </Card.Text>
                         <Card.Text className="home-product-date">
-                          {post.date}
+                          {post.real_easte_id.date}
                         </Card.Text>
                         {/* <Button variant="primary">Go somewhere</Button> */}
                       </Card.Body>

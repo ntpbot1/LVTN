@@ -1,6 +1,6 @@
 {
   "name": "lvtn",
-  "proxy":"http://localhost:3000/",
+  "proxy": "http://localhost:3000/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -24,6 +24,7 @@
     "react-redux": "^8.0.7",
     "react-router-dom": "^6.11.1",
     "react-scripts": "5.0.1",
+    "react-toastify": "^9.1.3",
     "redux": "^4.2.1",
     "sass": "^1.62.1",
     "web-vitals": "^2.1.4",

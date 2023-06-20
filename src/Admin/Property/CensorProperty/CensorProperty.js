@@ -4,11 +4,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 import propertyApi from "../../../api/propertyApi";
+import "./CensorProperty.scss";
+import approvePost from "../../../api/approvePostApi";
 
 function CensorProperty() {
   const [show, setShow] = useState(false);
   let stt = 1;
-  const [id, setId] = useState();
+  const [id, setId] = useState("");
   const [name, setName] = useState("");
   const [type, setType] = useState();
   const [content, setContent] = useState("");
@@ -23,21 +25,24 @@ function CensorProperty() {
   const [status, setStatus] = useState("");
   const [bedroom, setBedroom] = useState();
   const [bathroom, setBathroom] = useState();
-  const [floor, setfloor] = useState();
+  const [floor, setFloor] = useState();
   const [length, setLength] = useState();
   const [width, setWidth] = useState();
+  const [listImg, setListImg] = useState();
 
   const [listPropertyNew, setListPropertyNew] = useState([]);
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false);
+  };
   const handleShow = async (propertyInfo) => {
     setShow(true);
     setType(propertyInfo.type);
     setContent(propertyInfo.content);
     setTitle(propertyInfo.title);
     setExpiration(propertyInfo.expiration);
-    setId(propertyInfo.slug);
+    setId(propertyInfo.id);
     try {
-      const res = await propertyApi.getDetailNew(id);
+      const res = await propertyApi.getDetailNew(propertyInfo.slug);
       setName(res.data.user.fullname);
       setAcreage(res.data.info.acreage);
       setPrice(res.data.info.price);
@@ -47,10 +52,12 @@ function CensorProperty() {
       setStatus(res.data.info.status);
       setBedroom(res.data.info.number_bedrooms);
       setBathroom(res.data.info.number_bathrooms);
-      setfloor(res.data.info.number_floors);
+      setFloor(res.data.info.number_floors);
       setLength(res.data.info.length);
       setWidth(res.data.info.width);
-      // console.log(res.data.user.fullname);
+      if (res.data.imgarr) {
+        setListImg(res.data.imgarr);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -70,6 +77,24 @@ function CensorProperty() {
       setListPropertyNew(res.data);
     } catch (err) {
       console.log("err", err);
+    }
+  };
+  const handleApprove = async () => {
+    setShow(false);
+    try {
+      const res = await approvePost.approve(id);
+      getAllProperty();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleDisApprove = async () => {
+    setShow(false);
+    try {
+      const res = await approvePost.disApprove(id);
+      getAllProperty();
+    } catch (error) {
+      console.log(error);
     }
   };
   return (
@@ -126,7 +151,7 @@ function CensorProperty() {
         </div>
       </div>
       {/* </div> */}
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} className="modal-infoPost">
         <Modal.Header closeButton>
           <Modal.Title>Duyệt tin</Modal.Title>
         </Modal.Header>
@@ -232,7 +257,7 @@ function CensorProperty() {
                   <Form.Label>
                     Tổng diện tích m<sup>2</sup>
                   </Form.Label>
-                  <Form.Control disabled type="text" value={"108"} />
+                  <Form.Control disabled type="text" value={acreage} />
                 </Form.Group>
               </Col>
             </Row>
@@ -249,6 +274,8 @@ function CensorProperty() {
                   <Form.Control disabled type="text" value={district} />
                 </Form.Group>
               </Col>
+            </Row>
+            <Row>
               <Col>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                   <Form.Label>Phường/Xã</Form.Label>
@@ -260,30 +287,16 @@ function CensorProperty() {
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Hình ảnh</Form.Label>
               </Form.Group>
-              <Col>
-                <Image
-                  roundedCircle={false}
-                  width={120}
-                  height={120}
-                  src="https://blog.rever.vn/hubfs/Blog%20images/PhuLH/bannhapho.jpg"
-                ></Image>
-              </Col>
-              <Col>
-                <Image
-                  roundedCircle={false}
-                  width={120}
-                  height={120}
-                  src="https://blog.rever.vn/hubfs/Blog%20images/PhuLH/bannhapho.jpg"
-                ></Image>
-              </Col>
-              <Col>
-                <Image
-                  roundedCircle={false}
-                  width={120}
-                  height={120}
-                  src="https://blog.rever.vn/hubfs/Blog%20images/PhuLH/bannhapho.jpg"
-                ></Image>
-              </Col>
+              {listImg &&
+                listImg.map((img, index) => (
+                  <Col lg={3} sm={4} key={index}>
+                    <Image
+                      roundedCircle={false}
+                      height={120}
+                      src={img.images}
+                    ></Image>
+                  </Col>
+                ))}
             </Row>
           </Form>
         </Modal.Body>
@@ -291,7 +304,10 @@ function CensorProperty() {
           <Button variant="secondary" onClick={handleClose}>
             Thoát
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="danger" onClick={handleDisApprove}>
+            Không duyệt
+          </Button>
+          <Button variant="primary" onClick={handleApprove}>
             Duyệt
           </Button>
         </Modal.Footer>

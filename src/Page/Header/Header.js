@@ -1,6 +1,6 @@
 import { Button, Dropdown, Image } from "react-bootstrap";
 import "./Header.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../SignIn/SignInSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,13 +14,16 @@ import DropdownItem from "react-bootstrap/esm/DropdownItem";
 import DropdownToggle from "react-bootstrap/esm/DropdownToggle";
 
 function Header() {
+  const navigate = useNavigate();
   const inforUser = useSelector((state) => state.login);
-  console.log(inforUser);
+  // console.log(inforUser);
   const dispatch = useDispatch();
   const handleLogOut = () => {
     dispatch(logout());
   };
-
+  const handleChangePass = () => {
+    navigate("/doi-mat-khau");
+  };
   return (
     <>
       <div className="d-flex justify-content-between align-items-centers header-container">
@@ -68,7 +71,10 @@ function Header() {
                     </div>
                   </DropdownToggle>
                   <DropdownMenu>
-                    <DropdownItem className="d-flex align-items-center ">
+                    <DropdownItem
+                      eventKey={"1"}
+                      className="d-flex align-items-center "
+                    >
                       <FontAwesomeIcon
                         style={{ color: "#6c757d" }}
                         icon={faUser}
@@ -78,7 +84,11 @@ function Header() {
                         Thay đổi thông tin cá nhân
                       </div>
                     </DropdownItem>
-                    <DropdownItem className="d-flex align-items-center">
+                    <DropdownItem
+                      eventKey={"2"}
+                      className="d-flex align-items-center"
+                      onClick={handleChangePass}
+                    >
                       <FontAwesomeIcon
                         style={{ color: "#6c757d" }}
                         icon={faLock}
@@ -87,8 +97,8 @@ function Header() {
                         Thay đổi mật khẩu
                       </div>
                     </DropdownItem>
-
                     <DropdownItem
+                      eventKey={"3"}
                       className="d-flex align-items-center"
                       onClick={handleLogOut}
                     >
