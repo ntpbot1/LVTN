@@ -12,8 +12,8 @@ const propertyApi = {
       },
     });
   },
-  getDetailNew(id) {
-    const url = `/real-easte/detail/${id}`;
+  getDetailNew(slug) {
+    const url = `/real-easte/detail/${slug}`;
     return axiosClient.get(url);
   },
 };

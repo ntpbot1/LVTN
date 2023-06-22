@@ -4,6 +4,7 @@
   .home-container {
     // height: 600px;
     .home-product-card {
+      cursor: pointer;
       box-shadow: 0 0.125rem 0.25rem rgba(#000000, 0.075);
 
       &:hover {

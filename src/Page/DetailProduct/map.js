@@ -4,14 +4,16 @@ import mapboxgl, { Marker } from "mapbox-gl";
 mapboxgl.accessToken =
   "pk.eyJ1IjoidGhhbmh0cmFuMDcxMiIsImEiOiJjbGlhaW8zZm0wM2NhM2hvaDhnc2gxb2dhIn0.ziej2ArD6334VbkoSGy0uw";
 
-export default function Map() {
+export default function Map(props) {
   const marker = ({ lat, lng, map }) => {
     new Marker({ color: "#eb1414", scale: 1 }).setLngLat([lng, lat]).addTo(map);
   };
   const mapContainer = useRef(null);
   const map = useRef(null);
-  const [lng, setLng] = useState(106.59904);
-  const [lat, setLat] = useState(10.76124);
+  // const [lng, setLng] = useState(106.59904);
+  // const [lat, setLat] = useState(10.76124);
+  const [lng, setLng] = useState(props.x);
+  const [lat, setLat] = useState(props.y);
   const [zoom, setZoom] = useState(14);
   //const marker = new mapboxgl.Marker()
   //.setLngLat([`${lng}, ${lat}`]).addTo(mapContainer)

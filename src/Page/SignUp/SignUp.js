@@ -34,7 +34,9 @@ function SignUp() {
 
         if (res.data.message) {
           setMessage(res.data.message);
-          if (res.data.message == "Please check mail to verify your account") {
+          if (
+            res.data.message.search("Please check mail to verify your account")
+          ) {
             sessionStorage.setItem("email-sign-up", values.email);
             navigate("/xac-nhan-dang-ky");
           }

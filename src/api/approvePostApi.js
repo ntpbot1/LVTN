@@ -16,7 +16,7 @@ const approvePost = {
     const url = `/real-easte/disaprove/${id}`;
     return axiosClient.put(
       url,
-      {},
+
       {
         headers: {
           Authorization: `token ${sessionStorage.getItem("tokenAdmin")}`,

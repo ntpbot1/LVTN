@@ -19,9 +19,11 @@ import { useState, useEffect } from "react";
 import categoryApi from "../../api/categoryApi";
 import registerPost from "../../api/registerPostApi";
 import paymentApi from "../../api/paymentApi";
+import { useNavigate } from "react-router-dom";
 function RegisterPost() {
   // Chọn loại BĐS
   // Mã thẻ : 9704198526191432198
+  const navigate = useNavigate();
   const id = Date.now().toString();
   const status1 = "xuat ban";
   const [status, setStatus] = useState("");
@@ -103,7 +105,9 @@ function RegisterPost() {
         formDaTa3.append("real_easte_id", res.data.id);
         try {
           const res3 = await paymentApi.getPayment(formDaTa3);
-          // console.log(res3);
+          if (res3.data) {
+            window.open(res3.data);
+          }
         } catch (error) {
           console.log(error);
         }

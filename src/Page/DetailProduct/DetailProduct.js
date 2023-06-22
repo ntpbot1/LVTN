@@ -1,60 +1,109 @@
 import Carousel from "react-bootstrap/Carousel";
 import "./DetailProduct.scss";
 import ListGroup from "react-bootstrap/ListGroup";
-import Image from "react-bootstrap/Image";
 import Map from "./map";
-import { Button, Col, Row } from "react-bootstrap";
+import { Button, Col, Row, Image } from "react-bootstrap";
+import propertyApi from "../../api/propertyApi";
+import { useState, useEffect } from "react";
+import Comments from "../Comments/Comments";
+import commentApi from "../../api/commentApi";
+import Toast from "../../components/Toast/Toast";
 
 function DetailProduct() {
+  const [property, setProperty] = useState();
+  const [listImg, setListImg] = useState();
+  const [news, setNews] = useState();
+  const [listComment, setListComment] = useState();
+  useEffect(() => {
+    getDetailProperty();
+  }, []);
+  const getDetailProperty = async () => {
+    try {
+      const res = await propertyApi.getDetailNew(
+        sessionStorage.getItem("slug-real-easte")
+      );
+
+      setProperty(res.data);
+      setListImg(res.data.imgarr);
+      setNews(res.data.news);
+      try {
+        const res1 = await commentApi.getListComment(res.data.info.id);
+        console.log(res1);
+        setListComment(res1.data);
+      } catch (error) {
+        console.log(error);
+      }
+    } catch (err) {
+      console.log("err", err);
+    }
+  };
+
+  const handleComment = async (id, payload) => {
+    try {
+      const res = await commentApi.create(id, payload);
+      if (res.data.message) {
+        <Toast message={res.data.message} />;
+      }
+      const res1 = await commentApi.getListComment(id);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleReply = async (idNew, idComment, payload) => {
+    try {
+      const res = await commentApi.reply(idNew, idComment, payload);
+      const res1 = await commentApi.getListComment(idNew);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <div className="detail-content">
         <div className="container py-5 detail-container">
           <Row className="">
             <Col lg={9} sm={12}>
-              <Carousel slide={false} interval={null}>
-                <Carousel.Item>
-                  <img
-                    className="d-block w-100"
-                    src="https://blog.rever.vn/hubfs/Blog%20images/PhuLH/bannhapho.jpg"
-                    alt="First slide"
-                  />
-                </Carousel.Item>
-                <Carousel.Item>
-                  <img
-                    className="d-block w-100"
-                    src="https://blog.rever.vn/hubfs/Blog%20images/PhuLH/bannhapho.jpg"
-                    alt="Second slide"
-                  />
-                </Carousel.Item>
-                <Carousel.Item>
-                  <img
-                    className="d-block w-100"
-                    src="https://blog.rever.vn/hubfs/Blog%20images/PhuLH/bannhapho.jpg"
-                    alt="Third slide"
-                  />
-                </Carousel.Item>
+              <Carousel slide={true} interval={null}>
+                {listImg &&
+                  listImg.map((img, index) => (
+                    <Carousel.Item key={index}>
+                      <Image
+                        className="w-100 "
+                        roundedCircle={false}
+                        height={400}
+                        src={img.images}
+                      ></Image>
+                    </Carousel.Item>
+                  ))}
               </Carousel>
-              <div className="pt-4 fs-4 detail-title">
-                Nhà bán khu vực Đức Hòa, Long An
-              </div>
+              <div className="pt-4 fs-4 detail-title">{news && news.title}</div>
               <div className="py-3 fs-7 detail-address">
-                Đường 824, Xã Đức Hòa Hạ, Đức Hòa, Long An
+                {property && property.info.address}
               </div>
               <div className="py-3 d-flex detail-info">
                 <div className="d-flex flex-column">
                   <div className="detail-info-title">Mức giá</div>
-                  <div className="detail-info-value">2.1 Tỷ</div>
+                  <div className="detail-info-value">
+                    {property && property.info.price.length >= 10
+                      ? `${property.info.price[0]},${property.info.price.slice(
+                          1,
+                          2
+                        )} Tỷ`
+                      : ""}
+                  </div>
                 </div>
                 <div className="ps-5 d-flex flex-column">
                   <div className="detail-info-title">Diện tích</div>
                   <div className="detail-info-value">
-                    102 m<sup>2</sup>
+                    {property && `${property.info.acreage} `}m<sup>2</sup>
                   </div>
                 </div>
                 <div className="ps-5 d-flex flex-column">
                   <div className="detail-info-title">Phòng ngủ</div>
-                  <div className="detail-info-value">4</div>
+                  <div className="detail-info-value">
+                    {property && property.info.number_bedrooms}
+                  </div>
                 </div>
               </div>
               <div className="py-3 detail-descriptions">
@@ -62,14 +111,7 @@ function DetailProduct() {
                   Thông tin mô tả
                 </div>
                 <div className="detail-descriptions-value">
-                  Giảm giá 300 triệu. Cần bán. Nhà 1 lầu đúc. I. Ngân hàng hỗ
-                  trợ vay 25 năm. 2 mặt tiền trước sau. Đường 5m bê tông. Diện
-                  tích 4.5x24m. Nội thất đẹp cao cấp, cửa + bếp gổ tự nhiên. 4
-                  phòng ngủ + 2 toilet + bếp + phòng khách + phòng thờ. 01 phòng
-                  trọ. Vào ở thu nhập ngay 2tr/ tháng. Nhà khu trung tâm Tt Đức
-                  hòa. Nhựa TL 824 rẻ vào đường nhựa óc eo + nhà nghỉ Duyên quê.
-                  Khu trung tâm thành phố Đức hòa trong tương lại 2025. Giá
-                  chính chủ: 2 tỉ 1.
+                  {news && news.content}
                 </div>
               </div>
               <div className="py-3 detail-characterize">
@@ -89,7 +131,8 @@ function DetailProduct() {
                               Diện tích
                             </div>
                             <div className="col-6 detail-characterize-item-value">
-                              108 m<sup>2</sup>
+                              {property && `${property.info.acreage} `} m
+                              <sup>2</sup>
                             </div>
                           </div>
                         </ListGroup.Item>
@@ -99,7 +142,8 @@ function DetailProduct() {
                               Mặt tiền
                             </div>
                             <div className="col-6 detail-characterize-item-value">
-                              10 m<sup>2</sup>
+                              {property && `${property.info.facade} `} m
+                              <sup>2</sup>
                             </div>
                           </div>
                         </ListGroup.Item>
@@ -109,7 +153,7 @@ function DetailProduct() {
                               Hướng nhà
                             </div>
                             <div className="col-6 detail-characterize-item-value">
-                              Bắc
+                              {property && property.info.direction}
                             </div>
                           </div>
                         </ListGroup.Item>
@@ -119,7 +163,8 @@ function DetailProduct() {
                               Số tầng
                             </div>
                             <div className="col-6 detail-characterize-item-value">
-                              1 tầng
+                              {property &&
+                                `${property.info.number_floors} tầng`}
                             </div>
                           </div>
                         </ListGroup.Item>
@@ -129,7 +174,8 @@ function DetailProduct() {
                               Số toilet
                             </div>
                             <div className="col-6 detail-characterize-item-value">
-                              2 phòng
+                              {property &&
+                                `${property.info.number_bathrooms} phòng`}
                             </div>
                           </div>
                         </ListGroup.Item>
@@ -146,7 +192,11 @@ function DetailProduct() {
                               Mức giá
                             </div>
                             <div className="col-6 detail-characterize-item-value">
-                              2.1 tỷ
+                              {property && property.info.price.length >= 10
+                                ? `${
+                                    property.info.price[0]
+                                  },${property.info.price.slice(1, 2)} Tỷ`
+                                : ""}
                             </div>
                           </div>
                         </ListGroup.Item>
@@ -156,7 +206,7 @@ function DetailProduct() {
                               Đường vào
                             </div>
                             <div className="col-6 detail-characterize-item-value">
-                              5 m
+                              {property && `${property.info.road_width} m`}
                             </div>
                           </div>
                         </ListGroup.Item>
@@ -166,7 +216,7 @@ function DetailProduct() {
                               Hướng ban công
                             </div>
                             <div className="col-6 detail-characterize-item-value">
-                              Bắc
+                              {property && property.info.balcony_direction}
                             </div>
                           </div>
                         </ListGroup.Item>
@@ -176,7 +226,8 @@ function DetailProduct() {
                               Số phòng ngủ
                             </div>
                             <div className="col-6 detail-characterize-item-value">
-                              4 phòng
+                              {property &&
+                                `${property.info.number_bedrooms} phòng`}
                             </div>
                           </div>
                         </ListGroup.Item>
@@ -186,7 +237,7 @@ function DetailProduct() {
                               Pháp lý
                             </div>
                             <div className="col-6 detail-characterize-item-value">
-                              Sổ đỏ/ Sổ hồng
+                              {property && property.info.status}
                             </div>
                           </div>
                         </ListGroup.Item>
@@ -206,7 +257,12 @@ function DetailProduct() {
                       height: "400px",
                     }}
                   >
-                    <Map />
+                    {property && (
+                      <Map
+                        x={property.info.location.x}
+                        y={property.info.location.y}
+                      />
+                    )}
                   </div>
                 </div>
               </div>
@@ -215,7 +271,9 @@ function DetailProduct() {
                   <Col lg={4} sm={12}>
                     <div className="py-1 d-flex flex-column">
                       <div className="detail-info-title">Ngày đăng</div>
-                      <div className="detail-info-value">16/05/2023</div>
+                      <div className="detail-info-value">
+                        {news && news.approval_date.slice(0, 10)}
+                      </div>
                     </div>
                   </Col>
                   <Col lg={4} sm={12}>
@@ -227,10 +285,32 @@ function DetailProduct() {
                   <Col lg={4} sm={12}>
                     <div className="py-1 d-flex flex-column">
                       <div className="detail-info-title">Loại tin</div>
-                      <div className="detail-info-value">Tin thường</div>
+                      <div className="detail-info-value">
+                        {news &&
+                          (news.type == 1
+                            ? "Loại 1"
+                            : news.type == 2
+                            ? "Loại 2"
+                            : news.type == 3
+                            ? "Loại 3"
+                            : "Loại 4")}
+                      </div>
                     </div>
                   </Col>
                 </Row>
+              </div>
+              <div className="py-3 detail-descriptions">
+                <div className="py-3 detail-descriptions-title">Bình luận</div>
+                <div className="container detail-comment">
+                  {property && (
+                    <Comments
+                      listComment={listComment}
+                      avatar={property.user.avatar}
+                      handleComment={handleComment}
+                      handleReply={handleReply}
+                    />
+                  )}
+                </div>
               </div>
             </Col>
             <Col lg={3} sm={12}>
@@ -243,7 +323,9 @@ function DetailProduct() {
                     src="https://blog.rever.vn/hubfs/Blog%20images/PhuLH/bannhapho.jpg"
                   ></Image>
                   <div className="py-1 personal-info-title">Được đăng bởi</div>
-                  <div className="py-1 personal-info-name">Nguyễn Văn A</div>
+                  <div className="py-1 personal-info-name">
+                    {property && property.user.fullname}
+                  </div>
                   <Button
                     className="border w-100 mt-2"
                     variant="light"
@@ -252,16 +334,6 @@ function DetailProduct() {
                     Gửi email
                   </Button>
                 </div>
-
-                {/* <Figure>
-                  <Figure.Image
-                    className="rounded-circle"
-                    width={75}
-                    height={75}
-                    alt="171x180"
-                    src="https://blog.rever.vn/hubfs/Blog%20images/PhuLH/bannhapho.jpg"
-                  />
-                </Figure> */}
               </div>
             </Col>
           </Row>
