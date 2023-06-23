@@ -39,7 +39,12 @@ function SignIn() {
         }
         if (res.data) {
           dispatch(
-            isLogin({ name: res.data.data.fullname, email: values.email })
+            isLogin({
+              id: res.data.data.id,
+              name: res.data.data.fullname,
+              email: values.email,
+              avatar: res.data.data.avatar,
+            })
           );
           sessionStorage.setItem("token", res.data.refreshToken);
           handleClose();

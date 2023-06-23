@@ -14,6 +14,9 @@ function DetailProduct() {
   const [listImg, setListImg] = useState();
   const [news, setNews] = useState();
   const [listComment, setListComment] = useState();
+  const [idNew, setIdNew] = useState();
+  const [listReply, setListReply] = useState();
+
   useEffect(() => {
     getDetailProperty();
   }, []);
@@ -22,13 +25,13 @@ function DetailProduct() {
       const res = await propertyApi.getDetailNew(
         sessionStorage.getItem("slug-real-easte")
       );
-
+      setIdNew(res.data.info.id);
       setProperty(res.data);
       setListImg(res.data.imgarr);
       setNews(res.data.news);
       try {
         const res1 = await commentApi.getListComment(res.data.info.id);
-        console.log(res1);
+
         setListComment(res1.data);
       } catch (error) {
         console.log(error);
@@ -37,7 +40,17 @@ function DetailProduct() {
       console.log("err", err);
     }
   };
-
+  // useEffect(() => {
+  //   getAllComment();
+  // }, []);
+  // const getAllComment = async () => {
+  //   try {
+  //     const res = await commentApi.getListComment(id);
+  //     setListCategory(res.data);
+  //   } catch (err) {
+  //     console.log("err", err);
+  //   }
+  // };
   const handleComment = async (id, payload) => {
     try {
       const res = await commentApi.create(id, payload);
@@ -45,6 +58,7 @@ function DetailProduct() {
         <Toast message={res.data.message} />;
       }
       const res1 = await commentApi.getListComment(id);
+      setListComment(res1.data);
     } catch (error) {
       console.log(error);
     }
@@ -53,11 +67,94 @@ function DetailProduct() {
     try {
       const res = await commentApi.reply(idNew, idComment, payload);
       const res1 = await commentApi.getListComment(idNew);
+      const res2 = await commentApi.getListReply(idComment);
+
+      setListComment(res1.data);
+      setListReply(res2.data);
     } catch (error) {
       console.log(error);
     }
   };
-
+  const handleGetAllReply = async (id) => {
+    try {
+      const res = await commentApi.getListReply(id);
+      setListReply(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleChangeComment = async (idNew, id, comment) => {
+    try {
+      const res = await commentApi.editComment(id, comment);
+      const res1 = await commentApi.getListComment(idNew);
+      setListComment(res1.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleChangeReply = async (idCM, id, comment) => {
+    try {
+      const res = await commentApi.editReply(id, comment);
+      const res1 = await commentApi.getListReply(idCM);
+      setListReply(res1.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleDeleteReply = async (idComment, id) => {
+    try {
+      const res = await commentApi.deleteReply(id);
+      const res1 = await commentApi.getListReply(idComment);
+      setListReply(res1.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleDeleteComment = async (idNew, id) => {
+    try {
+      const res = await commentApi.deleteComment(id);
+      const res1 = await commentApi.getListComment(idNew);
+      setListComment(res1.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleLike = async (idNew, id) => {
+    try {
+      const res = await commentApi.like(id);
+      const res1 = await commentApi.getListComment(idNew);
+      setListComment(res1.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleUnLike = async (idNew, id) => {
+    try {
+      const res = await commentApi.unLike(id);
+      const res1 = await commentApi.getListComment(idNew);
+      setListComment(res1.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleLike1 = async (idCM, id) => {
+    try {
+      const res = await commentApi.like(id);
+      const res1 = await commentApi.getListReply(idCM);
+      setListReply(res1.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleUnLike1 = async (idNew, id) => {
+    try {
+      const res = await commentApi.unLike(id);
+      const res1 = await commentApi.getListReply(idNew);
+      setListReply(res1.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <div className="detail-content">
@@ -304,10 +401,21 @@ function DetailProduct() {
                 <div className="container detail-comment">
                   {property && (
                     <Comments
+                      id={idNew}
                       listComment={listComment}
                       avatar={property.user.avatar}
                       handleComment={handleComment}
                       handleReply={handleReply}
+                      handleGetAllReply={handleGetAllReply}
+                      listReply={listReply}
+                      handleChangeComment={handleChangeComment}
+                      handleChangeReply={handleChangeReply}
+                      handleDeleteReply={handleDeleteReply}
+                      handleDeleteComment={handleDeleteComment}
+                      handleLike={handleLike}
+                      handleUnLike={handleUnLike}
+                      handleLike1={handleLike1}
+                      handleUnLike1={handleUnLike1}
                     />
                   )}
                 </div>

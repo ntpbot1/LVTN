@@ -67,7 +67,7 @@ function Header() {
                       roundedCircle={true}
                       width={40}
                       height={40}
-                      src="https://blog.rever.vn/hubfs/Blog%20images/PhuLH/bannhapho.jpg"
+                      src={inforUser.avatar}
                     ></Image>
                     <div className="nav-item-name px-2">
                       {inforUser.userName}
