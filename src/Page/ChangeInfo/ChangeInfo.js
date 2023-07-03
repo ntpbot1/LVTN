@@ -15,7 +15,7 @@ function ChangeInfo() {
   const notify = () =>
     toast.success("Đổi thông tin thành công", {
       position: "top-right",
-      autoClose: 5000,
+      autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -24,23 +24,24 @@ function ChangeInfo() {
       theme: "light",
     });
   const infoUser = useSelector((state) => state.login);
+
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [message, setMessage] = useState("");
   const formik = useFormik({
     initialValues: {
-      name: "",
-      birth: "",
-      address: "",
-      phone: "",
+      name: infoUser.userName,
+      birth: infoUser.birth.slice(0, 10),
+      address: infoUser.address,
+      phone: infoUser.phone,
       img: "",
     },
     validationSchema: Yup.object({
       name: Yup.string().required("Chưa nhập họ tên"),
       birth: Yup.date().required("Chưa chọn ngày sinh"),
       address: Yup.string().required("Chưa nhập địa chỉ"),
-      phone: Yup.string().required("Chưa nhập số điện thoại"),
+      phone: Yup.number().required("Chưa nhập số điện thoại"),
       img: Yup.mixed().required("Chưa nhập họ tên"),
     }),
     onSubmit: async (values) => {
@@ -48,15 +49,14 @@ function ChangeInfo() {
       try {
         handleShow();
         const formDaTa = new FormData();
-        formDaTa.append("name", values.name);
-        formDaTa.append("birth", values.birth);
+        formDaTa.append("fullName", values.name);
+        formDaTa.append("dateOfBirth", values.birth);
         formDaTa.append("address", values.address);
         formDaTa.append("phone", values.phone);
-        formDaTa.append("img", values.img);
+        formDaTa.append("avatar", values.img);
         formDaTa.append("email", infoUser.email);
-
         let res = await userApi.changeInfo(formDaTa);
-        if (res.message) {
+        if (res.data) {
           notify();
           handleClose();
           values.name = "";
@@ -72,7 +72,6 @@ function ChangeInfo() {
         console.log(error);
         handleClose();
       }
-      console.log(values);
     },
   });
 
@@ -106,7 +105,7 @@ function ChangeInfo() {
               className="py-2"
               type="date"
               name="birth"
-              placeholder="Mật khẩu mới"
+              placeholder="Ngày sinh"
               value={formik.values.birth}
               onChange={formik.handleChange}
               isInvalid={!!formik.errors.birth}

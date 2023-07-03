@@ -8,5 +8,9 @@ const userApi = {
       },
     });
   },
+  forgetPass(payload) {
+    const url = "/user/forgetpass";
+    return axiosClient.put(url, { email: payload });
+  },
 };
 export default userApi;

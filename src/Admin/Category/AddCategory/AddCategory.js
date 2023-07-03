@@ -10,7 +10,20 @@ import {
 import { useState } from "react";
 import categoryApi from "../../../api/categoryApi";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function AddCategory() {
+  const notify = () =>
+    toast.success("Thêm thành công", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   const navigate = useNavigate();
   const [type, setType] = useState(true);
   const [name, setName] = useState("");
@@ -18,6 +31,10 @@ function AddCategory() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleReset = () => {
+    setName("");
+    setType(true);
+  };
   const handleUpdate = () => {
     console.log("acb");
   };
@@ -35,7 +52,8 @@ function AddCategory() {
     e.preventDefault();
     try {
       const res = await categoryApi.add(name, type);
-      navigate("/admin/category");
+      notify();
+      handleReset();
     } catch (error) {
       console.log(error);
     }
@@ -98,6 +116,19 @@ function AddCategory() {
         </div>
       </div>
       {/* </div> */}
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      <ToastContainer />
     </>
   );
 }

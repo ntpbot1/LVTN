@@ -1,0 +1,11 @@
+.category-user-content {
+  .category-title {
+    background: #fafafa;
+    font-weight: 500;
+  }
+  .category-icon {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

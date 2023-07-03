@@ -8,14 +8,16 @@ import { useState, useEffect } from "react";
 import Comments from "../Comments/Comments";
 import commentApi from "../../api/commentApi";
 import Toast from "../../components/Toast/Toast";
+import { useSelector } from "react-redux";
 
 function DetailProduct() {
+  const infoUser = useSelector((state) => state.login);
   const [property, setProperty] = useState();
   const [listImg, setListImg] = useState();
   const [news, setNews] = useState();
-  const [listComment, setListComment] = useState();
+  const [listComment, setListComment] = useState([]);
   const [idNew, setIdNew] = useState();
-  const [listReply, setListReply] = useState();
+  const [listReply, setListReply] = useState([]);
 
   useEffect(() => {
     getDetailProperty();
@@ -31,7 +33,6 @@ function DetailProduct() {
       setNews(res.data.news);
       try {
         const res1 = await commentApi.getListComment(res.data.info.id);
-
         setListComment(res1.data);
       } catch (error) {
         console.log(error);
@@ -57,8 +58,13 @@ function DetailProduct() {
       if (res.data.message) {
         <Toast message={res.data.message} />;
       }
-      const res1 = await commentApi.getListComment(id);
-      setListComment(res1.data);
+      try {
+        const res1 = await commentApi.getListComment(id);
+
+        setListComment(res1.data);
+      } catch (error) {
+        console.log(error);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -104,8 +110,13 @@ function DetailProduct() {
   const handleDeleteReply = async (idComment, id) => {
     try {
       const res = await commentApi.deleteReply(id);
-      const res1 = await commentApi.getListReply(idComment);
-      setListReply(res1.data);
+      try {
+        const res1 = await commentApi.getListReply(idComment);
+        setListReply(res1.data);
+      } catch (error) {
+        console.log(error);
+        setListReply([]);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -113,8 +124,13 @@ function DetailProduct() {
   const handleDeleteComment = async (idNew, id) => {
     try {
       const res = await commentApi.deleteComment(id);
-      const res1 = await commentApi.getListComment(idNew);
-      setListComment(res1.data);
+      try {
+        const res1 = await commentApi.getListComment(idNew);
+        setListComment(res1.data);
+      } catch (error) {
+        console.log(error);
+        setListComment([]);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -208,7 +224,7 @@ function DetailProduct() {
                   Thông tin mô tả
                 </div>
                 <div className="detail-descriptions-value">
-                  {news && news.content}
+                  {news && Array.from(news.content)}
                 </div>
               </div>
               <div className="py-3 detail-characterize">
@@ -369,7 +385,14 @@ function DetailProduct() {
                     <div className="py-1 d-flex flex-column">
                       <div className="detail-info-title">Ngày đăng</div>
                       <div className="detail-info-value">
-                        {news && news.approval_date.slice(0, 10)}
+                        {news &&
+                          `${news.approval_date.slice(
+                            8,
+                            10
+                          )}/${news.approval_date.slice(
+                            5,
+                            7
+                          )}/${news.approval_date.slice(0, 4)}`}
                       </div>
                     </div>
                   </Col>

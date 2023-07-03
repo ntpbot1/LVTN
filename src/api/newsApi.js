@@ -17,5 +17,23 @@ const newsApi = {
       },
     });
   },
+  update(id, payload) {
+    const url = `/news/edit/${id}`;
+    return axiosClient.put(url, payload, {
+      headers: {
+        Authorization: `token ${sessionStorage.getItem("tokenAdmin")}`,
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  },
+  delete(id) {
+    const url = `/news/delete/${id}`;
+    return axiosClient.delete(url, {
+      headers: {
+        Authorization: `token ${sessionStorage.getItem("tokenAdmin")}`,
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  },
 };
 export default newsApi;

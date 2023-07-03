@@ -1,6 +1,36 @@
 .header-container {
   height: 100px;
-
+  .follow {
+    font-size: 26px;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  .follow-container {
+    z-index: 2;
+  }
+  .follow-content {
+    width: 400px;
+    background: #fff;
+    box-shadow: 0px 8px 20px rgba(182, 182, 182, 0.42);
+    .follow-item {
+      &:hover {
+        cursor: pointer;
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+    }
+    .follow-title {
+      font-size: 16px;
+      color: #2c2c2c;
+      border-bottom: 1px solid #f2f2f2;
+    }
+    .follow-list {
+      // font-size: 16px;
+      // color: #2c2c2c;
+      min-height: 40px;
+      border-bottom: 1px solid #f2f2f2;
+    }
+  }
   .nav-right {
     font-weight: 500;
     .nav-item {

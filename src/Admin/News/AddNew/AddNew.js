@@ -5,7 +5,21 @@ import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import newsApi from "../../../api/newsApi";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function AddNew() {
+  const notify = () =>
+    toast.success("Thêm thành công", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+
   //   const [show, setShow] = useState(false);
   //   const handleClose = () => setShow(false);
   //   const handleShow = () => setShow(true);
@@ -35,12 +49,13 @@ function AddNew() {
         formDaTa.append("title", values.title);
         formDaTa.append("description", values.description);
         formDaTa.append("author", values.author);
-        let res = await newsApi.add(formDaTa);
-        // if (res.message) {
-
-        //     navigate("/admin/news");
-
-        // }
+        const res = await newsApi.add(formDaTa);
+        notify();
+        values.thumbnail = "";
+        values.content = "";
+        values.title = "";
+        values.description = "";
+        values.author = "";
       } catch (error) {
         console.log(error);
       }
@@ -50,7 +65,7 @@ function AddNew() {
     <>
       <div className="category-content w-75">
         <div className=" ps-3 py-3 bg-primary text-light category-title">
-          Thêm danh mục
+          Thêm tin tức
         </div>
         <div className="py-2 px-2">
           <div className="form-content">
@@ -82,7 +97,7 @@ function AddNew() {
                 <Form.Control
                   className="py-2"
                   as="textarea"
-                  style={{ height: "80px" }}
+                  style={{ height: "200px" }}
                   placeholder="Nội dung"
                   name="content"
                   value={formik.values.content}
@@ -118,7 +133,7 @@ function AddNew() {
                   className="py-2"
                   as="textarea"
                   style={{ height: "80px" }}
-                  placeholder="Nội dung"
+                  placeholder="Mô tả"
                   name="description"
                   value={formik.values.description}
                   onChange={formik.handleChange}
@@ -171,6 +186,19 @@ function AddNew() {
           </div>
         </div>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      <ToastContainer />
     </>
   );
 }

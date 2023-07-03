@@ -117,12 +117,11 @@ function RegisterPost() {
         formDaTa2.append("real_easte_id", res.data.slug);
         try {
           const res2 = await registerPost.createInfo(formDaTa2);
-          console.log(res2);
         } catch (error) {
           console.log(error);
         }
       }
-      console.log(res);
+      navigate("/");
     } catch (error) {
       console.log(error);
     }

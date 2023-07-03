@@ -289,8 +289,9 @@ function CensorProperty() {
               </Form.Group>
               {listImg &&
                 listImg.map((img, index) => (
-                  <Col lg={3} sm={4} key={index}>
+                  <Col lg={4} sm={4} key={index}>
                     <Image
+                      className="w-100"
                       roundedCircle={false}
                       height={120}
                       src={img.images}

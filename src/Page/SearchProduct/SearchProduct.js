@@ -11,13 +11,19 @@ import DropdownMenu from "react-bootstrap/esm/DropdownMenu";
 import DropdownItem from "react-bootstrap/esm/DropdownItem";
 import DropdownToggle from "react-bootstrap/esm/DropdownToggle";
 import { useState, useEffect } from "react";
-
+import categoryApi from "../../api/categoryApi";
 import "./SearchProduct.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import provinceApi from "../../api/provinceApi";
+import propertyApi from "../../api/propertyApi";
 function SearchProduct() {
+  const navigate = useNavigate();
+  const [listCategory, setListCategory] = useState();
+  const [content, setContent] = useState("");
+  const [category, setCategory] = useState();
+
   const [hinhThuc, setHinhThuc] = useState("nha-dat-ban");
   const handleHinhThuc = (value) => {
     if (value == 1) {
@@ -28,19 +34,12 @@ function SearchProduct() {
   };
   const [loaiBDS, setLoaiBDS] = useState("");
   const handleSelectLoaiBDS = (eventKey) => {
-    switch (eventKey) {
-      case "l1":
-        setLoaiBDS("Nhà riêng");
-        break;
-      case "l2":
-        setLoaiBDS("Nhà mặt phố");
-        break;
-      case "l3":
-        setLoaiBDS("Nhà biệt thự liền kề");
-        break;
-      default:
-        break;
-    }
+    listCategory.forEach((cat, index) => {
+      if (cat.id == eventKey) {
+        setLoaiBDS(cat.name);
+        setCategory(cat.slug);
+      }
+    });
   };
   const [loaiGia, setLoaiGia] = useState("");
   const handleSelectLoaiGia = (eventKey) => {
@@ -190,6 +189,18 @@ function SearchProduct() {
         break;
     }
   };
+  //Lấy ds danh mục
+  useEffect(() => {
+    getAllCategory();
+  }, []);
+  const getAllCategory = async () => {
+    try {
+      let res = await categoryApi.getAll();
+      setListCategory(res.data);
+    } catch (err) {
+      console.log("err", err);
+    }
+  };
   //Lấy danh sách tỉnh thành
   const [listProvinces, setListProvinces] = useState([]);
   useEffect(() => {
@@ -291,15 +302,21 @@ function SearchProduct() {
       }
     }
   };
-  const handleSearch = () => {
-    console.log(nameProvince, nameDistrict, nameWards);
+  const handleSearch = async () => {
+    if (loaiBDS != "") {
+      sessionStorage.setItem("searchCategory", category);
+      navigate("/search");
+    } else {
+      sessionStorage.setItem("searchContent", content);
+      navigate("/search");
+    }
   };
   return (
     <>
       <div className="search-product-content">
         <Container>
           <Row className="pt-5">
-            <Col md={8}>
+            {/* <Col md={8}>
               <ToggleButtonGroup
                 type="radio"
                 name="abc"
@@ -324,7 +341,7 @@ function SearchProduct() {
                   Nhà đất cho thuê
                 </ToggleButton>
               </ToggleButtonGroup>
-            </Col>
+            </Col> */}
             <Col md={4}></Col>
           </Row>
           <div className="search-product py-2 ">
@@ -340,11 +357,12 @@ function SearchProduct() {
                         {loaiBDS ? loaiBDS : "Loại nhà đất"}
                       </DropdownToggle>
                       <DropdownMenu className="">
-                        <DropdownItem eventKey={"l1"}>Nhà riêng</DropdownItem>
-                        <DropdownItem eventKey={"l2"}>Nhà mặt phố</DropdownItem>
-                        <DropdownItem eventKey={"l3"}>
-                          Nhà biệt thự liền kề
-                        </DropdownItem>
+                        {listCategory &&
+                          listCategory.map((cat, index) => (
+                            <DropdownItem key={index} eventKey={cat.id}>
+                              {cat.name}
+                            </DropdownItem>
+                          ))}
                       </DropdownMenu>
                     </Dropdown>
                   </div>
@@ -354,7 +372,9 @@ function SearchProduct() {
                 <input
                   type="text"
                   className="w-100 bg-light search-input"
+                  value={content}
                   placeholder="Tìm nhanh. VD: Đường Võ Văn Kiệt"
+                  onChange={(e) => setContent(e.target.value)}
                 ></input>
               </Col>
               <Col lg={2} md={3} sm={12}>

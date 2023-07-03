@@ -3,12 +3,13 @@ import "./News.scss";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Col, Row, Image } from "react-bootstrap";
 import SearchProduct from "../SearchProduct/SearchProduct";
 import { useState, useEffect } from "react";
 import newsApi from "../../api/newsApi";
 function News() {
+  const navigate = useNavigate();
   const [listNews, setListNews] = useState([]);
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
@@ -22,6 +23,10 @@ function News() {
   //   const handleOnMouseOut = (title) => {
   //     console.log("out");
   //   };
+  const handleClick = (id) => {
+    sessionStorage.setItem("id-new", id);
+    navigate("/chi-tiet-tin-tuc");
+  };
   useEffect(() => {
     getAllNews();
   }, []);
@@ -65,6 +70,7 @@ function News() {
                         news.thumbnail
                       )
                     }
+                    onClick={() => handleClick(news.id)}
                     //   onMouseOut={handleOnMouseOut}
                   >
                     <div>{news.title}</div>

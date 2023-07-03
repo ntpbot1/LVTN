@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./SignIn.scss";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { Link } from "react-router-dom";
 import LoginApi from "../../api/SignIn";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -41,9 +42,12 @@ function SignIn() {
           dispatch(
             isLogin({
               id: res.data.data.id,
+              img: res.data.data.avatar,
               name: res.data.data.fullname,
               email: values.email,
-              avatar: res.data.data.avatar,
+              phone: res.data.data.phone,
+              birth: res.data.data.dateOfBirth,
+              address: res.data.data.address,
             })
           );
           sessionStorage.setItem("token", res.data.refreshToken);
@@ -110,6 +114,13 @@ function SignIn() {
           >
             Đăng nhập
           </Button>
+          <></>
+          <Link
+            className="text-decoration-none text-dark bg-transparent"
+            to={"/quen-mat-khau"}
+          >
+            <div className="text-danger float-end mt-2">Quên mật khẩu?</div>
+          </Link>
         </Form>
       </div>
       <Modal className="loading" show={show} onHide={handleClose}>

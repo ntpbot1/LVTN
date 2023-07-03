@@ -1,0 +1,19 @@
+.detai-new-container {
+  background-color: var(--bg-content);
+  .new-title {
+    font-weight: 500;
+  }
+  .new-info {
+    .author-name {
+      font-weight: 500;
+      font-size: 16px;
+    }
+  }
+  .new-description {
+    font-weight: 500;
+    font-size: 18px;
+  }
+  .new-content {
+    font-size: 18px;
+  }
+}

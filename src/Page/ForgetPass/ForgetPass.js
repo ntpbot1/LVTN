@@ -1,20 +1,20 @@
 import { useState } from "react";
-import "./ChangePass.scss";
+import "./ForgetPass.scss";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Modal } from "react-bootstrap";
 import Spinner from "react-bootstrap/Spinner";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import changePassword from "../../api/changePasswordApi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import userApi from "../../api/userApi";
 
-function ChangePass() {
+function ForgetPass() {
   const notify = () =>
-    toast.success("Đổi mật khẩu thành công", {
+    toast.success("Khôi phục mật khẩu thành công, Kiểm tra email của bạn", {
       position: "top-right",
-      autoClose: 3000,
+      autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -28,27 +28,22 @@ function ChangePass() {
   const [message, setMessage] = useState("");
   const formik = useFormik({
     initialValues: {
-      oldPass: "",
-      newPass: "",
+      email: "",
     },
     validationSchema: Yup.object({
-      oldPass: Yup.string()
-        .required("Chưa nhập mật khẩu")
-        .min(6, "Tối thiểu 6 ký tự"),
-      newPass: Yup.string()
-        .required("Chưa nhập mật khẩu mới")
-        .min(6, "Tối thiểu 6 ký tự"),
+      email: Yup.string()
+        .email("Không đúng định dạng")
+        .required("Chưa nhập email"),
     }),
     onSubmit: async (values) => {
       setMessage("");
       try {
         handleShow();
-        let res = await changePassword.change(values.oldPass, values.newPass);
-        if (res.message) {
+        let res = await userApi.forgetPass(values.email);
+        if (res.data) {
           notify();
           handleClose();
-          values.oldPass = "";
-          values.newPass = "";
+          values.email = "";
         }
         if (res.error) {
           setMessage(res.error.message);
@@ -69,46 +64,31 @@ function ChangePass() {
           className="mx-auto py-5 px-5 bg-white form rounded shadow-sm "
         >
           {/* <div className="fs-3 pt-5">Xin chào bạn</div> */}
-          <div className="fs-2 pb-5">Thay đổi mật khẩu</div>
+          <div className="fs-2 pb-5">Khôi phục mật khẩu</div>
           <Form.Group className="mb-4" controlId="formBasicEmail">
             <Form.Control
               className="py-2"
-              type="password"
-              name="oldPass"
-              placeholder="Mật khẩu cũ"
-              value={formik.values.oldPass}
+              type="email"
+              name="email"
+              placeholder="Nhập email"
+              value={formik.values.email}
               onChange={formik.handleChange}
-              isInvalid={!!formik.errors.oldPass}
+              isInvalid={!!formik.errors.email}
             />
-            {formik.errors.oldPass && formik.touched.oldPass && (
+            {formik.errors.email && formik.touched.email && (
               <Form.Control.Feedback type="invalid">
-                {formik.errors.oldPass}
+                {formik.errors.email}
               </Form.Control.Feedback>
             )}
           </Form.Group>
-          <Form.Group className="mb-4" controlId="formBasicPassword">
-            <Form.Control
-              className="py-2"
-              type="password"
-              name="newPass"
-              placeholder="Mật khẩu mới"
-              value={formik.values.newPass}
-              onChange={formik.handleChange}
-              isInvalid={!!formik.errors.newPass}
-            />
-            {formik.errors.newPass && formik.touched.newPass && (
-              <Form.Control.Feedback type="invalid">
-                {formik.errors.newPass}
-              </Form.Control.Feedback>
-            )}
-          </Form.Group>
+
           <div className="text-danger mb-4">{message}</div>
           <Button
             className="w-100 py-3 form-submit"
             variant="danger"
             type="submit"
           >
-            Đổi mật khẩu
+            Gửi
           </Button>
         </Form>
       </div>
@@ -135,4 +115,4 @@ function ChangePass() {
   );
 }
 
-export default ChangePass;
+export default ForgetPass;

@@ -16,6 +16,9 @@ import News from "./Admin/News/News.js";
 import AddNew from "./Admin/News/AddNew/AddNew.js";
 import ChangeInfo from "./Page/ChangeInfo/ChangeInfo.js";
 import VerifySignUp from "./Page/SignUp/VerifySignUp/VerifySignUp.js";
+import ForgetPass from "./Page/ForgetPass/ForgetPass.js";
+import Manage from "./Page/Manage/Manage.js";
+import DetailNew from "./Page/DetailNews/DetailNew.js";
 
 function App() {
   return (
@@ -27,11 +30,15 @@ function App() {
           <Route path="xac-nhan-dang-ky" element={<VerifySignUp />}></Route>
 
           <Route path="chi-tiet" element={<DetailProduct />}></Route>
-          <Route path="nha-dat-ban" element={<Product />}></Route>
-          <Route path="nha-dat-cho-thue" element={<Product />}></Route>
+          <Route path="search" element={<Product />}></Route>
+
           <Route path="dang-tin" element={<RegisterPost />}></Route>
+          <Route path="quan-ly-tin-dang" element={<Manage />}></Route>
+
           <Route path="doi-mat-khau" element={<ChangePass />}></Route>
           <Route path="doi-thong-tin" element={<ChangeInfo />}></Route>
+          <Route path="quen-mat-khau" element={<ForgetPass />}></Route>
+          <Route path="chi-tiet-tin-tuc" element={<DetailNew />}></Route>
 
           <Route index element={<Content />}></Route>
         </Route>

@@ -7,7 +7,31 @@ import { useState, useEffect } from "react";
 import categoryApi from "../../api/categoryApi";
 import { ToggleButton, ToggleButtonGroup } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function Category() {
+  const notify = () =>
+    toast.success("Xóa thành công", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  const notify1 = () =>
+    toast.success("Sửa thành công", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   let stt = 1;
   const navigate = useNavigate();
   const [name, setName] = useState("");
@@ -48,6 +72,7 @@ function Category() {
     try {
       await categoryApi.update(name, type, id);
       await getAllCategory();
+      notify1();
       setName("");
       handleClose();
     } catch (error) {
@@ -59,6 +84,7 @@ function Category() {
   const handleDeleteCategory = async (catId) => {
     try {
       await categoryApi.delete(catId);
+      notify();
       await getAllCategory();
     } catch (error) {
       console.log(error);
@@ -175,6 +201,19 @@ function Category() {
           </Button>
         </Modal.Footer>
       </Modal>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      <ToastContainer />
     </>
   );
 }

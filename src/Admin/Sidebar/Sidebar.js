@@ -2,7 +2,12 @@ import { Accordion, Nav } from "react-bootstrap";
 import "./Sidebar.scss";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faList, faNewspaper } from "@fortawesome/free-solid-svg-icons";
+import {
+  faHouse,
+  faList,
+  faNewspaper,
+  faRightFromBracket,
+} from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "../SignIn/SignInSlice.js";
@@ -47,7 +52,7 @@ function Sidebar() {
           <Accordion.Item eventKey="1">
             <Accordion.Button className="bg-light sidebar-button">
               <FontAwesomeIcon
-                icon={faNewspaper}
+                icon={faHouse}
                 className="pe-2"
               ></FontAwesomeIcon>
               Quản lý tin BĐS
@@ -92,8 +97,11 @@ function Sidebar() {
           </Accordion.Item>
           <Accordion.Item eventKey="5" onClick={handleLogoutAdmin}>
             <Accordion.Button className="bg-light sidebar-button">
-              <FontAwesomeIcon icon={faList} className="pe-2"></FontAwesomeIcon>
-              Quản lý thông tin cá nhân
+              <FontAwesomeIcon
+                icon={faRightFromBracket}
+                className="pe-2"
+              ></FontAwesomeIcon>
+              Đăng xuất
             </Accordion.Button>
             <Accordion.Body className="px-0 py-0">
               <div className="ps-4 py-3 bg-light">Đăng xuất</div>

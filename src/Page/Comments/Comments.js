@@ -11,6 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 function Comments(props) {
   const infoUser = useSelector((state) => state.login);
   // console.log(infoUser.id);
@@ -42,6 +43,7 @@ function Comments(props) {
     setReply(content);
     setShow1(true);
   };
+
   //news
   const [idNew, setIdNew] = useState();
   //Comment
@@ -139,38 +141,56 @@ function Comments(props) {
   };
   return (
     <>
-      <Row className="container-comment">
-        <Row className="pt-3">
-          <Col sm={1}>
-            <Image
-              roundedCircle={true}
-              width={40}
-              height={40}
-              src={infoUser.avatar}
-            ></Image>
-          </Col>
-          <Col sm={10}>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Control
-                className=" comment-content"
-                as="textarea"
-                style={{ height: "120px" }}
-                onChange={(e) => setComment(e.target.value)}
-              />
-            </Form.Group>
-          </Col>
+      {infoUser.isLogin ? (
+        <Row className="container-comment">
+          <Row className="pt-3">
+            <Col sm={1}>
+              <Image
+                roundedCircle={true}
+                width={40}
+                height={40}
+                src={infoUser.avatar}
+              ></Image>
+            </Col>
+            <Col sm={10}>
+              <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Control
+                  className=" comment-content"
+                  as="textarea"
+                  value={comment}
+                  style={{ height: "120px" }}
+                  onChange={(e) => setComment(e.target.value)}
+                />
+              </Form.Group>
+            </Col>
+          </Row>
+          <Row className="pb-3 ">
+            <Col>
+              <Button
+                className="float-end"
+                onClick={() => {
+                  props.handleComment(props.id && props.id, comment);
+                  setComment("");
+                }}
+              >
+                Bình luận
+              </Button>
+            </Col>
+          </Row>
         </Row>
-        <Row className="pb-3 ">
-          <Col>
-            <Button
-              className="float-end"
-              onClick={() => props.handleComment(props.id && props.id, comment)}
-            >
-              Bình luận
-            </Button>
-          </Col>
-        </Row>
-      </Row>
+      ) : (
+        <Link
+          className="text-decoration-none text-dark bg-transparent"
+          to={"/dang-nhap"}
+        >
+          <div className="py-3 comment-check-login">
+            <div className="d-flex align-items-center justify-content-center ">
+              Bạn cần đăng nhập để bình luận
+            </div>
+          </div>
+        </Link>
+      )}
+
       {props.listComment &&
         props.listComment.map((comment, index) => (
           <Row key={index} className="mt-3 container-list-comment">
@@ -304,6 +324,7 @@ function Comments(props) {
                             <Form.Control
                               className=" comment-content"
                               as="textarea"
+                              value={reply}
                               style={{ height: "120px" }}
                               onChange={(e) => setReply(e.target.value)}
                             />
@@ -314,13 +335,14 @@ function Comments(props) {
                         <Col>
                           <Button
                             className="float-end list-comment-reply-button"
-                            onClick={() =>
+                            onClick={() => {
                               props.handleReply(
                                 comment.real_easte_id,
                                 comment.id,
                                 reply
-                              )
-                            }
+                              );
+                              setReply("");
+                            }}
                           >
                             Phản hồi
                           </Button>
@@ -496,6 +518,7 @@ function Comments(props) {
                                       <Form.Control
                                         className=" comment-content"
                                         as="textarea"
+                                        value={reply2}
                                         style={{ height: "120px" }}
                                         onChange={(e) =>
                                           setReply2(e.target.value)
@@ -508,13 +531,14 @@ function Comments(props) {
                                   <Col>
                                     <Button
                                       className="float-end list-comment-reply-button"
-                                      onClick={() =>
+                                      onClick={() => {
                                         props.handleReply(
                                           comment.real_easte_id,
                                           reply.parent_comment,
                                           reply2
-                                        )
-                                      }
+                                        );
+                                        setReply2("");
+                                      }}
                                     >
                                       Phản hồi
                                     </Button>
