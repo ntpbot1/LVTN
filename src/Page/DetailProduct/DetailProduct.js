@@ -8,9 +8,13 @@ import { useState, useEffect } from "react";
 import Comments from "../Comments/Comments";
 import commentApi from "../../api/commentApi";
 import Toast from "../../components/Toast/Toast";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { isSave, isGetDeTail } from "../SignIn/SignInSlice";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 function DetailProduct() {
+  const dispatch = useDispatch();
   const infoUser = useSelector((state) => state.login);
   const [property, setProperty] = useState();
   const [listImg, setListImg] = useState();
@@ -18,14 +22,21 @@ function DetailProduct() {
   const [listComment, setListComment] = useState([]);
   const [idNew, setIdNew] = useState();
   const [listReply, setListReply] = useState([]);
+  const [slug, setSlug] = useState(infoUser.slug);
 
+  const [save, setSave] = useState(false);
   useEffect(() => {
     getDetailProperty();
-  }, []);
+  }, [slug]);
   const getDetailProperty = async () => {
     try {
       const res = await propertyApi.getDetailNew(
         sessionStorage.getItem("slug-real-easte")
+      );
+      dispatch(
+        isGetDeTail({
+          slug: sessionStorage.getItem("slug-real-easte"),
+        })
       );
       setIdNew(res.data.info.id);
       setProperty(res.data);
@@ -171,6 +182,50 @@ function DetailProduct() {
       console.log(error);
     }
   };
+  const handleCheckSave = (idNew) => {
+    // console.log(idNew);
+    // let flag = false;
+    // for (let i = 0; i < infoUser.listNews.length; i++) {
+    //   if (infoUser.listNews[i].id == idNew) {
+    //     flag = true;
+    //   }
+    // }
+    // if (flag) {
+    //   setSave(true);
+    // }
+  };
+  const handleSave = async (id) => {
+    setSave(!save);
+    try {
+      const res = await propertyApi.save(id);
+      try {
+        const res1 = await propertyApi.getSave();
+        dispatch(
+          isSave({
+            listNews: res1.data,
+          })
+        );
+      } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleUnSave = async (id) => {
+    setSave(!save);
+    try {
+      const res = await propertyApi.unSave(id);
+      try {
+        const res1 = await propertyApi.getSave();
+        dispatch(
+          isSave({
+            listNews: res1.data,
+          })
+        );
+      } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <div className="detail-content">
@@ -194,8 +249,8 @@ function DetailProduct() {
               <div className="py-3 fs-7 detail-address">
                 {property && property.info.address}
               </div>
-              <div className="py-3 d-flex detail-info">
-                <div className="d-flex flex-column">
+              <Row className="py-3 d-flex detail-info">
+                <Col md={2} className="d-flex flex-column">
                   <div className="detail-info-title">Mức giá</div>
                   <div className="detail-info-value">
                     {property && property.info.price.length >= 10
@@ -204,21 +259,51 @@ function DetailProduct() {
                           2
                         )} Tỷ`
                       : ""}
+                    {/* {property && property.info.price.length > 10
+                      ? `${property.info.price.slice(
+                          0,
+                          2
+                        )},${property.info.price.slice(2, 3)} Tỷ`
+                      : property.info.price.length == 10
+                      ? `${property.info.price[0]},${property.info.price.slice(
+                          1,
+                          2
+                        )} Tỷ`
+                      : ""} */}
                   </div>
-                </div>
-                <div className="ps-5 d-flex flex-column">
+                </Col>
+                <Col md={2} className=" d-flex flex-column">
                   <div className="detail-info-title">Diện tích</div>
                   <div className="detail-info-value">
                     {property && `${property.info.acreage} `}m<sup>2</sup>
                   </div>
-                </div>
-                <div className="ps-5 d-flex flex-column">
+                </Col>
+                <Col md={2} className=" d-flex flex-column">
                   <div className="detail-info-title">Phòng ngủ</div>
                   <div className="detail-info-value">
                     {property && property.info.number_bedrooms}
                   </div>
-                </div>
-              </div>
+                </Col>
+                <Col md={4}></Col>
+                <Col
+                  md={2}
+                  className="d-flex align-items-center detail-info-save"
+                >
+                  {save == true ? (
+                    <FontAwesomeIcon
+                      icon={faHeart}
+                      style={{ color: "#E03C31" }}
+                      onClick={() => handleUnSave(news.id)}
+                    ></FontAwesomeIcon>
+                  ) : (
+                    <FontAwesomeIcon
+                      icon={faHeart}
+                      style={{ color: "#ddd" }}
+                      onClick={() => handleSave(news.id)}
+                    ></FontAwesomeIcon>
+                  )}
+                </Col>
+              </Row>
               <div className="py-3 detail-descriptions">
                 <div className="py-3 detail-descriptions-title">
                   Thông tin mô tả
@@ -396,12 +481,12 @@ function DetailProduct() {
                       </div>
                     </div>
                   </Col>
-                  <Col lg={4} sm={12}>
+                  {/* <Col lg={4} sm={12}>
                     <div className="py-1 d-flex flex-column">
                       <div className="detail-info-title">Ngày hết hạn</div>
                       <div className="detail-info-value">26/05/2023</div>
                     </div>
-                  </Col>
+                  </Col> */}
                   <Col lg={4} sm={12}>
                     <div className="py-1 d-flex flex-column">
                       <div className="detail-info-title">Loại tin</div>

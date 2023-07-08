@@ -13,13 +13,25 @@ function Product() {
     getAllProperty();
   }, []);
   const getAllProperty = async () => {
-    try {
-      let res = await propertyApi.searhCategory(
-        sessionStorage.getItem("searchCategory")
-      );
-      setListProperty(res.data);
-    } catch (err) {
-      console.log("err", err);
+    if (sessionStorage.getItem("searchCategory")) {
+      try {
+        let res = await propertyApi.searhCategory(
+          sessionStorage.getItem("searchCategory")
+        );
+        setListProperty(res.data);
+      } catch (err) {
+        console.log("err", err);
+      }
+    } else if (sessionStorage.getItem("searchContent")) {
+      try {
+        let res = await propertyApi.searh(
+          sessionStorage.getItem("searchContent")
+        );
+        console.log(res);
+        setListProperty(res.data);
+      } catch (err) {
+        console.log("err", err);
+      }
     }
   };
   const handleGetDetail = (slug) => {
@@ -53,7 +65,7 @@ function Product() {
                           </div>
                           <div className="py-1 d-flex home-product-price">
                             <div className="text-danger ">
-                              {pro.price.length >= 10
+                              {pro.price && pro.price.length >= 10
                                 ? `${pro.price[0]},${pro.price.slice(1, 2)} Tỷ`
                                 : ""}
                             </div>

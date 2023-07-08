@@ -1,15 +1,14 @@
-import Sidebar from "../Sidebar/Sidebar";
 import { Table, Modal, Button, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
-import propertyApi from "../../api/propertyApi";
-import approvePost from "../../api/approvePostApi";
+import propertyApi from "../../../api/propertyApi";
+import approvePost from "../../../api/approvePostApi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-function Property() {
+function Hidden() {
   const notify = () =>
-    toast.success("Ẩn thành công", {
+    toast.success("Hủy ẩn thành công", {
       position: "top-right",
       autoClose: 3000,
       hideProgressBar: false,
@@ -42,9 +41,9 @@ function Property() {
   const handleUpdate = () => {
     console.log("acb");
   };
-  const handleHidden = async (id) => {
+  const handleReStore = async (id) => {
     try {
-      const res = await propertyApi.hidden(id);
+      const res = await propertyApi.restore(id);
       notify();
       handleClose();
       getAllProperty();
@@ -66,21 +65,18 @@ function Property() {
   }, []);
   const getAllProperty = async () => {
     try {
-      const res = await propertyApi.getAll();
+      const res = await propertyApi.getHidden();
       setListProperty(res.data);
       // console.log(res.data);
     } catch (err) {
       console.log("err", err);
     }
   };
-
   return (
     <>
-      {/* <div className="d-flex">
-        <Sidebar /> */}
       <div className="category-content w-75">
         <div className=" ps-3 py-3 bg-primary text-light category-title">
-          Danh sách tin BĐS
+          Danh sách tin BĐS đã ẩn
         </div>
         <div className="py-2 px-2">
           <Table className="shadow-sm" bordered hover>
@@ -99,16 +95,16 @@ function Property() {
                   <tr key={index}>
                     <td>{stt++}</td>
                     <td>
-                      {item.real_easte_id.type == 1
+                      {item.type == 1
                         ? "Loại 1"
-                        : item.real_easte_id.type == 2
+                        : item.type == 2
                         ? "Loại 2"
-                        : item.real_easte_id.type == 3
+                        : item.type == 3
                         ? "Loại 3"
                         : "Loại 4"}
                     </td>
-                    <td>{item.real_easte_id.approval_date.slice(0, 10)}</td>
-                    <td>{item.real_easte_id.status}</td>
+                    <td>{item.approval_date.slice(0, 10)}</td>
+                    <td>{item.status}</td>
 
                     <td>
                       <div className="d-flex">
@@ -116,14 +112,14 @@ function Property() {
                           <FontAwesomeIcon
                             icon={faInfoCircle}
                             style={{ color: "#0d6efd" }}
-                            onClick={() => handleShow(item.real_easte_id)}
+                            onClick={() => handleShow(item)}
                           ></FontAwesomeIcon>
                         </div>
                         <div className="ps-3 category-icon">
                           <FontAwesomeIcon
                             icon={faCircleXmark}
                             style={{ color: "#dc3545" }}
-                            onClick={() => handleDelete(item.real_easte_id)}
+                            onClick={() => handleDelete(item)}
                           ></FontAwesomeIcon>
                         </div>
                       </div>
@@ -142,13 +138,13 @@ function Property() {
         <Modal.Body>
           <Form>
             {/* <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Người đăng</Form.Label>
-              <Form.Control type="text" disabled value={"Nguyễn văn A"} />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Người duyệt</Form.Label>
-              <Form.Control type="text" disabled value={"Nguyễn văn B"} />
-            </Form.Group> */}
+            <Form.Label>Người đăng</Form.Label>
+            <Form.Control type="text" disabled value={"Nguyễn văn A"} />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Người duyệt</Form.Label>
+            <Form.Control type="text" disabled value={"Nguyễn văn B"} />
+          </Form.Group> */}
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Tiêu đề</Form.Label>
               <Form.Control
@@ -170,9 +166,9 @@ function Property() {
               <Form.Control type="date" value={date} />
             </Form.Group>
             {/* <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Ngày hết hạn</Form.Label>
-              <Form.Control type="date" value={"2023-05-30"} />
-            </Form.Group> */}
+            <Form.Label>Ngày hết hạn</Form.Label>
+            <Form.Control type="date" value={"2023-05-30"} />
+          </Form.Group> */}
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Loại tin</Form.Label>
               <Form.Control
@@ -198,11 +194,11 @@ function Property() {
           <Button variant="secondary" onClick={handleClose}>
             Thoát
           </Button>
-          <Button variant="danger" onClick={() => handleHidden(id)}>
+          {/* <Button variant="danger" onClick={() => handleHidden(id)}>
             Ẩn
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Sửa
+          </Button> */}
+          <Button variant="primary" onClick={() => handleReStore(id)}>
+            Hủy ẩn
           </Button>
         </Modal.Footer>
       </Modal>
@@ -223,4 +219,4 @@ function Property() {
   );
 }
 
-export default Property;
+export default Hidden;

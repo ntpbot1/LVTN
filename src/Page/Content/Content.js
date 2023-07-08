@@ -70,12 +70,20 @@ function Content() {
                       src={post.real_easte_id.thumbnail}
                     />
                     <Card.Body>
-                      <Card.Title className="fs-6 home-product-title">
+                      <Card.Title
+                        className="fs-6 home-product-title"
+                        style={{ height: "40px" }}
+                      >
                         {post.real_easte_id.title}
                       </Card.Title>
                       <Card.Text className="d-flex home-product-price">
                         <div className="text-danger ">
-                          {post.info_real_easte.price.length >= 10
+                          {post.info_real_easte.price.length > 10
+                            ? `${post.info_real_easte.price.slice(
+                                0,
+                                2
+                              )},${post.info_real_easte.price.slice(2, 3)} Tỷ`
+                            : post.info_real_easte.price.length == 10
                             ? `${
                                 post.info_real_easte.price[0]
                               },${post.info_real_easte.price.slice(1, 2)} Tỷ`

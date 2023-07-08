@@ -85,6 +85,7 @@ function ChangeInfo() {
           {/* <div className="fs-3 pt-5">Xin chào bạn</div> */}
           <div className="fs-2 pb-5">Thay đổi thông tin</div>
           <Form.Group className="mb-4" controlId="formBasicEmail">
+            <Form.Label>Họ tên</Form.Label>
             <Form.Control
               className="py-2"
               type="text"
@@ -101,6 +102,8 @@ function ChangeInfo() {
             )}
           </Form.Group>
           <Form.Group className="mb-4" controlId="formBasicPassword">
+            <Form.Label>Ngày sinh</Form.Label>
+
             <Form.Control
               className="py-2"
               type="date"
@@ -117,6 +120,8 @@ function ChangeInfo() {
             )}
           </Form.Group>
           <Form.Group className="mb-4" controlId="formBasicPassword">
+            <Form.Label>Địa chỉ</Form.Label>
+
             <Form.Control
               className="py-2"
               type="text"
@@ -133,6 +138,8 @@ function ChangeInfo() {
             )}
           </Form.Group>
           <Form.Group className="mb-4" controlId="formBasicPassword">
+            <Form.Label>Số điện thoại</Form.Label>
+
             <Form.Control
               className="py-2"
               type="text"
@@ -149,6 +156,8 @@ function ChangeInfo() {
             )}
           </Form.Group>
           <Form.Group className="mb-4" controlId="formBasicPassword">
+            <Form.Label>Ảnh đại diện</Form.Label>
+
             <Form.Control
               className="py-2"
               type="file"

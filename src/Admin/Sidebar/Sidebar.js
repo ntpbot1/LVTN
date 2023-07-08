@@ -1,8 +1,9 @@
 import { Accordion, Nav } from "react-bootstrap";
 import "./Sidebar.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faChartLine,
   faHouse,
   faList,
   faNewspaper,
@@ -13,6 +14,7 @@ import { useDispatch } from "react-redux";
 import { logout } from "../SignIn/SignInSlice.js";
 
 function Sidebar() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleLogoutAdmin = () => {
     dispatch(logout());
@@ -21,6 +23,9 @@ function Sidebar() {
   const handleSelect = (eventKey) => {
     setKey(eventKey);
   };
+  const handleStatistical = () => {
+    navigate("/admin");
+  };
   return (
     <>
       <div className="sidebar-content w-25">
@@ -28,8 +33,36 @@ function Sidebar() {
           defaultActiveKey={key}
           alwaysOpen={false}
           onSelect={handleSelect}
+          className="sidebar-accordion"
         >
-          <Accordion.Item eventKey="0">
+          <Accordion.Item
+            eventKey="0"
+            onClick={handleStatistical}
+            className="sidebar-accordion-item"
+          >
+            <Accordion.Button className="bg-light sidebar-button sidebar-button-hidden">
+              <FontAwesomeIcon
+                icon={faChartLine}
+                className="pe-2"
+              ></FontAwesomeIcon>
+              Thống kê
+            </Accordion.Button>
+            {/* <Accordion.Body className="px-0 py-0">
+              <Link
+                className="text-decoration-none text-dark bg-transparent"
+                to={"/admin/category"}
+              >
+                <div className="ps-4 py-3 bg-light">Danh sách danh mục</div>
+              </Link>
+              <Link
+                className="text-decoration-none text-dark bg-transparent"
+                to={"/admin/category/add"}
+              >
+                <div className="ps-4 py-3 bg-light">Thêm danh mục</div>
+              </Link>
+            </Accordion.Body> */}
+          </Accordion.Item>
+          <Accordion.Item eventKey="1">
             <Accordion.Button className="bg-light sidebar-button">
               <FontAwesomeIcon icon={faList} className="pe-2"></FontAwesomeIcon>
               Quản lý danh mục
@@ -49,7 +82,7 @@ function Sidebar() {
               </Link>
             </Accordion.Body>
           </Accordion.Item>
-          <Accordion.Item eventKey="1">
+          <Accordion.Item eventKey="2">
             <Accordion.Button className="bg-light sidebar-button">
               <FontAwesomeIcon
                 icon={faHouse}
@@ -70,9 +103,15 @@ function Sidebar() {
               >
                 <div className="ps-4 py-3 bg-light">Duyệt tin BĐS</div>
               </Link>
+              <Link
+                className="text-decoration-none text-dark bg-transparent"
+                to={"/admin/property/hidden"}
+              >
+                <div className="ps-4 py-3 bg-light">Tin BĐS đã ẩn</div>
+              </Link>
             </Accordion.Body>
           </Accordion.Item>
-          <Accordion.Item eventKey="2">
+          <Accordion.Item eventKey="3">
             <Accordion.Button className="bg-light sidebar-button">
               <FontAwesomeIcon
                 icon={faNewspaper}
@@ -95,8 +134,12 @@ function Sidebar() {
               </Link>
             </Accordion.Body>
           </Accordion.Item>
-          <Accordion.Item eventKey="5" onClick={handleLogoutAdmin}>
-            <Accordion.Button className="bg-light sidebar-button">
+          <Accordion.Item
+            eventKey="4"
+            onClick={handleLogoutAdmin}
+            className="sidebar-accordion-item"
+          >
+            <Accordion.Button className="bg-light sidebar-button sidebar-button-hidden">
               <FontAwesomeIcon
                 icon={faRightFromBracket}
                 className="pe-2"

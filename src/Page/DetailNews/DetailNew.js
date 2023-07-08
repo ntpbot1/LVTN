@@ -39,9 +39,7 @@ function DetailNew() {
               <Image
                 roundedCircle={false}
                 className="w-100"
-                src="https://img.iproperty.com.my/angel/750x1000-fit/wp-content/uploads/sites/7/2023/07/chuyen-cong-an-tinh-binh-_901649576283.jpg"
-
-                // src={detailNew.thumbnail}
+                src={detailNew.thumbnail}
               ></Image>
             </div>
             <div className="py-3 new-content">{`${detailNew.content.replaceAll(

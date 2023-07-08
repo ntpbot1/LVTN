@@ -19,6 +19,9 @@
 }
 .home-product-title {
   font-weight: 600;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .home-product-price {
   font-weight: 700;

@@ -52,7 +52,7 @@ function Footer() {
             </Col>
           </Row>
           <Row className="d-flex flex-row pt-5 info">
-            <Col sm={12} md={4} className="d-flex flex-column info-item">
+            <Col sm={12} md={3} className="d-flex flex-column info-item">
               <div className="fw-bold">Công ty cổ phần ....</div>
               <div className="d-flex flex-row align-items-center mt-3">
                 <div className="me-3 icon">
@@ -67,7 +67,7 @@ function Footer() {
                 <div className="fw-bold title">61375</div>
               </div>
             </Col>
-            <Col sm={12} md={4} className="d-flex flex-column pt-4 info-item">
+            <Col sm={12} md={3} className="d-flex flex-column pt-4 info-item">
               <div className="fw-bold text-uppercase">Hướng dẫn</div>
               <Link className="text-decoration-none text-dark py-1" to={"/"}>
                 Báo cáo & hỗ trợ
@@ -85,7 +85,7 @@ function Footer() {
                 Sitemap
               </Link>
             </Col>
-            <Col sm={12} md={4} className="d-flex flex-column pt-4   info-item">
+            <Col sm={12} md={3} className="d-flex flex-column pt-4   info-item">
               <div className="fw-bold text-uppercase">Quy định</div>
               <Link className="text-decoration-none text-dark py-1" to={"/"}>
                 Quy định đăng tin

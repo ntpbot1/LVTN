@@ -19,6 +19,8 @@ import VerifySignUp from "./Page/SignUp/VerifySignUp/VerifySignUp.js";
 import ForgetPass from "./Page/ForgetPass/ForgetPass.js";
 import Manage from "./Page/Manage/Manage.js";
 import DetailNew from "./Page/DetailNews/DetailNew.js";
+import HiddenComponent from "./Admin/Property/Hidden/Hidden.js";
+import Statistical from "./Admin/Statistical/Statistical.js";
 
 function App() {
   return (
@@ -48,8 +50,11 @@ function App() {
           <Route path="category/add" element={<AddCategory />}></Route>
           <Route path="property" element={<Property />}></Route>
           <Route path="property/censor" element={<CensorProperty />}></Route>
+          <Route path="property/hidden" element={<HiddenComponent />}></Route>
+
           <Route path="news" element={<News />}></Route>
           <Route path="news/add" element={<AddNew />}></Route>
+          <Route index element={<Statistical />}></Route>
         </Route>
 
         <Route path="*" element={<Home />}></Route>

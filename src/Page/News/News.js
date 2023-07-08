@@ -27,6 +27,11 @@ function News() {
     sessionStorage.setItem("id-new", id);
     navigate("/chi-tiet-tin-tuc");
   };
+  // if (listNews !== null) {
+  //   setTitle(listNews[0].title);
+  //   setDate(listNews[0].created_date.slice(0, 10));
+  //   setThumbnail(listNews[0].thumbnail);
+  // }
   useEffect(() => {
     getAllNews();
   }, []);
@@ -34,13 +39,14 @@ function News() {
     try {
       let res = await newsApi.getAll();
       setListNews(res.data);
-      setTitle(listNews[0].title);
-      setDate(listNews[0].created_date.slice(0, 10));
-      setThumbnail(listNews[0].thumbnail);
+      setTitle(res.data.title);
+      setDate(res.data.created_date);
+      setThumbnail(res.data.thumbnail);
     } catch (err) {
       console.log("err", err);
     }
   };
+
   return (
     <>
       <div className="home-content">
@@ -56,8 +62,14 @@ function News() {
                   height={300}
                   src={thumbnail}
                 ></Image>
-                <div>{title}</div>
-                <div>{date}</div>
+                <div className="pt-2">{title}</div>
+                <div>
+                  {date &&
+                    `${date.slice(8, 10)}/${date.slice(5, 7)}/${date.slice(
+                      0,
+                      4
+                    )}`}
+                </div>
               </Col>
               <Col lg={4} className="list-news">
                 {listNews.map((news) => (

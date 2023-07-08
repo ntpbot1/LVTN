@@ -1,0 +1,19 @@
+.container-statistical {
+  height: 100vh;
+  background: #f2f4f9;
+  .statistical-row {
+    .statistical-col {
+      height: 80px;
+      // background: #fff;
+      .statistical-bg-1 {
+        background: #17a2b8;
+      }
+      .statistical-bg-2 {
+        background: #ffc107;
+      }
+      .statistical-title {
+        font-weight: 500;
+      }
+    }
+  }
+}

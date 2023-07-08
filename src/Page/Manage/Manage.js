@@ -73,7 +73,13 @@ function Manage() {
                             : "Loại 4"}
                         </td>
                         <td>
-                          {item.real_easte_news.approval_date.slice(0, 10)}
+                          {`${item.real_easte_news.approval_date.slice(
+                            8,
+                            10
+                          )}/${item.real_easte_news.approval_date.slice(
+                            6,
+                            7
+                          )}/${item.real_easte_news.approval_date.slice(0, 4)}`}
                         </td>
                         <td>{item.real_easte_news.status}</td>
 
@@ -164,7 +170,7 @@ function Manage() {
             </Button>
             <Button
               variant="primary"
-              //   onClick={() => handleRePost(property.real_easte_news.slug)}
+              onClick={() => handleRePost(property.real_easte_news.slug)}
             >
               Gia hạn
             </Button>

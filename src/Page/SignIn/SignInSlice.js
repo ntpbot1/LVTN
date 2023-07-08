@@ -9,6 +9,8 @@ const loginSlice = createSlice({
     phone: "",
     birth: "",
     address: "",
+    listNews: [],
+    slug: "",
     isLogin: false,
   },
   reducers: {
@@ -29,7 +31,13 @@ const loginSlice = createSlice({
       sessionStorage.setItem("token", "");
       window.location.replace("http://localhost:3000/");
     },
+    isSave: (state, action) => {
+      state.listNews = action.payload.listNews;
+    },
+    isGetDeTail: (state, action) => {
+      state.slug = action.payload.slug;
+    },
   },
 });
-export const { isLogin, logout } = loginSlice.actions;
+export const { isLogin, logout, isSave, isGetDeTail } = loginSlice.actions;
 export default loginSlice.reducer;

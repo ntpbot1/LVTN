@@ -26,11 +26,27 @@ const propertyApi = {
   },
   save(id) {
     const url = `/real-easte/save/${id}`;
-    return axiosClient.post(url, {
-      headers: {
-        Authorization: `token ${sessionStorage.getItem("token")}`,
-      },
-    });
+    return axiosClient.post(
+      url,
+      {},
+      {
+        headers: {
+          Authorization: `token ${sessionStorage.getItem("token")}`,
+        },
+      }
+    );
+  },
+  unSave(id) {
+    const url = `/real-easte/unsave/${id}`;
+    return axiosClient.post(
+      url,
+      {},
+      {
+        headers: {
+          Authorization: `token ${sessionStorage.getItem("token")}`,
+        },
+      }
+    );
   },
   getSave() {
     const url = `/real-easte/get-saved`;
@@ -55,6 +71,46 @@ const propertyApi = {
         Authorization: `token ${sessionStorage.getItem("token")}`,
       },
     });
+  },
+  hidden(id) {
+    const url = `real-easte/hidden/${id}`;
+    return axiosClient.put(
+      url,
+      {},
+      {
+        headers: {
+          Authorization: `token ${sessionStorage.getItem("tokenAdmin")}`,
+        },
+      }
+    );
+  },
+  getHidden() {
+    const url = `real-easte/get-hidden`;
+    return axiosClient.get(
+      url,
+
+      {
+        headers: {
+          Authorization: `token ${sessionStorage.getItem("tokenAdmin")}`,
+        },
+      }
+    );
+  },
+  restore(id) {
+    const url = `real-easte/restore/${id}`;
+    return axiosClient.put(
+      url,
+      {},
+      {
+        headers: {
+          Authorization: `token ${sessionStorage.getItem("tokenAdmin")}`,
+        },
+      }
+    );
+  },
+  statistical(s, e) {
+    const url = `real-easte/statistical`;
+    return axiosClient.get(url, { start: s, end: e });
   },
 };
 

@@ -1,8 +1,8 @@
-import { Button, Dropdown, Image } from "react-bootstrap";
+import { Button, Dropdown, Image, Row } from "react-bootstrap";
 import "./Header.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../SignIn/SignInSlice";
+import { logout, isSave, isGetDeTail } from "../SignIn/SignInSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHeart,
@@ -46,13 +46,24 @@ function Header() {
   const handleShowFollow = () => {
     setShowFollow(!showFollow);
   };
+  const handleClickSave = (slug) => {
+    sessionStorage.setItem("slug-real-easte", slug);
+    dispatch(isGetDeTail({ slug: slug }));
+    navigate("/chi-tiet");
+    handleShowFollow();
+  };
   useEffect(() => {
     getAllSave();
-  }, []);
+  }, [inforUser.id]);
   const getAllSave = async () => {
     try {
       let res = await propertyApi.getSave();
-      setListSave(res.data);
+      // setListSave(res.data);
+      dispatch(
+        isSave({
+          listNews: res.data,
+        })
+      );
     } catch (err) {
       console.log("err", err);
     }
@@ -98,10 +109,26 @@ function Header() {
                   <div className="py-2  fs-5 color-secondary d-flex justify-content-center follow-title">
                     Tin đăng đã lưu
                   </div>
-                  {listSave ? (
-                    <div className="fs-5 color-secondary d-flex justify-content-center follow-item follow-list">
-                      {listSave.map((sav, index) => (
-                        <div key={index}>{sav}</div>
+                  {inforUser.listNews ? (
+                    <div className="fs-7 color-secondary ">
+                      {inforUser.listNews.map((sav, index) => (
+                        <div
+                          className="d-flex align-items-center follow-list follow-item "
+                          style={{ height: "50px" }}
+                          onClick={() => handleClickSave(sav.slug)}
+                        >
+                          <div className="h-100 d-flex align-items-center">
+                            <Image
+                              roundedCircle={false}
+                              width={40}
+                              height={40}
+                              src={sav.thumbnail}
+                            ></Image>
+                          </div>
+                          <div className="ps-2 h-100 list-item" key={index}>
+                            {sav.title}
+                          </div>
+                        </div>
                       ))}
                     </div>
                   ) : (
