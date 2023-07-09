@@ -536,7 +536,7 @@ function DetailProduct() {
                     roundedCircle={true}
                     width={64}
                     height={64}
-                    src="https://blog.rever.vn/hubfs/Blog%20images/PhuLH/bannhapho.jpg"
+                    src={property && property.user.avatar}
                   ></Image>
                   <div className="py-1 personal-info-title">Được đăng bởi</div>
                   <div className="py-1 personal-info-name">

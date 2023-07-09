@@ -19,6 +19,7 @@ function SignUp() {
   const handleFB = async () => {
     try {
       const res = await SignUpApi.signUpWithFB();
+      console.log(res);
     } catch (error) {
       console.log(error);
     }
