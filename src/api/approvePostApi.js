@@ -26,15 +26,11 @@ const approvePost = {
   },
   delete(id) {
     const url = `/real-easte/delete/${id}`;
-    return axiosClient.delete(
-      url,
-
-      {
-        headers: {
-          Authorization: `token ${sessionStorage.getItem("tokenAdmin")}`,
-        },
-      }
-    );
+    return axiosClient.delete(url, {
+      headers: {
+        Authorization: `token ${sessionStorage.getItem("tokenAdmin")}`,
+      },
+    });
   },
 };
 export default approvePost;

@@ -12,5 +12,13 @@ const SignUpApi = {
     const url = `/user/verify?email=${email}&code=${code}`;
     return axiosClient.get(url);
   },
+  signUpWithFB() {
+    const url = "/user/facebook";
+    return axiosClient.get(url);
+  },
+  signUpWithGG() {
+    const url = "/user/google";
+    return axiosClient.get(url);
+  },
 };
 export default SignUpApi;

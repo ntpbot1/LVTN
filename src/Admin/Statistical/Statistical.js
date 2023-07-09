@@ -54,7 +54,7 @@ function Statistical() {
                   <div className="d-flex justify-content-center statistical-title">
                     Tổng tin đăng
                   </div>
-                  <div className="d-flex justify-content-center">
+                  <div className="d-flex py-2 justify-content-center">
                     {statis && statis.news[1]}
                   </div>
                 </div>
@@ -70,7 +70,7 @@ function Statistical() {
                   <div className="d-flex justify-content-center statistical-title">
                     Tổng doanh thu
                   </div>
-                  <div className="d-flex justify-content-center">
+                  <div className="d-flex py-2  justify-content-center">
                     {statis && VND.format(statis.payment[0].totalsale / 100)}
                   </div>
                 </div>

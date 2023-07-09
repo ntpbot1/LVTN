@@ -108,9 +108,9 @@ const propertyApi = {
       }
     );
   },
-  statistical(s, e) {
-    const url = `real-easte/statistical`;
-    return axiosClient.get(url, { start: s, end: e });
+  statistical(start, end) {
+    const url = "real-easte/statistical";
+    return axiosClient.post(url, { start: start, end: end });
   },
 };
 

@@ -6,10 +6,32 @@ import Form from "react-bootstrap/Form";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
+import logoFB from "../../img/facebook.svg";
+import logoGG from "../../img/google.svg";
+
+import { Row, Col, Image } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function SignUp() {
   const navigate = useNavigate;
   const [message, setMessage] = useState("");
+
+  const handleFB = async () => {
+    try {
+      const res = await SignUpApi.signUpWithFB();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleGG = async () => {
+    try {
+      const res = await SignUpApi.signUpWithGG();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const formik = useFormik({
     initialValues: {
       fullName: "",
@@ -112,6 +134,46 @@ function SignUp() {
           >
             Đăng Ký
           </Button>
+          <Form.Group className="mb-4 sosical" controlId="formBasicPassword">
+            <div className="pt-4">
+              <div className="d-flex align-items-center w-100">
+                <div className="sosical-space"></div>
+                <div className="d-flex justify-content-center sosical-title">
+                  Hoặc
+                </div>
+                <div className="sosical-space"></div>
+              </div>
+            </div>
+            <div className="pt-4">
+              <div className="d-flex justify-content-between">
+                <div
+                  className="d-flex align-items-center justify-content-center py-2 rounded sosical-frame"
+                  onClick={handleFB}
+                >
+                  <Image
+                    roundedCircle={true}
+                    width={20}
+                    height={20}
+                    src={logoFB}
+                  ></Image>
+                  <div className="ps-2 sosical-fb">Facebook</div>
+                </div>
+                <div
+                  className="d-flex align-items-center justify-content-center py-2 rounded sosical-frame"
+                  onClick={handleGG}
+                >
+                  <Image
+                    roundedCircle={true}
+                    width={20}
+                    height={20}
+                    src={logoGG}
+                  ></Image>
+
+                  <div className="ps-2  sosical-gg">Google</div>
+                </div>
+              </div>
+            </div>
+          </Form.Group>
         </Form>
       </div>
     </>
