@@ -5,6 +5,7 @@ const userApi = {
     return axiosClient.put(url, payload, {
       headers: {
         Authorization: `token ${sessionStorage.getItem("token")}`,
+        "Content-Type": "multipart/form-data",
       },
     });
   },

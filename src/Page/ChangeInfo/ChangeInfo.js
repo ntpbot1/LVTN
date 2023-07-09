@@ -32,9 +32,9 @@ function ChangeInfo() {
   const formik = useFormik({
     initialValues: {
       name: infoUser.userName,
-      birth: infoUser.birth.slice(0, 10),
-      address: infoUser.address,
-      phone: infoUser.phone,
+      birth: infoUser.birth ? infoUser.birth.slice(0, 10) : "",
+      address: infoUser.address ? infoUser.address : "",
+      phone: infoUser.phone ? infoUser.phone : "",
       img: "",
     },
     validationSchema: Yup.object({
