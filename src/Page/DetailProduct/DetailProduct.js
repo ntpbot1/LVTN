@@ -547,7 +547,7 @@ function DetailProduct() {
                     variant="light"
                     size="lg"
                   >
-                    Gửi email
+                    {property && property.user.phone}
                   </Button>
                 </div>
               </div>
