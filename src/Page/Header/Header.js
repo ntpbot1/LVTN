@@ -29,7 +29,7 @@ function Header() {
   const [listSave, setListSave] = useState();
   const [showFollow, setShowFollow] = useState(false);
   const inforUser = useSelector((state) => state.login);
-  // console.log(inforUser);
+  console.log(inforUser);
   const dispatch = useDispatch();
   const handleLogOut = () => {
     dispatch(logout());
@@ -154,7 +154,7 @@ function Header() {
                       roundedCircle={true}
                       width={40}
                       height={40}
-                      src={inforUser.avatar}
+                      src={inforUser.img}
                     ></Image>
                     <div className="nav-item-name px-2">
                       {inforUser.userName}

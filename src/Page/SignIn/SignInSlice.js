@@ -20,7 +20,6 @@ const loginSlice = createSlice({
       state.userName = action.payload.name;
       state.email = action.payload.email;
       state.phone = action.payload.phone;
-      state.avatar = action.payload.avatar;
       state.birth = action.payload.birth;
       state.address = action.payload.address;
       state.isLogin = true;
