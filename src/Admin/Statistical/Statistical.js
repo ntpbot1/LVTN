@@ -21,8 +21,8 @@ function Statistical() {
     setMonth(`0${month}`);
   }
   const [start, setStart] = useState("2023-06-01");
-  // const end = `${year}-${month}-${date}`;
-  const [end, setEnd] = useState("2023-07-08");
+  const end = `${year}-${month}-${date}`;
+  // const [end, setEnd] = useState("2023-07-08");
 
   useEffect(() => {
     getStatistical();

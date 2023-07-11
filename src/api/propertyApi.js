@@ -66,11 +66,15 @@ const propertyApi = {
   },
   rePost(slug) {
     const url = `real-easte/re-post/${slug}`;
-    return axiosClient.put(url, {
-      headers: {
-        Authorization: `token ${sessionStorage.getItem("token")}`,
-      },
-    });
+    return axiosClient.put(
+      url,
+      {},
+      {
+        headers: {
+          Authorization: `token ${sessionStorage.getItem("token")}`,
+        },
+      }
+    );
   },
   hidden(id) {
     const url = `real-easte/hidden/${id}`;

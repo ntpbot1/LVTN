@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./SignIn.scss";
 import Button from "react-bootstrap/Button";
+import { Image } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
 import LoginApi from "../../api/SignIn";
@@ -9,6 +10,8 @@ import { useDispatch } from "react-redux";
 import { isLogin } from "./SignInSlice";
 import { Modal } from "react-bootstrap";
 import Spinner from "react-bootstrap/Spinner";
+import logoFB from "../../img/facebook.svg";
+import logoGG from "../../img/google.svg";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
@@ -19,6 +22,25 @@ function SignIn() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [message, setMessage] = useState("");
+  const handleFB = async () => {
+    window.open("http://lvtn-bds.onrender.com/user/facebook");
+    // try {
+    //   const res = await SignUpApi.signUpWithFB();
+    //   console.log(res);
+    // } catch (error) {
+    //   console.log(error);
+    // }
+  };
+
+  const handleGG = async () => {
+    window.open("http://lvtn-bds.onrender.com/user/google");
+
+    // try {
+    //   const res = await SignUpApi.signUpWithGG();
+    // } catch (error) {
+    //   console.log(error);
+    // }
+  };
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -121,6 +143,46 @@ function SignIn() {
           >
             <div className="text-danger float-end mt-2">Quên mật khẩu?</div>
           </Link>
+          <Form.Group className="mb-4 sosical" controlId="formBasicPassword">
+            <div className="pt-4">
+              <div className="d-flex align-items-center w-100">
+                <div className="sosical-space"></div>
+                <div className="d-flex justify-content-center sosical-title">
+                  Hoặc
+                </div>
+                <div className="sosical-space"></div>
+              </div>
+            </div>
+            <div className="pt-4">
+              <div className="d-flex justify-content-between">
+                <div
+                  className="d-flex align-items-center justify-content-center py-2 rounded sosical-frame"
+                  onClick={handleFB}
+                >
+                  <Image
+                    roundedCircle={true}
+                    width={20}
+                    height={20}
+                    src={logoFB}
+                  ></Image>
+                  <div className="ps-2 sosical-fb">Facebook</div>
+                </div>
+                <div
+                  className="d-flex align-items-center justify-content-center py-2 rounded sosical-frame"
+                  onClick={handleGG}
+                >
+                  <Image
+                    roundedCircle={true}
+                    width={20}
+                    height={20}
+                    src={logoGG}
+                  ></Image>
+
+                  <div className="ps-2  sosical-gg">Google</div>
+                </div>
+              </div>
+            </div>
+          </Form.Group>
         </Form>
       </div>
       <Modal className="loading" show={show} onHide={handleClose}>

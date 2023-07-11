@@ -13,10 +13,10 @@ const approvePost = {
     );
   },
   disApprove(id) {
-    const url = `/real-easte/disaprove/${id}`;
+    const url = `/real-easte/disapprove/${id}`;
     return axiosClient.put(
       url,
-
+      {},
       {
         headers: {
           Authorization: `token ${sessionStorage.getItem("tokenAdmin")}`,

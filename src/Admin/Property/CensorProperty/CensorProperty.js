@@ -135,13 +135,13 @@ function CensorProperty() {
                             onClick={() => handleShow(propertyNew)}
                           ></FontAwesomeIcon>
                         </div>
-                        <div className="ps-3 category-icon">
+                        {/* <div className="ps-3 category-icon">
                           <FontAwesomeIcon
                             icon={faCircleXmark}
                             style={{ color: "#dc3545" }}
                             onClick={handleDelete}
                           ></FontAwesomeIcon>
-                        </div>
+                        </div> */}
                       </div>
                     </td>
                   </tr>
@@ -159,7 +159,7 @@ function CensorProperty() {
           <Form>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Người đăng</Form.Label>
-              <Form.Control type="text" disabled value={name} />
+              <Form.Control type="text" disabled value={name && name} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Tiêu đề</Form.Label>

@@ -25,6 +25,10 @@ function RegisterPost() {
   // Mã thẻ : 9704198526191432198
   const navigate = useNavigate();
   const id = Date.now().toString();
+  const VND = new Intl.NumberFormat("vi-VN", {
+    style: "currency",
+    currency: "VND",
+  });
   const status1 = "xuat ban";
   const [status, setStatus] = useState("");
   const [thumbnail, setThumbnail] = useState();
@@ -250,13 +254,13 @@ function RegisterPost() {
   const handleType = (value) => {
     switch (value) {
       case 1:
-        return setCost(2000), setType(1);
+        return setCost(2000), setType(1), setTotalCost(0), setExpiration(0);
       case 2:
-        return setCost(10000), setType(2);
+        return setCost(10000), setType(2), setTotalCost(0), setExpiration(0);
       case 3:
-        return setCost(20000), setType(3);
+        return setCost(20000), setType(3), setTotalCost(0), setExpiration(0);
       case 4:
-        return setCost(50000), setType(4);
+        return setCost(50000), setType(4), setTotalCost(0), setExpiration(0);
       default:
         break;
     }
@@ -962,7 +966,7 @@ function RegisterPost() {
                           variant="light"
                           className="search-button"
                         >
-                          <div>Tin vip 1</div>
+                          <div>Tin VIP 1</div>
                           <div>10000đ / ngày</div>
                         </ToggleButton>
 
@@ -972,7 +976,7 @@ function RegisterPost() {
                           variant="light"
                           className="search-button"
                         >
-                          <div>Tin vip 2</div>
+                          <div>Tin VIP 2</div>
                           <div>20000đ / ngày</div>
                         </ToggleButton>
 
@@ -982,7 +986,7 @@ function RegisterPost() {
                           variant="light"
                           className="search-button"
                         >
-                          <div>Tin vip 3</div>
+                          <div>Tin VIP 3</div>
                           <div>50000đ / ngày</div>
                         </ToggleButton>
                       </ToggleButtonGroup>
@@ -1010,7 +1014,7 @@ function RegisterPost() {
                           className="search-button"
                         >
                           <div>7 ngày</div>
-                          <div>Phí : {cost ? cost * 7 : ""}</div>
+                          <div>Phí : {cost ? VND.format(cost * 7) : ""}</div>
                         </ToggleButton>
 
                         <ToggleButton
@@ -1021,7 +1025,8 @@ function RegisterPost() {
                         >
                           <div>10 ngày</div>
                           <div>
-                            Phí : {cost ? (cost - cost * 0.03) * 10 : ""}
+                            Phí :{" "}
+                            {cost ? VND.format((cost - cost * 0.03) * 10) : ""}
                           </div>
                         </ToggleButton>
 
@@ -1033,7 +1038,8 @@ function RegisterPost() {
                         >
                           <div>15 ngày</div>
                           <div>
-                            Phí : {cost ? (cost - cost * 0.05) * 15 : ""}
+                            Phí :{" "}
+                            {cost ? VND.format((cost - cost * 0.05) * 15) : ""}
                           </div>
                         </ToggleButton>
 
@@ -1045,7 +1051,8 @@ function RegisterPost() {
                         >
                           <div>30 ngày</div>
                           <div>
-                            Phí : {cost ? (cost - cost * 0.1) * 30 : ""}
+                            Phí :{" "}
+                            {cost ? VND.format((cost - cost * 0.1) * 30) : ""}
                           </div>
                         </ToggleButton>
                       </ToggleButtonGroup>
@@ -1081,31 +1088,39 @@ function RegisterPost() {
                 <div className="py-2 ">
                   <div className="py-2 register-post-sub-title d-flex justify-content-between">
                     <div>Loại tin</div>
-                    <div>{type ? type : ""}</div>
+                    <div>
+                      {type == 1
+                        ? "Tin Thường"
+                        : type == 2
+                        ? "Tin VIP 1"
+                        : type == 3
+                        ? "Tin VIP 2"
+                        : "Tin VIP 3"}
+                    </div>
                   </div>
                 </div>
                 <div className="py-2 ">
                   <div className="py-2 register-post-sub-title d-flex justify-content-between">
                     <div>Đơn giá / ngày</div>
-                    <div>{cost ? cost : ""}</div>
+                    <div>{cost ? VND.format(cost) : ""}</div>
                   </div>
                 </div>
                 <div className="py-2 ">
                   <div className="py-2 register-post-sub-title d-flex justify-content-between">
                     <div>Thời gian đăng tin</div>
-                    <div>{expiration ? expiration : ""}</div>
+                    <div>{expiration ? `${expiration} ngày` : ""}</div>
                   </div>
                 </div>
                 <div className="py-2 ">
                   <div className="py-2 register-post-sub-title d-flex justify-content-between">
                     <div>Phí đăng</div>
-                    <div>{totalCost ? totalCost : ""}</div>
+                    <div>{totalCost ? VND.format(totalCost) : ""}</div>
                   </div>
                 </div>
                 <div className="py-2 ">
                   <div className="py-2 register-post-sub-title d-flex justify-content-between">
                     <div>Tổng tiền</div>
-                    <div>{totalCost ? totalCost : ""}</div>
+                    <div>{totalCost ? VND.format(totalCost) : ""}</div>
                   </div>
                 </div>
                 <div className="">

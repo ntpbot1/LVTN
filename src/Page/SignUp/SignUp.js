@@ -17,20 +17,23 @@ function SignUp() {
   const [message, setMessage] = useState("");
 
   const handleFB = async () => {
-    try {
-      const res = await SignUpApi.signUpWithFB();
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-    }
+    window.open("http://lvtn-bds.onrender.com/user/facebook");
+    // try {
+    //   const res = await SignUpApi.signUpWithFB();
+    //   console.log(res);
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   const handleGG = async () => {
-    try {
-      const res = await SignUpApi.signUpWithGG();
-    } catch (error) {
-      console.log(error);
-    }
+    window.open("http://lvtn-bds.onrender.com/user/google");
+
+    // try {
+    //   const res = await SignUpApi.signUpWithGG();
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   const formik = useFormik({

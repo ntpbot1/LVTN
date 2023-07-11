@@ -1,5 +1,5 @@
 import Sidebar from "../Sidebar/Sidebar";
-import { Table, Modal, Button, Form } from "react-bootstrap";
+import { Table, Modal, Button, Form, Row, Col, Image } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
@@ -19,6 +19,10 @@ function Property() {
       progress: undefined,
       theme: "light",
     });
+  const VND = new Intl.NumberFormat("vi-VN", {
+    style: "currency",
+    currency: "VND",
+  });
   const [show, setShow] = useState(false);
   let stt = 1;
   const [id, setId] = useState("");
@@ -27,17 +31,15 @@ function Property() {
   const [type, setType] = useState("");
   const [img, setImg] = useState("");
   const [date, setDate] = useState("");
-
+  const [property, setProperty] = useState();
+  const [info, setInfo] = useState("");
   const [listProperty, setListProperty] = useState([]);
   const handleClose = () => setShow(false);
-  const handleShow = (propertyInfo) => {
+  const handleShow = (property, propertyInfo) => {
     setShow(true);
-    setId(propertyInfo.id);
-
-    setTitle(propertyInfo.title);
-    setContent(propertyInfo.content);
-    setDate(propertyInfo.approval_date.slice(0, 10));
-    setType(propertyInfo.type);
+    setType(property.type);
+    setProperty(property);
+    setInfo(propertyInfo);
   };
   const handleUpdate = () => {
     console.log("acb");
@@ -116,7 +118,12 @@ function Property() {
                           <FontAwesomeIcon
                             icon={faInfoCircle}
                             style={{ color: "#0d6efd" }}
-                            onClick={() => handleShow(item.real_easte_id)}
+                            onClick={() =>
+                              handleShow(
+                                item.real_easte_id,
+                                item.info_real_easte
+                              )
+                            }
                           ></FontAwesomeIcon>
                         </div>
                         <div className="ps-3 category-icon">
@@ -154,7 +161,7 @@ function Property() {
               <Form.Control
                 as="textarea"
                 style={{ height: "80px" }}
-                value={title}
+                value={property && property.title}
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -162,12 +169,16 @@ function Property() {
               <Form.Control
                 as="textarea"
                 style={{ height: "200px" }}
-                value={content}
+                value={property && property.content}
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Ngày đăng</Form.Label>
-              <Form.Control type="date" value={date} />
+              <Form.Control
+                type="date"
+                disabled
+                value={property && property.approval_date.slice(0, 10)}
+              />
             </Form.Group>
             {/* <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Ngày hết hạn</Form.Label>
@@ -177,6 +188,7 @@ function Property() {
               <Form.Label>Loại tin</Form.Label>
               <Form.Control
                 type="text"
+                disabled
                 value={
                   type == 1
                     ? "Loại 1"
@@ -188,9 +200,121 @@ function Property() {
                 }
               />
             </Form.Group>
+            <Row>
+              <Col>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Mức giá</Form.Label>
+                  <Form.Control
+                    disabled
+                    type="text"
+                    value={VND.format(info.price)}
+                  />
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Tình trạng pháp lý</Form.Label>
+                  <Form.Control disabled type="text" value={info.status} />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Số phòng ngủ</Form.Label>
+                  <Form.Control
+                    disabled
+                    type="text"
+                    value={info.number_bedrooms}
+                  />
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Số phòng tắm</Form.Label>
+                  <Form.Control
+                    disabled
+                    type="text"
+                    value={info.number_bathrooms}
+                  />
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Số tầng</Form.Label>
+                  <Form.Control
+                    disabled
+                    type="text"
+                    value={info.number_floors}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>
+                    Chiều dài m<sup>2</sup>
+                  </Form.Label>
+                  <Form.Control disabled type="text" value={info.length} />
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>
+                    Chiều rộng m<sup>2</sup>
+                  </Form.Label>
+                  <Form.Control disabled type="text" value={info.width} />
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>
+                    Tổng diện tích m<sup>2</sup>
+                  </Form.Label>
+                  <Form.Control disabled type="text" value={info.acreage} />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Tỉnh/Thành phố</Form.Label>
+                  <Form.Control disabled type="text" value={info.city} />
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Quận/Huyện</Form.Label>
+                  <Form.Control disabled type="text" value={info.district} />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Phường/Xã</Form.Label>
+                  <Form.Control disabled type="text" value={info.ward} />
+                </Form.Group>
+              </Col>
+            </Row>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Hình ảnh</Form.Label>
-              <Form.Control type="file" multiple />
+              <div>
+                <Row>
+                  <Col md={2}></Col>
+                  <Col md={8}>
+                    <Image
+                      className="w-100"
+                      roundedCircle={false}
+                      // width={200}
+                      height={200}
+                      src={property && property.thumbnail}
+                    ></Image>
+                  </Col>
+                  <Col md={2}></Col>
+                </Row>
+              </div>
             </Form.Group>
           </Form>
         </Modal.Body>

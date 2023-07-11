@@ -19,8 +19,8 @@ import { Link, useNavigate } from "react-router-dom";
 import provinceApi from "../../api/provinceApi";
 import propertyApi from "../../api/propertyApi";
 function SearchProduct() {
-  sessionStorage.setItem("searchCategory", null);
-  sessionStorage.setItem("searchContent", null);
+  sessionStorage.removeItem("searchCategory");
+  sessionStorage.removeItem("searchContent");
 
   const navigate = useNavigate();
   const [listCategory, setListCategory] = useState();
