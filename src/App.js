@@ -21,11 +21,14 @@ import Manage from "./Page/Manage/Manage.js";
 import DetailNew from "./Page/DetailNews/DetailNew.js";
 import HiddenComponent from "./Admin/Property/Hidden/Hidden.js";
 import Statistical from "./Admin/Statistical/Statistical.js";
+import Payment from "./Page/Payment/Payment.js";
 
 function App() {
   return (
     <div className="App">
       <Routes>
+        <Route path="/thanh-toan-thanh-cong" element={<Payment />}></Route>
+
         <Route path="/" element={<Home />}>
           <Route path="dang-nhap" element={<SignIn />}></Route>
           <Route path="dang-ky" element={<SignUp />}></Route>

@@ -48,14 +48,14 @@ function Product() {
               <Col xs={9}>
                 <div className="product-list">
                   {listProperty.map((pro, index) =>
-                    pro.acreage > 100 ? (
+                    pro.Real_Easte.type == 4 ? (
                       <Row
                         className="bg-white rounded product-item product-row"
-                        onClick={() => handleGetDetail(pro.slug)}
+                        onClick={() => handleGetDetail(pro.Real_Easte.slug)}
                         key={index}
                       >
                         <Row
-                          // onClick={() => handleGetDetail(pro.slug)}
+                          // onClick={() => handleGetDetail(pro.Real_Easte.slug)}
                           // key={index}
                           // className="my-4  rounded product-item product-row"
                           style={{ height: "300px" }}
@@ -66,7 +66,7 @@ function Product() {
                           >
                             <Image
                               className="w-100 h-100 product-img-4"
-                              src={pro.thumbnail}
+                              src={pro.Real_Easte.thumbnail}
                             ></Image>
                             <div className=" text-light rounded d-flex justify-content-center align-items-center card-label">
                               <div className="card-title">TIN VIP 4</div>
@@ -76,7 +76,7 @@ function Product() {
                         </Row>
                         <Row className=" h-75 py-3 d-flex flex-column justify-content-between ">
                           <div className="fs-6 home-product-title">
-                            {`${pro.title}`}
+                            {`${pro.Real_Easte.title}`}
                           </div>
                           <div className="py-2 d-flex home-product-price">
                             <div className="text-danger ">
@@ -85,7 +85,7 @@ function Product() {
                                 : ""}
                             </div>
                             <div className="text-danger  ps-3">
-                              {`${pro.acreage} `} m<sup>2</sup>
+                              {`${pro.Info.acreage} `} m<sup>2</sup>
                             </div>
                           </div>
                           <div className="py-2 d-flex home-product-address">
@@ -95,16 +95,16 @@ function Product() {
                                 style={{ color: "#ccc" }}
                               />
                             </div>
-                            <div className="ps-2">{`${pro.district}, ${pro.city}`}</div>
+                            <div className="ps-2">{`${pro.Info.district}, ${pro.Info.city}`}</div>
                           </div>
                           <div className=" home-product-content-4">
                             {`${pro.content}`}
                           </div>
                         </Row>
                       </Row>
-                    ) : pro.acreage >= 80 ? (
+                    ) : pro.Real_Easte.type == 3 ? (
                       <Row
-                        onClick={() => handleGetDetail(pro.slug)}
+                        onClick={() => handleGetDetail(pro.Real_Easte.slug)}
                         key={index}
                         className="my-4 bg-white rounded product-item product-row"
                         style={{ height: "260px" }}
@@ -115,7 +115,7 @@ function Product() {
                         >
                           <Image
                             className="w-100 h-100 product-img"
-                            src={pro.thumbnail}
+                            src={pro.Real_Easte.thumbnail}
                           ></Image>
                           <div className=" text-light rounded d-flex justify-content-center align-items-center card-label">
                             <div className="card-title">TIN VIP 3</div>
@@ -124,7 +124,7 @@ function Product() {
                         <Col xs={7} className="product-content">
                           <div className=" h-100 py-3 d-flex flex-column  ">
                             <div className="fs-6 home-product-title">
-                              {`${pro.title}`}
+                              {`${pro.Real_Easte.title}`}
                             </div>
                             <div className="py-2 d-flex home-product-price">
                               <div className="text-danger ">
@@ -136,7 +136,7 @@ function Product() {
                                   : ""}
                               </div>
                               <div className="text-danger  ps-3">
-                                {`${pro.acreage} `} m<sup>2</sup>
+                                {`${pro.Info.acreage} `} m<sup>2</sup>
                               </div>
                             </div>
                             <div className="py-2 d-flex home-product-address">
@@ -146,7 +146,7 @@ function Product() {
                                   style={{ color: "#ccc" }}
                                 />
                               </div>
-                              <div className="ps-3">{`${pro.district}, ${pro.city}`}</div>
+                              <div className="ps-3">{`${pro.Info.district}, ${pro.Info.city}`}</div>
                             </div>
                             <div className=" home-product-content-4">
                               {`${pro.content}`}
@@ -154,9 +154,9 @@ function Product() {
                           </div>
                         </Col>
                       </Row>
-                    ) : pro.acreage >= 70 ? (
+                    ) : pro.Real_Easte.type == 2 ? (
                       <Row
-                        onClick={() => handleGetDetail(pro.slug)}
+                        onClick={() => handleGetDetail(pro.Real_Easte.slug)}
                         key={index}
                         className="my-4 bg-white rounded product-item product-row"
                         style={{ height: "230px" }}
@@ -167,7 +167,7 @@ function Product() {
                         >
                           <Image
                             className="w-100 h-100 product-img"
-                            src={pro.thumbnail}
+                            src={pro.Real_Easte.thumbnail}
                           ></Image>
                           <div className=" text-light rounded d-flex justify-content-center align-items-center card-label">
                             <div className="card-title">TIN VIP 2</div>
@@ -176,7 +176,7 @@ function Product() {
                         <Col xs={8} className="product-content">
                           <div className=" h-100 py-3 d-flex flex-column justify-content-between ">
                             <div className="fs-6 home-product-title">
-                              {`${pro.title}`}
+                              {`${pro.Real_Easte.title}`}
                             </div>
                             <div className="py-1 d-flex home-product-price">
                               <div className="text-danger ">
@@ -188,7 +188,7 @@ function Product() {
                                   : ""}
                               </div>
                               <div className="text-danger  ps-3">
-                                {`${pro.acreage} `} m<sup>2</sup>
+                                {`${pro.Info.acreage} `} m<sup>2</sup>
                               </div>
                             </div>
                             <div className="py-1 d-flex home-product-address">
@@ -198,7 +198,7 @@ function Product() {
                                   style={{ color: "#ccc" }}
                                 />
                               </div>
-                              <div className="ps-3">{`${pro.district}, ${pro.city}`}</div>
+                              <div className="ps-3">{`${pro.Info.district}, ${pro.Info.city}`}</div>
                             </div>
                             <div className=" home-product-content-4">
                               {`${pro.content}`}
@@ -208,7 +208,7 @@ function Product() {
                       </Row>
                     ) : (
                       <Row
-                        onClick={() => handleGetDetail(pro.slug)}
+                        onClick={() => handleGetDetail(pro.Real_Easte.slug)}
                         key={index}
                         className="my-4 bg-white rounded product-item product-row"
                         style={{ height: "200px" }}
@@ -219,7 +219,7 @@ function Product() {
                         >
                           <Image
                             className="w-100 h-100 product-img"
-                            src={pro.thumbnail}
+                            src={pro.Real_Easte.thumbnail}
                           ></Image>
                           <div className=" text-light rounded d-flex justify-content-center align-items-center card-label">
                             <div className="card-title">TIN THƯỜNG</div>
@@ -228,7 +228,7 @@ function Product() {
                         <Col xs={9} className="product-content">
                           <div className=" h-75 py-3 d-flex flex-column justify-content-between ">
                             <div className="fs-6 home-product-title">
-                              {`${pro.title}`}
+                              {`${pro.Real_Easte.title}`}
                             </div>
                             <div className="py-1 d-flex home-product-price">
                               <div className="text-danger ">
@@ -240,7 +240,7 @@ function Product() {
                                   : ""}
                               </div>
                               <div className="text-danger  ps-3">
-                                {`${pro.acreage} `} m<sup>2</sup>
+                                {`${pro.Info.acreage} `} m<sup>2</sup>
                               </div>
                             </div>
                             <div className="py-1 d-flex home-product-address">
@@ -250,7 +250,7 @@ function Product() {
                                   style={{ color: "#ccc" }}
                                 />
                               </div>
-                              <div className="ps-3">{`${pro.district}, ${pro.city}`}</div>
+                              <div className="ps-3">{`${pro.Info.district}, ${pro.Info.city}`}</div>
                             </div>
                           </div>
                         </Col>

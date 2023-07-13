@@ -40,6 +40,7 @@ function Property() {
     setType(property.type);
     setProperty(property);
     setInfo(propertyInfo);
+    setId(property.id);
   };
   const handleUpdate = () => {
     console.log("acb");

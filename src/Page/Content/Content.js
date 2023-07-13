@@ -35,6 +35,7 @@ function Content() {
     sessionStorage.setItem("slug-real-easte", slug);
     navigate("/chi-tiet");
   };
+
   return (
     <>
       <SearchProduct />
@@ -77,21 +78,40 @@ function Content() {
                         {post.real_easte_id.title}
                       </Card.Title>
                       <Card.Text className="d-flex home-product-price">
-                        <div className="text-danger ">
-                          {post.info_real_easte.price.length > 10
-                            ? `${post.info_real_easte.price.slice(
-                                0,
-                                2
-                              )},${post.info_real_easte.price.slice(2, 3)} Tỷ`
-                            : post.info_real_easte.price.length == 10
-                            ? `${
-                                post.info_real_easte.price[0]
-                              },${post.info_real_easte.price.slice(1, 2)} Tỷ`
-                            : ""}
-                        </div>
-                        <div className="text-danger  ps-3">
-                          {`${post.info_real_easte.acreage} `}m<sup>2</sup>
-                        </div>
+                        <>
+                          <div className="text-danger ">
+                            {post.info_real_easte.price.length > 10
+                              ? `${post.info_real_easte.price.slice(
+                                  0,
+                                  2
+                                )},${post.info_real_easte.price.slice(2, 3)} Tỷ`
+                              : post.info_real_easte.price.length == 10
+                              ? `${
+                                  post.info_real_easte.price[0]
+                                },${post.info_real_easte.price.slice(1, 2)} Tỷ`
+                              : ""}
+                          </div>
+                          <div className="text-danger  ps-3">
+                            {`${post.info_real_easte.acreage} `}m<sup>2</sup>
+                          </div>
+                        </>
+                        <>
+                          {/* <div className="text-primary">
+                            {post.info_real_easte.price.length > 10
+                              ? `${post.info_real_easte.price.slice(
+                                  0,
+                                  2
+                                )},${post.info_real_easte.price.slice(2, 3)} Tỷ`
+                              : post.info_real_easte.price.length == 10
+                              ? `${
+                                  post.info_real_easte.price[0]
+                                },${post.info_real_easte.price.slice(1, 2)} Tỷ`
+                              : ""}
+                          </div> */}
+                          {/* <div className="text-primary ps-3">
+                            {`${post.info_real_easte.acreage} `}m<sup>2</sup>
+                          </div> */}
+                        </>
                       </Card.Text>
                       <Card.Text className="d-flex home-product-address">
                         <div className="">

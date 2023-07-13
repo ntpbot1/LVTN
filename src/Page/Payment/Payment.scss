@@ -1,0 +1,18 @@
+.home-payment {
+  background-color: var(--bg-content);
+  height: 100vh;
+  .payment-title {
+    font-size: 40px;
+    color: #363e3f;
+    font-weight: 500;
+  }
+  .payment-message {
+    font-size: 16px;
+  }
+  .notify {
+    width: 600px;
+    .notify-title {
+      font-weight: 500;
+    }
+  }
+}

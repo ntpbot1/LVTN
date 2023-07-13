@@ -29,7 +29,7 @@ function Header() {
   const [listSave, setListSave] = useState();
   const [showFollow, setShowFollow] = useState(false);
   const inforUser = useSelector((state) => state.login);
-  console.log(inforUser);
+  // console.log(inforUser);
   const dispatch = useDispatch();
   const handleLogOut = () => {
     dispatch(logout());

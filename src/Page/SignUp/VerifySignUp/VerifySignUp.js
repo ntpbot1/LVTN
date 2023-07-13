@@ -7,8 +7,32 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import SignUpApi from "../../../api/SignUpApi";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function VerifySignUp() {
+  const notify = () =>
+    toast.success("Xác nhận thành công", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  const notify1 = () =>
+    toast.error("Sai mã xác nhận", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   const navigate = useNavigate;
   const email = sessionStorage.getItem("email-sign-up");
   const [message, setMessage] = useState("");
@@ -25,13 +49,11 @@ function VerifySignUp() {
         let res = await SignUpApi.verify(email, values.code);
         console.log(res);
         if (res.data.message) {
-          setMessage(res.data.message);
-          //   if (res.data.message == "Please check mail to verify your account") {
-          //     navigate("/dang-nhap");
-          //   }
+          notify();
         }
       } catch (error) {
         console.log(error);
+        notify1();
       }
     },
   });
@@ -61,7 +83,7 @@ function VerifySignUp() {
             )}
           </Form.Group>
 
-          <div className="text-danger mb-4">{message}</div>
+          {/* <div className="text-danger mb-4">{message}</div> */}
           <Button
             className="w-100 py-3 form-submit"
             variant="danger"
@@ -71,6 +93,19 @@ function VerifySignUp() {
           </Button>
         </Form>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      <ToastContainer />
     </>
   );
 }

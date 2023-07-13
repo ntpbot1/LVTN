@@ -41,8 +41,14 @@ function ChangeInfo() {
       name: Yup.string().required("Chưa nhập họ tên"),
       birth: Yup.date().required("Chưa chọn ngày sinh"),
       address: Yup.string().required("Chưa nhập địa chỉ"),
-      phone: Yup.number().required("Chưa nhập số điện thoại"),
-      img: Yup.mixed().required("Chưa nhập họ tên"),
+      phone: Yup.string()
+        .required("Chưa nhập số điện thoại")
+        .matches(
+          /((09|03|07|08|05)+([0-9]{8})\b)/g,
+          "Số điện thoại không hợp lệ"
+        )
+        .length(10, "Số điện thoại phải 10 số"),
+      img: Yup.mixed().required("Chưa chọn ảnh"),
     }),
     onSubmit: async (values) => {
       setMessage("");
@@ -83,7 +89,15 @@ function ChangeInfo() {
           className="mx-auto py-5 px-5 bg-white form rounded shadow-sm "
         >
           {/* <div className="fs-3 pt-5">Xin chào bạn</div> */}
-          <div className="fs-2 pb-5">Thay đổi thông tin</div>
+          <div className="fs-2 pb-3">Thay đổi thông tin</div>
+          {/* <div className="d-flex justify-content-center">
+            <Image
+              roundedCircle={true}
+              width={100}
+              height={100}
+              src={infoUser.img}
+            ></Image>
+          </div> */}
           <Form.Group className="mb-4" controlId="formBasicEmail">
             <Form.Label>Họ tên</Form.Label>
             <Form.Control
@@ -165,6 +179,7 @@ function ChangeInfo() {
               accept="image/*"
               placeholder="Chọn ảnh"
               onChange={(e) => formik.setFieldValue("img", e.target.files[0])}
+              isInvalid={!!formik.errors.img}
             />
             {formik.values.img && (
               <>

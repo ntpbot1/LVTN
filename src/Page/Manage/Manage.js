@@ -4,8 +4,32 @@ import { faCircleXmark, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 import propertyApi from "../../api/propertyApi";
 import approvePost from "../../api/approvePostApi";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./Manage.scss";
 function Manage() {
+  const notify = () =>
+    toast.success("Gia hạn thành công", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  const notify1 = () =>
+    toast.error("Gia hạn thất bại", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   const [listProperty, setListProperty] = useState();
   let stt = 1;
   const [show, setShow] = useState(false);
@@ -20,10 +44,12 @@ function Manage() {
   };
   const handleRePost = async (slug) => {
     try {
-      const res = propertyApi.rePost(slug);
+      const res = await propertyApi.rePost(slug);
       handleClose();
       getAllProperty();
     } catch (error) {
+      handleClose();
+      notify1();
       console.log(error);
     }
   };
@@ -73,13 +99,17 @@ function Manage() {
                             : "Loại 4"}
                         </td>
                         <td>
-                          {`${item.real_easte_news.approval_date.slice(
-                            8,
-                            10
-                          )}/${item.real_easte_news.approval_date.slice(
-                            6,
-                            7
-                          )}/${item.real_easte_news.approval_date.slice(0, 4)}`}
+                          {item.real_easte_news.approval_date &&
+                            `${item.real_easte_news.approval_date.slice(
+                              8,
+                              10
+                            )}/${item.real_easte_news.approval_date.slice(
+                              6,
+                              7
+                            )}/${item.real_easte_news.approval_date.slice(
+                              0,
+                              4
+                            )}`}
                         </td>
                         <td>{item.real_easte_news.status}</td>
 
@@ -236,6 +266,19 @@ function Manage() {
           </Button>
         </Modal.Footer>
       </Modal> */}
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      <ToastContainer />
     </>
   );
 }

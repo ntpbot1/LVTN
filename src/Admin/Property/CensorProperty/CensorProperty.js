@@ -111,7 +111,7 @@ function CensorProperty() {
               <tr>
                 <th>STT</th>
                 <th>Người đăng</th>
-                <th>Ngày thuê</th>
+                <th>Ngày đăng</th>
                 <th>Loại tin</th>
 
                 <th>Thao tác</th>
@@ -122,9 +122,11 @@ function CensorProperty() {
                 listPropertyNew.map((propertyNew) => (
                   <tr>
                     <td>{stt++}</td>
-                    <td>Nguyễn Văn A</td>
-                    <td>{propertyNew.expiration}</td>
-                    <td>{propertyNew.type}</td>
+                    <td>{propertyNew.User.fullname}</td>
+                    <td>
+                      {propertyNew.Real_Easte_News.created_date.slice(0, 10)}
+                    </td>
+                    <td>{propertyNew.Real_Easte_News.type}</td>
 
                     <td>
                       <div className="d-flex">
@@ -132,7 +134,9 @@ function CensorProperty() {
                           <FontAwesomeIcon
                             icon={faInfoCircle}
                             style={{ color: "#0d6efd" }}
-                            onClick={() => handleShow(propertyNew)}
+                            onClick={() =>
+                              handleShow(propertyNew.Real_Easte_News)
+                            }
                           ></FontAwesomeIcon>
                         </div>
                         {/* <div className="ps-3 category-icon">
@@ -157,10 +161,10 @@ function CensorProperty() {
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+            {/* <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Người đăng</Form.Label>
               <Form.Control type="text" disabled value={name && name} />
-            </Form.Group>
+            </Form.Group> */}
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Tiêu đề</Form.Label>
               <Form.Control disabled type="text" value={title} />
