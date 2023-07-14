@@ -149,7 +149,7 @@ function Comments(props) {
                 roundedCircle={true}
                 width={40}
                 height={40}
-                src={infoUser.avatar}
+                src={infoUser.img}
               ></Image>
             </Col>
             <Col sm={10}>
@@ -200,34 +200,36 @@ function Comments(props) {
                   roundedCircle={true}
                   width={40}
                   height={40}
-                  src=""
+                  src={comment.User.avatar}
                 ></Image>
               </Col>
               <Col className="ps-3" md={10}>
-                <Row className="list-comment-name">{comment.name}</Row>
+                <Row className="list-comment-name">{comment.Comment.name}</Row>
                 <Row className="list-comment-date">
-                  {comment.created_date.slice(0, 10)}
+                  {comment.Comment.created_date.slice(0, 10)}
                 </Row>
               </Col>
               <Col sm={1} className="position-relative">
                 <div
                   className="float-end px-2 py-2 d-flex align-items-center justify-content-center list-comment-handle"
-                  onClick={() => handleClickMore(comment.id, comment.user_id)}
+                  onClick={() =>
+                    handleClickMore(comment.Comment.id, comment.Comment.user_id)
+                  }
                 >
                   <FontAwesomeIcon icon={faBars}></FontAwesomeIcon>
                 </div>
                 {clickMore &&
                   clickMore.value == true &&
-                  clickMore.index == comment.id &&
-                  comment.user_id == infoUser.id && (
+                  clickMore.index == comment.Comment.id &&
+                  comment.Comment.user_id == infoUser.id && (
                     <div className="position-absolute top-100 start-100 shadow-sm translate-middle list-comment-block">
                       <div
                         className="px-2 py-1 block-item"
                         onClick={() =>
                           handleShow(
-                            comment.real_easte_id,
-                            comment.id,
-                            comment.content
+                            comment.Comment.real_easte_id,
+                            comment.Comment.id,
+                            comment.Comment.content
                           )
                         }
                       >
@@ -241,8 +243,8 @@ function Comments(props) {
                         className="px-2 py-1 block-item"
                         onClick={() => {
                           props.handleDeleteComment(
-                            comment.real_easte_id,
-                            comment.id
+                            comment.Comment.real_easte_id,
+                            comment.Comment.id
                           );
                           handleClickMore();
                         }}
@@ -261,7 +263,7 @@ function Comments(props) {
             <Row className="py-2">
               <Col sm={1}></Col>
               <Col sm={11} className="my-2 list-comment-content">
-                {comment.content}
+                {comment.Comment.content}
               </Col>
             </Row>
             <Row className="pb-3 d-flex align-items-center">
@@ -273,11 +275,14 @@ function Comments(props) {
                     className="px-2 py-2 rounded-circle"
                     icon={faThumbsUp}
                     onClick={() =>
-                      props.handleLike(comment.real_easte_id, comment.id)
+                      props.handleLike(
+                        comment.Comment.real_easte_id,
+                        comment.Comment.id
+                      )
                     }
                   ></FontAwesomeIcon>
                 </div>
-                <div className="ps-1">{comment.like}</div>
+                <div className="ps-1">{comment.Comment.like}</div>
               </Col>
               <Col lg={1} sm={1} className="ms-2 d-flex align-items-center ">
                 <div className="list-comment-click">
@@ -285,7 +290,10 @@ function Comments(props) {
                     className="px-2 py-2 rounded-circle"
                     icon={faThumbsDown}
                     onClick={() =>
-                      props.handleUnLike(comment.real_easte_id, comment.id)
+                      props.handleUnLike(
+                        comment.Comment.real_easte_id,
+                        comment.Comment.id
+                      )
                     }
                   ></FontAwesomeIcon>
                 </div>
@@ -337,8 +345,8 @@ function Comments(props) {
                             className="float-end list-comment-reply-button"
                             onClick={() => {
                               props.handleReply(
-                                comment.real_easte_id,
-                                comment.id,
+                                comment.Comment.real_easte_id,
+                                comment.Comment.id,
                                 reply
                               );
                               setReply("");
@@ -353,23 +361,23 @@ function Comments(props) {
                 )}
             </div>
             <div className="list-comment-totalRep">
-              {comment.totalRep > 0 && (
+              {comment.Comment.totalRep > 0 && (
                 <Row>
                   <Col md={1}></Col>
                   <Col
                     md={2}
                     className=" pb-3 totalRep-click"
                     onClick={() => {
-                      props.handleGetAllReply(comment.id);
-                      handleClickCountReply(index, comment.id);
+                      props.handleGetAllReply(comment.Comment.id);
+                      handleClickCountReply(index, comment.Comment.id);
                     }}
                   >
-                    {`${comment.totalRep} Phản hồi`}
+                    {`${comment.Comment.totalRep} Phản hồi`}
                   </Col>
                 </Row>
               )}
               {props.listReply &&
-                comment.id == clickCountReply.id &&
+                comment.Comment.id == clickCountReply.id &&
                 props.listReply.map((reply, index1) => (
                   <Row>
                     <Col md={1}></Col>
@@ -380,13 +388,15 @@ function Comments(props) {
                             roundedCircle={true}
                             width={40}
                             height={40}
-                            src=""
+                            src={reply.User.avatar}
                           ></Image>
                         </Col>
                         <Col className="ps-3" md={10}>
-                          <Row className="list-comment-name">{reply.name}</Row>
+                          <Row className="list-comment-name">
+                            {reply.Comment.name}
+                          </Row>
                           <Row className="list-comment-date">
-                            {reply.created_date.slice(0, 10)}
+                            {reply.Comment.created_date.slice(0, 10)}
                           </Row>
                         </Col>
                         <Col sm={1} className="position-relative">
@@ -442,7 +452,7 @@ function Comments(props) {
                       <Row className="py-2">
                         <Col sm={1}></Col>
                         <Col sm={11} className="my-2 list-comment-content">
-                          {reply.content}
+                          {reply.Comment.content}
                         </Col>
                       </Row>
                       <Row className="pb-3 d-flex">
@@ -533,7 +543,7 @@ function Comments(props) {
                                       className="float-end list-comment-reply-button"
                                       onClick={() => {
                                         props.handleReply(
-                                          comment.real_easte_id,
+                                          comment.Comment.real_easte_id,
                                           reply.parent_comment,
                                           reply2
                                         );

@@ -24,6 +24,17 @@ function AddCategory() {
       progress: undefined,
       theme: "light",
     });
+  const notify1 = () =>
+    toast.error("Thêm thất bại", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   const navigate = useNavigate();
   const [type, setType] = useState(true);
   const [name, setName] = useState("");
@@ -56,6 +67,7 @@ function AddCategory() {
       handleReset();
     } catch (error) {
       console.log(error);
+      notify1();
     }
   };
   return (

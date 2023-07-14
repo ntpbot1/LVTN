@@ -32,6 +32,28 @@ function Category() {
       progress: undefined,
       theme: "light",
     });
+  const notify2 = () =>
+    toast.error("Xóa thất bại", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  const notify3 = () =>
+    toast.error("Sửa thất bại", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   let stt = 1;
   const navigate = useNavigate();
   const [name, setName] = useState("");
@@ -77,6 +99,8 @@ function Category() {
       handleClose();
     } catch (error) {
       console.log(error);
+      handleClose();
+      notify3();
     }
   };
   //
@@ -88,6 +112,7 @@ function Category() {
       await getAllCategory();
     } catch (error) {
       console.log(error);
+      notify2();
     }
   };
   // useEffect(() => {

@@ -30,10 +30,10 @@ function Payment() {
                 <div>Mã giao dịch</div>
                 <div>14065283</div>
               </div>
-              <div className="py-1 d-flex justify-content-between">
+              {/* <div className="py-1 d-flex justify-content-between">
                 <div>Phí thanh toán</div>
                 <div>14.000đ</div>
-              </div>
+              </div> */}
             </div>
           </div>
         </Container>

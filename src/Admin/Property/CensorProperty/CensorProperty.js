@@ -6,8 +6,31 @@ import { useState, useEffect } from "react";
 import propertyApi from "../../../api/propertyApi";
 import "./CensorProperty.scss";
 import approvePost from "../../../api/approvePostApi";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function CensorProperty() {
+  const notify = () =>
+    toast.success("Duyệt thành công", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  const notify1 = () =>
+    toast.success("Không duyệt tin", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   const [show, setShow] = useState(false);
   let stt = 1;
   const [id, setId] = useState("");
@@ -83,6 +106,7 @@ function CensorProperty() {
     setShow(false);
     try {
       const res = await approvePost.approve(id);
+      notify();
       getAllProperty();
     } catch (error) {
       console.log(error);
@@ -92,6 +116,7 @@ function CensorProperty() {
     setShow(false);
     try {
       const res = await approvePost.disApprove(id);
+      notify1();
       getAllProperty();
     } catch (error) {
       console.log(error);
@@ -317,6 +342,19 @@ function CensorProperty() {
           </Button>
         </Modal.Footer>
       </Modal>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      <ToastContainer />
     </>
   );
 }

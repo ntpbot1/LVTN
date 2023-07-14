@@ -19,6 +19,17 @@ function Property() {
       progress: undefined,
       theme: "light",
     });
+  const notify1 = () =>
+    toast.success("Xóa thành công", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   const VND = new Intl.NumberFormat("vi-VN", {
     style: "currency",
     currency: "VND",
@@ -58,6 +69,7 @@ function Property() {
   const handleDelete = async (post) => {
     try {
       const res = await approvePost.delete(post.id);
+      notify1();
       getAllProperty();
     } catch (error) {
       console.log(error);

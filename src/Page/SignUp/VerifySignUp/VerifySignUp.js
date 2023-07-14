@@ -65,7 +65,10 @@ function VerifySignUp() {
           onSubmit={formik.handleSubmit}
           className="mx-auto py-5 px-5 bg-white form rounded shadow-sm "
         >
-          <div className="fs-2 pb-5">Xác nhận mã</div>
+          <div className="fs-2 pb-4">Xác nhận mã</div>
+          <div className="pb-3 text-danger">
+            Mã xác nhận đã dược gửi qua email. Vui lòng kiểm tra email
+          </div>
           <Form.Group className="mb-4">
             <Form.Control
               name="code"
