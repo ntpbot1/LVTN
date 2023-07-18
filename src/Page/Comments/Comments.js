@@ -321,7 +321,7 @@ function Comments(props) {
                             roundedCircle={true}
                             width={40}
                             height={40}
-                            src={props.avatar}
+                            src={infoUser.img}
                           ></Image>
                         </Col>
                         <Col sm={11}>
@@ -403,23 +403,26 @@ function Comments(props) {
                           <div
                             className="float-end px-2 py-2 d-flex align-items-center justify-content-center list-comment-handle"
                             onClick={() =>
-                              handleClickMore(reply.id, reply.user_id)
+                              handleClickMore(
+                                reply.Comment.id,
+                                reply.Comment.user_id
+                              )
                             }
                           >
                             <FontAwesomeIcon icon={faBars}></FontAwesomeIcon>
                           </div>
                           {clickMore &&
                             clickMore.value == true &&
-                            clickMore.index == reply.id &&
-                            reply.user_id == infoUser.id && (
+                            clickMore.index == reply.Comment.id &&
+                            reply.Comment.user_id == infoUser.id && (
                               <div className="position-absolute top-100 start-100 shadow-sm translate-middle list-comment-block">
                                 <div
                                   className="px-2 py-1 block-item"
                                   onClick={() =>
                                     handleShow1(
-                                      reply.parent_comment,
-                                      reply.id,
-                                      reply.content
+                                      reply.Comment.parent_comment,
+                                      reply.Comment.id,
+                                      reply.Comment.content
                                     )
                                   }
                                 >
@@ -433,8 +436,8 @@ function Comments(props) {
                                   className="px-2 py-1 block-item"
                                   onClick={() => {
                                     props.handleDeleteReply(
-                                      reply.parent_comment,
-                                      reply.id
+                                      reply.Comment.parent_comment,
+                                      reply.Comment.id
                                     );
                                     handleClickMore();
                                   }}
@@ -468,13 +471,13 @@ function Comments(props) {
                               icon={faThumbsUp}
                               onClick={() =>
                                 props.handleLike1(
-                                  reply.parent_comment,
-                                  reply.id
+                                  reply.Comment.parent_comment,
+                                  reply.Comment.id
                                 )
                               }
                             ></FontAwesomeIcon>
                           </div>
-                          <div className="ps-1">{reply.like}</div>
+                          <div className="ps-1">{reply.Comment.like}</div>
                         </Col>
                         <Col
                           lg={1}
@@ -487,8 +490,8 @@ function Comments(props) {
                               icon={faThumbsDown}
                               onClick={() =>
                                 props.handleUnLike1(
-                                  reply.parent_comment,
-                                  reply.id
+                                  reply.Comment.parent_comment,
+                                  reply.Comment.id
                                 )
                               }
                             ></FontAwesomeIcon>
@@ -498,7 +501,7 @@ function Comments(props) {
                         <Col lg={2} sm={3} className=" list-comment-click">
                           <div
                             className="list-comment-click-reply"
-                            onClick={() => handleClickReply2(reply.id)}
+                            onClick={() => handleClickReply2(reply.Comment.id)}
                           >
                             Phản hồi
                           </div>
@@ -507,7 +510,7 @@ function Comments(props) {
                       <div className="list-comment-reply pb-3">
                         {clickReply2 &&
                           clickReply2.value == true &&
-                          clickReply2.index == reply.id && (
+                          clickReply2.index == reply.Comment.id && (
                             <Row key={index1}>
                               <Col md={1}></Col>
                               <Col md={10} className="container-comment">
@@ -517,7 +520,7 @@ function Comments(props) {
                                       roundedCircle={true}
                                       width={40}
                                       height={40}
-                                      src={props.avatar}
+                                      src={infoUser.img}
                                     ></Image>
                                   </Col>
                                   <Col sm={11}>
@@ -544,7 +547,7 @@ function Comments(props) {
                                       onClick={() => {
                                         props.handleReply(
                                           comment.Comment.real_easte_id,
-                                          reply.parent_comment,
+                                          reply.Comment.parent_comment,
                                           reply2
                                         );
                                         setReply2("");

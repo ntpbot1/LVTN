@@ -2,7 +2,7 @@ import Carousel from "react-bootstrap/Carousel";
 import "./DetailProduct.scss";
 import ListGroup from "react-bootstrap/ListGroup";
 import Map from "./map";
-import { Button, Col, Row, Image } from "react-bootstrap";
+import { Button, Col, Row, Image, Card } from "react-bootstrap";
 import propertyApi from "../../api/propertyApi";
 import { useState, useEffect } from "react";
 import Comments from "../Comments/Comments";
@@ -11,33 +11,28 @@ import Toast from "../../components/Toast/Toast";
 import { useDispatch, useSelector } from "react-redux";
 import { isSave, isGetDeTail } from "../SignIn/SignInSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faLocation } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate, useParams } from "react-router-dom";
 
 function DetailProduct() {
+  const navigate = useNavigate();
+  const { propertyId } = useParams();
   const dispatch = useDispatch();
   const infoUser = useSelector((state) => state.login);
+  const [listUserSeen, setListUserSeen] = useState([]);
   const [property, setProperty] = useState();
   const [listImg, setListImg] = useState();
   const [news, setNews] = useState();
   const [listComment, setListComment] = useState([]);
   const [idNew, setIdNew] = useState();
   const [listReply, setListReply] = useState([]);
-  const [slug, setSlug] = useState(infoUser.slug);
-
   const [save, setSave] = useState(false);
   useEffect(() => {
     getDetailProperty();
-  }, [slug]);
+  }, [propertyId]);
   const getDetailProperty = async () => {
     try {
-      const res = await propertyApi.getDetailNew(
-        sessionStorage.getItem("slug-real-easte")
-      );
-      dispatch(
-        isGetDeTail({
-          slug: sessionStorage.getItem("slug-real-easte"),
-        })
-      );
+      const res = await propertyApi.getDetailNew(propertyId);
       setIdNew(res.data.info.id);
       setProperty(res.data);
       setListImg(res.data.imgarr);
@@ -52,17 +47,18 @@ function DetailProduct() {
       console.log("err", err);
     }
   };
-  // useEffect(() => {
-  //   getAllComment();
-  // }, []);
-  // const getAllComment = async () => {
-  //   try {
-  //     const res = await commentApi.getListComment(id);
-  //     setListCategory(res.data);
-  //   } catch (err) {
-  //     console.log("err", err);
-  //   }
-  // };
+  useEffect(() => {
+    getAllUseSeen();
+  }, []);
+  const getAllUseSeen = async () => {
+    try {
+      const res = await propertyApi.getAllUserSeen();
+      setListUserSeen(res.data);
+      console.log(res);
+    } catch (err) {
+      console.log("err", err);
+    }
+  };
   const handleComment = async (id, payload) => {
     try {
       const res = await commentApi.create(id, payload);
@@ -221,10 +217,19 @@ function DetailProduct() {
             listNews: res1.data,
           })
         );
-      } catch (error) {}
+      } catch (error) {
+        dispatch(
+          isSave({
+            listNews: [],
+          })
+        );
+      }
     } catch (error) {
       console.log(error);
     }
+  };
+  const handleClickSeen = (slug) => {
+    navigate(`/chi-tiet/${slug}`);
   };
   return (
     <>
@@ -471,6 +476,7 @@ function DetailProduct() {
                       <div className="detail-info-title">Ngày đăng</div>
                       <div className="detail-info-value">
                         {news &&
+                          news.approval_date &&
                           `${news.approval_date.slice(
                             8,
                             10
@@ -504,6 +510,104 @@ function DetailProduct() {
                   </Col>
                 </Row>
               </div>
+
+              {listUserSeen.length > 0 && (
+                <div className="py-3 detail-descriptions">
+                  <div className="py-3 detail-descriptions-title">
+                    Tin đã xem
+                  </div>
+                  <div
+                    className="detail-descriptions-value"
+                    style={{ height: "400px" }}
+                  >
+                    <Row className="d-flex list-user-seen">
+                      {listUserSeen.map((post, index) =>
+                        post.real_easte_news.status == "Release" ? (
+                          <Col
+                            key={index}
+                            md={4}
+                            sm={6}
+                            xs={12}
+                            className="pt-4 col-3 bg-transparent px-2 "
+                          >
+                            <Card
+                              onClick={() =>
+                                handleClickSeen(post.real_easte_news.slug)
+                              }
+                              width={240}
+                              className=" home-product-card item"
+                              style={{ minHeight: "300px" }}
+                            >
+                              <Card.Img
+                                variant="top"
+                                height={140}
+                                src={post.real_easte_news.thumbnail}
+                              />
+                              <Card.Body>
+                                <Card.Title
+                                  className="fs-6 home-product-title"
+                                  style={{ height: "40px" }}
+                                >
+                                  {post.real_easte_news.title}
+                                </Card.Title>
+                                <Card.Text className="d-flex home-product-price">
+                                  <>
+                                    <div className="text-danger ">
+                                      {post.info_real_easte.price.length > 10
+                                        ? `${post.info_real_easte.price.slice(
+                                            0,
+                                            2
+                                          )},${post.info_real_easte.price.slice(
+                                            2,
+                                            3
+                                          )} Tỷ`
+                                        : post.info_real_easte.price.length ==
+                                          10
+                                        ? `${
+                                            post.info_real_easte.price[0]
+                                          },${post.info_real_easte.price.slice(
+                                            1,
+                                            2
+                                          )} Tỷ`
+                                        : post.info_real_easte.price}
+                                    </div>
+                                    <div className="text-danger  ps-3">
+                                      {`${post.info_real_easte.acreage} `}m
+                                      <sup>2</sup>
+                                    </div>
+                                  </>
+                                  <></>
+                                </Card.Text>
+                                <Card.Text className="d-flex home-product-address">
+                                  <div className="">
+                                    <FontAwesomeIcon
+                                      icon={faLocation}
+                                      style={{ color: "#ccc" }}
+                                    />
+                                  </div>
+                                  <div className="ps-3">
+                                    {`${post.info_real_easte.district}, ${post.info_real_easte.city}`}
+                                  </div>
+                                </Card.Text>
+                                <Card.Text className="home-product-date">
+                                  {post.real_easte_news.approval_date &&
+                                    post.real_easte_news.approval_date.slice(
+                                      0,
+                                      10
+                                    )}
+                                </Card.Text>
+                              </Card.Body>
+                            </Card>
+                          </Col>
+                        ) : (
+                          ""
+                        )
+                      )}
+                    </Row>
+                  </div>
+                </div>
+              )}
+
               <div className="py-3 detail-descriptions">
                 <div className="py-3 detail-descriptions-title">Bình luận</div>
                 <div className="container detail-comment">

@@ -12,15 +12,23 @@ const propertyApi = {
       },
     });
   },
+  getAllUserSeen() {
+    const url = "/real-easte/user-seen";
+    return axiosClient.get(url, {
+      headers: {
+        Authorization: `token ${sessionStorage.getItem("token")}`,
+      },
+    });
+  },
   getDetailNew(slug) {
     const url = `/real-easte/detail/${slug}`;
     return axiosClient.get(url);
   },
-  searh(title) {
+  search(title) {
     const url = `/real-easte/search?title=${title}`;
     return axiosClient.get(url);
   },
-  searhCategory(category) {
+  searchCategory(category) {
     const url = `/real-easte/${category}?page=1&limit=10`;
     return axiosClient.get(url);
   },

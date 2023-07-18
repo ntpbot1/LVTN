@@ -1,4 +1,4 @@
-import { Table, Modal, Button, Form, Col, Row } from "react-bootstrap";
+import { Table, Modal, Button, Form, Col, Row, Image } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
@@ -34,6 +34,7 @@ function Manage() {
   let stt = 1;
   const [show, setShow] = useState(false);
   const [property, setProperty] = useState();
+  const [img, setImg] = useState();
   const handleShow = (property) => {
     setShow(true);
     setProperty(property);
@@ -153,7 +154,8 @@ function Manage() {
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Tiêu đề</Form.Label>
                 <Form.Control
-                  type="text"
+                  as="textarea"
+                  style={{ height: "80px" }}
                   value={property.real_easte_news.title}
                 />
               </Form.Group>
@@ -190,7 +192,20 @@ function Manage() {
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Hình ảnh</Form.Label>
-                <Form.Control type="file" multiple />
+                <div>
+                  <Row>
+                    <Col md={2}></Col>
+                    <Col md={8}>
+                      <Image
+                        className="w-100"
+                        roundedCircle={false}
+                        height={200}
+                        src={property.real_easte_news.thumbnail}
+                      ></Image>
+                    </Col>
+                    <Col md={2}></Col>
+                  </Row>
+                </div>
               </Form.Group>
             </Form>
           </Modal.Body>

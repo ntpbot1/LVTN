@@ -122,7 +122,15 @@ function Property() {
                         ? "Loại 3"
                         : "Loại 4"}
                     </td>
-                    <td>{item.real_easte_id.approval_date.slice(0, 10)}</td>
+                    <td>
+                      {`${item.real_easte_id.approval_date.slice(
+                        8,
+                        10
+                      )}-${item.real_easte_id.approval_date.slice(
+                        5,
+                        7
+                      )}-${item.real_easte_id.approval_date.slice(0, 4)}`}
+                    </td>
                     <td>{item.real_easte_id.status}</td>
 
                     <td>

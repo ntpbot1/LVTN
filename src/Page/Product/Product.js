@@ -1,39 +1,44 @@
 import { Container, Row, Col, Image } from "react-bootstrap";
 
 import "./Product.scss";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot, faPhone } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 import propertyApi from "../../api/propertyApi";
 function Product() {
   const navigate = useNavigate();
+  const { content, category, province, district, ward, price, acreage } =
+    useParams();
   const [listProperty, setListProperty] = useState([]);
+  console.log(content);
   useEffect(() => {
     getAllProperty();
   }, []);
   const getAllProperty = async () => {
-    if (sessionStorage.getItem("searchCategory")) {
-      try {
-        let res = await propertyApi.searhCategory(
-          sessionStorage.getItem("searchCategory")
-        );
-        setListProperty(res.data);
-      } catch (err) {
-        console.log("err", err);
-      }
+    // if (sessionStorage.getItem("searchCategory")) {
+    // try {
+    //   let res = await propertyApi.searchCategory("Nha-rieng");
+    //   setListProperty(res.data);
+    // } catch (err) {
+    //   console.log("err", err);
+    // }
+    // }
+    // if (sessionStorage.getItem("searchContent")) {
+    try {
+      let res = await propertyApi.search(sessionStorage.getItem("content"));
+      console.log(res);
+      setListProperty(res.data);
+    } catch (err) {
+      console.log("err", err);
     }
-    if (sessionStorage.getItem("searchContent")) {
-      try {
-        let res = await propertyApi.searh(
-          sessionStorage.getItem("searchContent")
-        );
-        console.log(res);
-        setListProperty(res.data);
-      } catch (err) {
-        console.log("err", err);
-      }
-    }
+    // }
+    // try {
+    //   const res = await propertyApi.getAll();
+    //   setListProperty(res.data);
+    // } catch (err) {
+    //   console.log("err", err);
+    // }
   };
   const handleGetDetail = (slug) => {
     sessionStorage.setItem("slug-real-easte", slug);
@@ -72,7 +77,15 @@ function Product() {
                               <div className="card-title">TIN VIP 4</div>
                             </div>
                           </Col>
-                          <Col xs={4} className="product-content"></Col>
+                          <Col xs={4} className="product-content">
+                            {/* <div className="d-flex h-50">
+                            <Image
+                              className="w-100 h-100 product-img-4"
+                              src={pro.Real_Easte.thumbnail}
+                            ></Image>
+                            </div>
+                            <div></div> */}
+                          </Col>
                         </Row>
                         <Row className=" h-75 pt-3 d-flex flex-column justify-content-between ">
                           <div className="fs-6 home-product-title">

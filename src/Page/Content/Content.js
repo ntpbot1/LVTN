@@ -32,8 +32,7 @@ function Content() {
   //   console.log("out");
   // };
   const handleClick = (slug) => {
-    sessionStorage.setItem("slug-real-easte", slug);
-    navigate("/chi-tiet");
+    navigate(`/chi-tiet/${slug}`);
   };
 
   return (

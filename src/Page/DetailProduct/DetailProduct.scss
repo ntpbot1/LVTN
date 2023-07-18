@@ -40,6 +40,21 @@
       .detail-desciptions-value {
         line-height: 24px;
         font-size: 14px;
+        height: 400px;
+      }
+      .list-user-seen {
+        height: 100%;
+        width: 100%;
+        overflow-x: auto;
+        .item {
+          // width: 240px;
+          cursor: pointer;
+          box-shadow: 0 0.125rem 0.25rem rgba(#000000, 0.075);
+
+          &:hover {
+            box-shadow: 0 1rem 3rem rgba($color: #000000, $alpha: 0.175);
+          }
+        }
       }
     }
     .detail-characterize {

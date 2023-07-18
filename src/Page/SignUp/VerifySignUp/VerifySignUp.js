@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import SignUpApi from "../../../api/SignUpApi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -33,9 +33,11 @@ function VerifySignUp() {
       progress: undefined,
       theme: "light",
     });
+  const { email } = useParams();
   const navigate = useNavigate;
-  const email = sessionStorage.getItem("email-sign-up");
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState(
+    "Mã xác nhận đã dược gửi qua email. Vui lòng kiểm tra email"
+  );
   const formik = useFormik({
     initialValues: {
       code: "",
@@ -47,8 +49,8 @@ function VerifySignUp() {
       setMessage("");
       try {
         let res = await SignUpApi.verify(email, values.code);
-        console.log(res);
         if (res.data.message) {
+          setMessage("Xác nhận thành công");
           notify();
         }
       } catch (error) {
@@ -66,9 +68,7 @@ function VerifySignUp() {
           className="mx-auto py-5 px-5 bg-white form rounded shadow-sm "
         >
           <div className="fs-2 pb-4">Xác nhận mã</div>
-          <div className="pb-3 text-danger">
-            Mã xác nhận đã dược gửi qua email. Vui lòng kiểm tra email
-          </div>
+          <div className="pb-3 text-danger">{message}</div>
           <Form.Group className="mb-4">
             <Form.Control
               name="code"

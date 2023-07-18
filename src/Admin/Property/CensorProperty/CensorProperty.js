@@ -149,7 +149,16 @@ function CensorProperty() {
                     <td>{stt++}</td>
                     <td>{propertyNew.User.fullname}</td>
                     <td>
-                      {propertyNew.Real_Easte_News.created_date.slice(0, 10)}
+                      {`${propertyNew.Real_Easte_News.created_date.slice(
+                        8,
+                        10
+                      )}-${propertyNew.Real_Easte_News.created_date.slice(
+                        5,
+                        7
+                      )}-${propertyNew.Real_Easte_News.created_date.slice(
+                        0,
+                        4
+                      )}`}
                     </td>
                     <td>{propertyNew.Real_Easte_News.type}</td>
 

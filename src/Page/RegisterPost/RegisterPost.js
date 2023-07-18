@@ -400,13 +400,13 @@ function RegisterPost() {
         .label("Phải là số")
         .integer("Phải là số nguyên")
         .min(1, "Tối thiểu là 1")
-        .max(20, "Tối đa là 20")
+        .max(50, "Tối đa là 20")
         .required("Cần nhập chiều dài"),
       width: Yup.number()
         .label("Phải là số")
         .integer("Phải là số nguyên")
         .min(1, "Tối thiểu là 1")
-        .max(20, "Tối đa là 20")
+        .max(50, "Tối đa là 20")
         .required("Cần nhập chiều rộng"),
       totalUsableArea: Yup.number()
         .label("Phải là số")

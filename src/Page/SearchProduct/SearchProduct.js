@@ -21,11 +21,12 @@ import propertyApi from "../../api/propertyApi";
 function SearchProduct() {
   sessionStorage.removeItem("searchCategory");
   sessionStorage.removeItem("searchContent");
-
   const navigate = useNavigate();
   const [listCategory, setListCategory] = useState();
   const [content, setContent] = useState("");
-  const [category, setCategory] = useState();
+  const [category, setCategory] = useState("");
+  const [price, setPrice] = useState("");
+  const [acreage, setAcreage] = useState("");
 
   const [hinhThuc, setHinhThuc] = useState("nha-dat-ban");
   const handleHinhThuc = (value) => {
@@ -47,48 +48,61 @@ function SearchProduct() {
   const [loaiGia, setLoaiGia] = useState("");
   const handleSelectLoaiGia = (eventKey) => {
     switch (eventKey) {
-      case "l1":
+      case "500000000":
+        setPrice(eventKey);
         setLoaiGia("Dưới 500 triệu");
         break;
-      case "l2":
+      case "500000000-800000000":
+        setPrice(eventKey);
         setLoaiGia("500 - 800 triệu");
         break;
-      case "l3":
+      case "800000000-1000000000":
+        setPrice(eventKey);
         setLoaiGia("800 triệu - 1 tỷ");
         break;
-      case "l4":
+      case "1000000000-2000000000":
+        setPrice(eventKey);
         setLoaiGia("1 - 2 tỷ");
         break;
-      case "l5":
+      case "2000000000-3000000000":
+        setPrice(eventKey);
         setLoaiGia("2 - 3 tỷ");
         break;
-      case "l6":
+      case "3000000000-5000000000":
+        setPrice(eventKey);
         setLoaiGia("3 - 5 tỷ");
         break;
-      case "l7":
+      case "5000000000-7000000000":
+        setPrice(eventKey);
         setLoaiGia("5 - 7 tỷ");
         break;
-      case "l8":
+      case "7000000000-10000000000":
+        setPrice(eventKey);
         setLoaiGia("7 - 10 tỷ");
         break;
-      case "l9":
+      case "10000000000-20000000000":
+        setPrice(eventKey);
         setLoaiGia("10 - 20 tỷ");
         break;
-      case "l10":
+      case "20000000000-30000000000":
+        setPrice(eventKey);
         setLoaiGia("20 - 30 tỷ");
         break;
-      case "l11":
+      case "30000000000-40000000000":
+        setPrice(eventKey);
         setLoaiGia("30 - 40 tỷ");
         break;
-      case "l12":
+      case "40000000000-60000000000":
+        setPrice(eventKey);
         setLoaiGia("40 - 60 tỷ");
         break;
-      case "l3":
+      case "60000000000":
+        setPrice(eventKey);
         setLoaiGia("trên 60 tỷ");
         break;
-      case "l14":
-        setLoaiGia("thỏa thuận");
-        break;
+      // case "l14":
+      //   setLoaiGia("thỏa thuận");
+      //   break;
 
       default:
         break;
@@ -98,7 +112,8 @@ function SearchProduct() {
   const m = 2;
   const handleSelectLoaiDienTich = (eventKey) => {
     switch (eventKey) {
-      case "l1":
+      case "30":
+        setAcreage(eventKey);
         setLoaiDienTich(() => (
           <>
             <div>
@@ -107,7 +122,8 @@ function SearchProduct() {
           </>
         ));
         break;
-      case "l2":
+      case "30-50":
+        setAcreage(eventKey);
         setLoaiDienTich(() => (
           <>
             <div>
@@ -116,7 +132,8 @@ function SearchProduct() {
           </>
         ));
         break;
-      case "l3":
+      case "50-80":
+        setAcreage(eventKey);
         setLoaiDienTich(() => (
           <>
             <div>
@@ -125,7 +142,8 @@ function SearchProduct() {
           </>
         ));
         break;
-      case "l4":
+      case "80-100":
+        setAcreage(eventKey);
         setLoaiDienTich(() => (
           <>
             <div>
@@ -134,7 +152,8 @@ function SearchProduct() {
           </>
         ));
         break;
-      case "l5":
+      case "100-150":
+        setAcreage(eventKey);
         setLoaiDienTich(() => (
           <>
             <div>
@@ -143,7 +162,8 @@ function SearchProduct() {
           </>
         ));
         break;
-      case "l6":
+      case "150-200":
+        setAcreage(eventKey);
         setLoaiDienTich(() => (
           <>
             <div>
@@ -152,7 +172,8 @@ function SearchProduct() {
           </>
         ));
         break;
-      case "l7":
+      case "200-250":
+        setAcreage(eventKey);
         setLoaiDienTich(() => (
           <>
             <div>
@@ -161,7 +182,8 @@ function SearchProduct() {
           </>
         ));
         break;
-      case "l8":
+      case "250-350":
+        setAcreage(eventKey);
         setLoaiDienTich(() => (
           <>
             <div>
@@ -170,7 +192,8 @@ function SearchProduct() {
           </>
         ));
         break;
-      case "l9":
+      case "300-500":
+        setAcreage(eventKey);
         setLoaiDienTich(() => (
           <>
             <div>
@@ -179,7 +202,8 @@ function SearchProduct() {
           </>
         ));
         break;
-      case "l10":
+      case "500":
+        setAcreage(eventKey);
         setLoaiDienTich(() => (
           <>
             <div>
@@ -306,13 +330,24 @@ function SearchProduct() {
     }
   };
   const handleSearch = async () => {
-    if (loaiBDS != "") {
-      sessionStorage.setItem("searchCategory", category);
-      navigate("/search");
-    } else {
-      sessionStorage.setItem("searchContent", content);
-      navigate("/search");
-    }
+    // if (loaiBDS != "") {
+    //   sessionStorage.setItem("searchCategory", category);
+    //   navigate("/search");
+    // } else {
+    //   sessionStorage.setItem("searchContent", content);
+    //   navigate("/search");
+    // }
+    // navigate(
+    //   `/search/${content}/${category}/${nameProvince}?/${nameDistrict}/${nameWards}/${price}/${acreage}`
+    // );
+    sessionStorage.setItem("content", content);
+    sessionStorage.setItem("category", category);
+    sessionStorage.setItem("province", nameProvince);
+    sessionStorage.setItem("district", nameDistrict);
+    sessionStorage.setItem("ward", nameWards);
+    sessionStorage.setItem("price", price);
+    sessionStorage.setItem("acreage", acreage);
+    navigate("/search");
   };
   return (
     <>
@@ -489,22 +524,46 @@ function SearchProduct() {
                     {loaiGia ? loaiGia : "Mức giá"}
                   </DropdownToggle>
                   <DropdownMenu className="">
-                    <DropdownItem eventKey={"l1"}>Dưới 500 triệu</DropdownItem>
-                    <DropdownItem eventKey={"l2"}>500 - 800 triệu</DropdownItem>
-                    <DropdownItem eventKey={"l3"}>
+                    <DropdownItem eventKey={"500000000"}>
+                      Dưới 500 triệu
+                    </DropdownItem>
+                    <DropdownItem eventKey={"500000000-800000000"}>
+                      500 - 800 triệu
+                    </DropdownItem>
+                    <DropdownItem eventKey={"800000000-1000000000"}>
                       800 triệu - 1 tỷ
                     </DropdownItem>
-                    <DropdownItem eventKey={"l4"}>1 - 2 tỷ</DropdownItem>
-                    <DropdownItem eventKey={"l5"}>2 - 3 tỷ</DropdownItem>
-                    <DropdownItem eventKey={"l6"}>3 - 5 tỷ</DropdownItem>
-                    <DropdownItem eventKey={"l7"}>5 - 7 tỷ</DropdownItem>
-                    <DropdownItem eventKey={"l8"}>7 - 10 tỷ</DropdownItem>
-                    <DropdownItem eventKey={"l9"}>10 - 20 tỷ</DropdownItem>
-                    <DropdownItem eventKey={"l10"}>20 - 30 tỷ</DropdownItem>
-                    <DropdownItem eventKey={"l11"}>30 - 40 tỷ</DropdownItem>
-                    <DropdownItem eventKey={"l12"}>40 - 60 tỷ</DropdownItem>
-                    <DropdownItem eventKey={"l13"}>trên 60 tỷ</DropdownItem>
-                    <DropdownItem eventKey={"l14"}>Thỏa thuận</DropdownItem>
+                    <DropdownItem eventKey={"1000000000-2000000000"}>
+                      1 - 2 tỷ
+                    </DropdownItem>
+                    <DropdownItem eventKey={"2000000000-3000000000"}>
+                      2 - 3 tỷ
+                    </DropdownItem>
+                    <DropdownItem eventKey={"3000000000-5000000000"}>
+                      3 - 5 tỷ
+                    </DropdownItem>
+                    <DropdownItem eventKey={"5000000000-7000000000"}>
+                      5 - 7 tỷ
+                    </DropdownItem>
+                    <DropdownItem eventKey={"7000000000-10000000000"}>
+                      7 - 10 tỷ
+                    </DropdownItem>
+                    <DropdownItem eventKey={"10000000000-20000000000"}>
+                      10 - 20 tỷ
+                    </DropdownItem>
+                    <DropdownItem eventKey={"20000000000-30000000000"}>
+                      20 - 30 tỷ
+                    </DropdownItem>
+                    <DropdownItem eventKey={"30000000000-40000000000"}>
+                      30 - 40 tỷ
+                    </DropdownItem>
+                    <DropdownItem eventKey={"40000000000-60000000000"}>
+                      40 - 60 tỷ
+                    </DropdownItem>
+                    <DropdownItem eventKey={"60000000000"}>
+                      trên 60 tỷ
+                    </DropdownItem>
+                    {/* <DropdownItem eventKey={"tt"}>Thỏa thuận</DropdownItem> */}
                   </DropdownMenu>
                 </Dropdown>
               </Col>
@@ -517,34 +576,34 @@ function SearchProduct() {
                     {loaiDienTich ? loaiDienTich : "Diện tích"}
                   </DropdownToggle>
                   <DropdownMenu className="">
-                    <DropdownItem eventKey={"l1"}>
+                    <DropdownItem eventKey={"30"}>
                       Dưới 30 m<sup>2</sup>
                     </DropdownItem>
-                    <DropdownItem eventKey={"l2"}>
+                    <DropdownItem eventKey={"30-50"}>
                       30 - 50 m<sup>2</sup>
                     </DropdownItem>
-                    <DropdownItem eventKey={"l3"}>
+                    <DropdownItem eventKey={"50-80"}>
                       50 - 80 m<sup>2</sup>
                     </DropdownItem>
-                    <DropdownItem eventKey={"l4"}>
+                    <DropdownItem eventKey={"80-100"}>
                       80 - 100 m<sup>2</sup>
                     </DropdownItem>
-                    <DropdownItem eventKey={"l5"}>
+                    <DropdownItem eventKey={"100-150"}>
                       100 - 150 m<sup>2</sup>
                     </DropdownItem>
-                    <DropdownItem eventKey={"l6"}>
+                    <DropdownItem eventKey={"150-200"}>
                       150 - 200 m<sup>2</sup>
                     </DropdownItem>
-                    <DropdownItem eventKey={"l7"}>
+                    <DropdownItem eventKey={"200-250"}>
                       200 - 250 m<sup>2</sup>
                     </DropdownItem>
-                    <DropdownItem eventKey={"l8"}>
+                    <DropdownItem eventKey={"250-300"}>
                       250 - 300 m<sup>2</sup>
                     </DropdownItem>
-                    <DropdownItem eventKey={"l9"}>
+                    <DropdownItem eventKey={"300-500"}>
                       300 - 500 m<sup>2</sup>
                     </DropdownItem>
-                    <DropdownItem eventKey={"l10"}>
+                    <DropdownItem eventKey={"500"}>
                       trên 500 m<sup>2</sup>
                     </DropdownItem>
                   </DropdownMenu>

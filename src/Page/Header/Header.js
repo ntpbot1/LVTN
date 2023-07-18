@@ -10,6 +10,7 @@ import {
   faNewspaper,
   faRightFromBracket,
   faUser,
+  faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import DropdownMenu from "react-bootstrap/esm/DropdownMenu";
 import DropdownItem from "react-bootstrap/esm/DropdownItem";
@@ -47,9 +48,7 @@ function Header() {
     setShowFollow(!showFollow);
   };
   const handleClickSave = (slug) => {
-    sessionStorage.setItem("slug-real-easte", slug);
-    dispatch(isGetDeTail({ slug: slug }));
-    navigate("/chi-tiet");
+    navigate(`/chi-tiet/${slug}`);
     handleShowFollow();
   };
   useEffect(() => {
@@ -66,6 +65,32 @@ function Header() {
       );
     } catch (err) {
       console.log("err", err);
+      dispatch(
+        isSave({
+          listNews: [],
+        })
+      );
+    }
+  };
+  const handleClickUnSave = async (id) => {
+    try {
+      const res = await propertyApi.unSave(id);
+      try {
+        const res1 = await propertyApi.getSave();
+        dispatch(
+          isSave({
+            listNews: res1.data,
+          })
+        );
+      } catch (error) {
+        dispatch(
+          isSave({
+            listNews: [],
+          })
+        );
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
   const useViewport = () => {
@@ -109,34 +134,54 @@ function Header() {
                   <div className="py-2  fs-5 color-secondary d-flex justify-content-center follow-title">
                     Tin đăng đã lưu
                   </div>
-                  {inforUser.listNews ? (
-                    <div className="fs-7 color-secondary ">
+                  {inforUser.listNews !== null ? (
+                    <div
+                      className="fs-7 color-secondary "
+                      style={{ maxHeight: "200px", overflow: "auto" }}
+                    >
                       {inforUser.listNews.map((sav, index) => (
                         <div
                           className="d-flex align-items-center follow-list follow-item "
                           style={{ height: "50px" }}
-                          onClick={() => handleClickSave(sav.slug)}
+                          onClick={() =>
+                            handleClickSave(sav.real_easte_news.slug)
+                          }
                         >
-                          <div className="h-100 d-flex align-items-center">
+                          <div className="ps-2 h-100 d-flex align-items-center">
                             <Image
                               roundedCircle={false}
                               width={40}
                               height={40}
-                              src={sav.thumbnail}
+                              src={sav.real_easte_news.thumbnail}
                             ></Image>
                           </div>
-                          <div className="ps-2 h-100 list-item" key={index}>
-                            {sav.title}
+                          <div
+                            className="ps-2 list-item"
+                            key={index}
+                            style={{ width: "315px", height: "40px" }}
+                          >
+                            {sav.real_easte_news.title}
+                          </div>
+                          <div
+                            className="d-flex align-items-center ps-2 h-100 list-item"
+                            style={{ width: "40px", fontSize: "20px" }}
+                            onClick={() =>
+                              handleClickUnSave(sav.real_easte_news.id)
+                            }
+                          >
+                            <FontAwesomeIcon icon={faXmark} />
                           </div>
                         </div>
                       ))}
                     </div>
                   ) : (
-                    <div className="fs-5 color-secondary d-flex justify-content-center follow-item follow-list"></div>
+                    <div className="fs-5 color-secondary d-flex justify-content-center follow-item follow-list">
+                      Chưa có tin lưu
+                    </div>
                   )}
-                  <div className="color-secondary d-flex justify-content-center align-items-center follow-item follow-list">
-                    Xem tất cả
-                  </div>
+                  {/* <div className="color-secondary d-flex justify-content-center align-items-center follow-item follow-list">
+                    Chưa lưu tin
+                  </div> */}
                 </div>
               </div>
             ) : (

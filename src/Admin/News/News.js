@@ -126,10 +126,10 @@ function News() {
                 listNews.map((n, index) => (
                   <tr key={index}>
                     <td>{stt++}</td>
-                    <td>{`${n.created_date.slice(8, 10)}/${n.created_date.slice(
+                    <td>{`${n.created_date.slice(8, 10)}-${n.created_date.slice(
                       6,
                       7
-                    )}/${n.created_date.slice(0, 4)}`}</td>
+                    )}-${n.created_date.slice(0, 4)}`}</td>
                     <td>{n.author}</td>
                     <td>{n.viewer}</td>
 

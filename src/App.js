@@ -27,16 +27,28 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/thanh-toan-thanh-cong" element={<Payment />}></Route>
+        <Route
+          path="/thanh-toan-thanh-cong/:cost/:bank/:date/:code"
+          element={<Payment />}
+        ></Route>
 
         <Route path="/" element={<Home />}>
           <Route path="dang-nhap" element={<SignIn />}></Route>
           <Route path="dang-ky" element={<SignUp />}></Route>
-          <Route path="xac-nhan-dang-ky" element={<VerifySignUp />}></Route>
+          <Route
+            path="xac-nhan-dang-ky/:email"
+            element={<VerifySignUp />}
+          ></Route>
 
-          <Route path="chi-tiet" element={<DetailProduct />}></Route>
+          <Route
+            path="chi-tiet/:propertyId"
+            element={<DetailProduct />}
+          ></Route>
           <Route path="search" element={<Product />}></Route>
-
+          {/* <Route
+            path="search/:content/:categry/:province/:district/:ward/:price/:acreage"
+            element={<Product />}
+          ></Route> */}
           <Route path="dang-tin" element={<RegisterPost />}></Route>
           <Route path="quan-ly-tin-dang" element={<Manage />}></Route>
 
