@@ -23,10 +23,10 @@ function SearchProduct() {
   sessionStorage.removeItem("searchContent");
   const navigate = useNavigate();
   const [listCategory, setListCategory] = useState();
-  const [content, setContent] = useState("");
-  const [category, setCategory] = useState("");
-  const [price, setPrice] = useState("");
-  const [acreage, setAcreage] = useState("");
+  const [content, setContent] = useState();
+  const [category, setCategory] = useState();
+  const [price, setPrice] = useState();
+  const [acreage, setAcreage] = useState();
 
   const [hinhThuc, setHinhThuc] = useState("nha-dat-ban");
   const handleHinhThuc = (value) => {
@@ -243,7 +243,7 @@ function SearchProduct() {
       console.log("err", err);
     }
   };
-  const [nameProvince, setNameProvince] = useState("");
+  const [nameProvince, setNameProvince] = useState();
   const [province, setProvince] = useState("");
   const handleSelectProvince = (eventKey) => {
     {
@@ -280,7 +280,7 @@ function SearchProduct() {
       console.log("err", err);
     }
   };
-  const [nameDistrict, setNameDistrict] = useState("");
+  const [nameDistrict, setNameDistrict] = useState();
   const [district, setDistrict] = useState("");
   const handleSelectDistrict = (eventKey) => {
     {
@@ -315,7 +315,7 @@ function SearchProduct() {
       console.log("err", err);
     }
   };
-  const [nameWards, setNameWards] = useState("");
+  const [nameWards, setNameWards] = useState();
   const [wards, setWards] = useState("");
   const handleSelectWards = (eventKey) => {
     {
@@ -337,17 +337,17 @@ function SearchProduct() {
     //   sessionStorage.setItem("searchContent", content);
     //   navigate("/search");
     // }
-    // navigate(
-    //   `/search/${content}/${category}/${nameProvince}?/${nameDistrict}/${nameWards}/${price}/${acreage}`
-    // );
-    sessionStorage.setItem("content", content);
-    sessionStorage.setItem("category", category);
-    sessionStorage.setItem("province", nameProvince);
-    sessionStorage.setItem("district", nameDistrict);
-    sessionStorage.setItem("ward", nameWards);
-    sessionStorage.setItem("price", price);
-    sessionStorage.setItem("acreage", acreage);
-    navigate("/search");
+    navigate(
+      `/search/${content}/${category}/${nameProvince}/${nameDistrict}/${nameWards}/${price}/${acreage}`
+    );
+    // sessionStorage.setItem("content", content);
+    // sessionStorage.setItem("category", category);
+    // sessionStorage.setItem("province", nameProvince);
+    // sessionStorage.setItem("district", nameDistrict);
+    // sessionStorage.setItem("ward", nameWards);
+    // sessionStorage.setItem("price", price);
+    // sessionStorage.setItem("acreage", acreage);
+    // navigate("/search");
   };
   return (
     <>

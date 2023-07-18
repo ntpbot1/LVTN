@@ -44,11 +44,11 @@ function App() {
             path="chi-tiet/:propertyId"
             element={<DetailProduct />}
           ></Route>
-          <Route path="search" element={<Product />}></Route>
-          {/* <Route
-            path="search/:content/:categry/:province/:district/:ward/:price/:acreage"
+          {/* <Route path="search" element={<Product />}></Route> */}
+          <Route
+            path="search/:content/:category/:province/:district/:ward/:price/:acreage"
             element={<Product />}
-          ></Route> */}
+          ></Route>
           <Route path="dang-tin" element={<RegisterPost />}></Route>
           <Route path="quan-ly-tin-dang" element={<Manage />}></Route>
 
@@ -56,7 +56,14 @@ function App() {
           <Route path="doi-thong-tin" element={<ChangeInfo />}></Route>
           <Route path="quen-mat-khau" element={<ForgetPass />}></Route>
           <Route path="chi-tiet-tin-tuc" element={<DetailNew />}></Route>
-
+          {/* <Route
+            path="fb-gg/:id/:name/:https/:a/:link/:b/:avatar/:token1/:token2"
+            element={<Content />}
+          ></Route> */}
+          <Route
+            path="fb-gg/:id/:name/:avatar/:token1/:token2"
+            element={<Content />}
+          ></Route>
           <Route index element={<Content />}></Route>
         </Route>
 

@@ -3,7 +3,7 @@ import "./Content.scss";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Col, Row } from "react-bootstrap";
 import SearchProduct from "../SearchProduct/SearchProduct";
 import News from "../News/News";
@@ -11,6 +11,8 @@ import { useState, useEffect } from "react";
 import propertyApi from "../../api/propertyApi";
 function Content() {
   const navigate = useNavigate();
+  const { id, name, avatar, token1, token2 } = useParams();
+  console.log(id, name, avatar, token1, token2);
   const [listProperty, setListProperty] = useState([]);
 
   useEffect(() => {
