@@ -248,9 +248,9 @@ function SearchProduct() {
   const handleSelectProvince = (eventKey) => {
     {
       setProvince(eventKey);
-      setNameDistrict("");
+      setNameDistrict(undefined);
       setDistrict("");
-      setNameWards("");
+      setNameWards(undefined);
       setWards("");
       {
         listProvinces.forEach((element) => {
@@ -285,7 +285,7 @@ function SearchProduct() {
   const handleSelectDistrict = (eventKey) => {
     {
       setDistrict(eventKey);
-      setNameWards("");
+      setNameWards(undefined);
       setWards("");
       {
         listDistrict.forEach((element) => {

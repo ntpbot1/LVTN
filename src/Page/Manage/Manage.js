@@ -4,6 +4,7 @@ import { faCircleXmark, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 import propertyApi from "../../api/propertyApi";
 import approvePost from "../../api/approvePostApi";
+import paymentApi from "../../api/paymentApi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Manage.scss";
@@ -46,6 +47,9 @@ function Manage() {
   const handleRePost = async (slug) => {
     try {
       const res = await propertyApi.rePost(slug);
+      // if(res.data){
+      //   const res1= await paymentApi.getPayment();
+      // }
       handleClose();
       getAllProperty();
     } catch (error) {

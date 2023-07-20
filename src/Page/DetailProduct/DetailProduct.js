@@ -230,6 +230,7 @@ function DetailProduct() {
   };
   const handleClickSeen = (slug) => {
     navigate(`/chi-tiet/${slug}`);
+    window.scrollTo(0, 0);
   };
   return (
     <>

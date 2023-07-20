@@ -49,6 +49,7 @@ function Header() {
   };
   const handleClickSave = (slug) => {
     navigate(`/chi-tiet/${slug}`);
+    window.scrollTo(0, 0);
     handleShowFollow();
   };
   useEffect(() => {

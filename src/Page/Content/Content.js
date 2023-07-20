@@ -12,7 +12,7 @@ import propertyApi from "../../api/propertyApi";
 function Content() {
   const navigate = useNavigate();
   const { id, name, avatar, token1, token2 } = useParams();
-  console.log(id, name, avatar, token1, token2);
+  // console.log(id, name, avatar, token1, token2);
   const [listProperty, setListProperty] = useState([]);
 
   useEffect(() => {
