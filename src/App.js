@@ -22,6 +22,7 @@ import DetailNew from "./Page/DetailNews/DetailNew.js";
 import HiddenComponent from "./Admin/Property/Hidden/Hidden.js";
 import Statistical from "./Admin/Statistical/Statistical.js";
 import Payment from "./Page/Payment/Payment.js";
+import RePost from "./Page/RePost/RePost.js";
 
 function App() {
   return (
@@ -51,7 +52,7 @@ function App() {
           ></Route>
           <Route path="dang-tin" element={<RegisterPost />}></Route>
           <Route path="quan-ly-tin-dang" element={<Manage />}></Route>
-
+          <Route path="gia-han/:slug" element={<RePost />}></Route>
           <Route path="doi-mat-khau" element={<ChangePass />}></Route>
           <Route path="doi-thong-tin" element={<ChangeInfo />}></Route>
           <Route path="quen-mat-khau" element={<ForgetPass />}></Route>

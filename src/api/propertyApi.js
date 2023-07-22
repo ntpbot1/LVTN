@@ -72,11 +72,11 @@ const propertyApi = {
       },
     });
   },
-  rePost(slug) {
+  rePost(slug, type, expiration) {
     const url = `real-easte/re-post/${slug}`;
     return axiosClient.put(
       url,
-      {},
+      { type: type, expiration: expiration },
       {
         headers: {
           Authorization: `token ${sessionStorage.getItem("token")}`,

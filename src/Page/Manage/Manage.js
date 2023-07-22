@@ -8,6 +8,7 @@ import paymentApi from "../../api/paymentApi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Manage.scss";
+import { useNavigate } from "react-router-dom";
 function Manage() {
   const notify = () =>
     toast.success("Gia hạn thành công", {
@@ -31,6 +32,7 @@ function Manage() {
       progress: undefined,
       theme: "light",
     });
+  const navigate = useNavigate();
   const [listProperty, setListProperty] = useState();
   let stt = 1;
   const [show, setShow] = useState(false);
@@ -44,19 +46,8 @@ function Manage() {
     setShow(false);
     setProperty("");
   };
-  const handleRePost = async (slug) => {
-    try {
-      const res = await propertyApi.rePost(slug);
-      // if(res.data){
-      //   const res1= await paymentApi.getPayment();
-      // }
-      handleClose();
-      getAllProperty();
-    } catch (error) {
-      handleClose();
-      notify1();
-      console.log(error);
-    }
+  const handleRePost = (slug) => {
+    navigate(`/gia-han/${slug}`);
   };
   useEffect(() => {
     getAllProperty();
