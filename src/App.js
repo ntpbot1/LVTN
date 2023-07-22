@@ -52,7 +52,7 @@ function App() {
           ></Route>
           <Route path="dang-tin" element={<RegisterPost />}></Route>
           <Route path="quan-ly-tin-dang" element={<Manage />}></Route>
-          <Route path="gia-han/:slug" element={<RePost />}></Route>
+          <Route path="gia-han/:id/:slug" element={<RePost />}></Route>
           <Route path="doi-mat-khau" element={<ChangePass />}></Route>
           <Route path="doi-thong-tin" element={<ChangeInfo />}></Route>
           <Route path="quen-mat-khau" element={<ForgetPass />}></Route>

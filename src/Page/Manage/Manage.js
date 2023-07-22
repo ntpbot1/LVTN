@@ -46,8 +46,8 @@ function Manage() {
     setShow(false);
     setProperty("");
   };
-  const handleRePost = (slug) => {
-    navigate(`/gia-han/${slug}`);
+  const handleRePost = (id, slug) => {
+    navigate(`/gia-han/${id}/${slug}`);
   };
   useEffect(() => {
     getAllProperty();
@@ -210,7 +210,12 @@ function Manage() {
             </Button>
             <Button
               variant="primary"
-              onClick={() => handleRePost(property.real_easte_news.slug)}
+              onClick={() =>
+                handleRePost(
+                  property.real_easte_news.title,
+                  property.real_easte_news.slug
+                )
+              }
             >
               Gia hạn
             </Button>

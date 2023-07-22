@@ -11,7 +11,7 @@ import { useParams } from "react-router-dom";
 import propertyApi from "../../api/propertyApi";
 import paymentApi from "../../api/paymentApi";
 function RePost() {
-  const { slug } = useParams();
+  const { id, slug } = useParams();
   const VND = new Intl.NumberFormat("vi-VN", {
     style: "currency",
     currency: "VND",
@@ -59,6 +59,9 @@ function RePost() {
         formDaTa.append("amount", totalCost);
         formDaTa.append("bankCode", "");
         formDaTa.append("language", "vn");
+        formDaTa.append("language", "vn");
+        formDaTa3.append("real_easte_id", id);
+
         try {
           const res1 = await paymentApi.getPayment(formDaTa);
           if (res1.data) {
