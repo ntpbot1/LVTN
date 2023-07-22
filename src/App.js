@@ -57,12 +57,8 @@ function App() {
           <Route path="doi-thong-tin" element={<ChangeInfo />}></Route>
           <Route path="quen-mat-khau" element={<ForgetPass />}></Route>
           <Route path="chi-tiet-tin-tuc" element={<DetailNew />}></Route>
-          {/* <Route
-            path="fb-gg/:id/:name/:https/:a/:link/:b/:avatar/:token1/:token2"
-            element={<Content />}
-          ></Route> */}
           <Route
-            path="fb-gg/:id/:name/:avatar/:token1/:token2"
+            path="fb-gg/:id/:email/:name/:token1/:token2"
             element={<Content />}
           ></Route>
           <Route index element={<Content />}></Route>

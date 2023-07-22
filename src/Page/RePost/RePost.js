@@ -52,7 +52,6 @@ function RePost() {
     }
   };
   const handleRePost = async () => {
-    console.log(slug);
     try {
       const res = await propertyApi.rePost(slug, type, expiration);
       if (res.data) {

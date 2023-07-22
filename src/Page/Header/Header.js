@@ -24,7 +24,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
-
+import imgUserNull from "../../assets/images/userNull.jpg";
 function Header() {
   const navigate = useNavigate();
   const [listSave, setListSave] = useState();
@@ -196,12 +196,22 @@ function Header() {
                     variant="light"
                     className="w-100 text-start d-flex align-items-center justify-content-between bg-transparent border-none info-select"
                   >
-                    <Image
-                      roundedCircle={true}
-                      width={40}
-                      height={40}
-                      src={inforUser.img}
-                    ></Image>
+                    {inforUser.img ? (
+                      <Image
+                        roundedCircle={true}
+                        width={40}
+                        height={40}
+                        src={inforUser.img}
+                      ></Image>
+                    ) : (
+                      <Image
+                        roundedCircle={true}
+                        width={40}
+                        height={40}
+                        src={imgUserNull}
+                      ></Image>
+                    )}
+
                     <div className="nav-item-name px-2">
                       {inforUser.userName}
                     </div>

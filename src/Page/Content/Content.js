@@ -9,12 +9,24 @@ import SearchProduct from "../SearchProduct/SearchProduct";
 import News from "../News/News";
 import { useState, useEffect } from "react";
 import propertyApi from "../../api/propertyApi";
+import { isLogin } from "../SignIn/SignInSlice";
+
+import { useDispatch } from "react-redux";
 function Content() {
   const navigate = useNavigate();
-  const { id, name, avatar, token1, token2 } = useParams();
-  // console.log(id, name, avatar, token1, token2);
+  const dispatch = useDispatch();
+  const { id, email, name, token1, token2 } = useParams();
   const [listProperty, setListProperty] = useState([]);
-
+  if (id && name && token1 && token2) {
+    dispatch(
+      isLogin({
+        id: id,
+        name: name,
+        email: email,
+      })
+    );
+    sessionStorage.setItem("token", token2);
+  }
   useEffect(() => {
     getAllProperty();
   }, []);
