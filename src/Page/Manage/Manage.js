@@ -212,7 +212,7 @@ function Manage() {
               variant="primary"
               onClick={() =>
                 handleRePost(
-                  property.real_easte_news.title,
+                  property.real_easte_news.id,
                   property.real_easte_news.slug
                 )
               }
