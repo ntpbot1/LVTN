@@ -15,7 +15,7 @@ import { useDispatch } from "react-redux";
 function Content() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { id, email, name, token1, token2 } = useParams();
+  const { id, email, name, img, token1, token2 } = useParams();
   const [listProperty, setListProperty] = useState([]);
   if (id && name && token1 && token2) {
     dispatch(
@@ -23,6 +23,7 @@ function Content() {
         id: id,
         name: name,
         email: email,
+        img: img.replaceAll("!", "/"),
       })
     );
     sessionStorage.setItem("token", token2);
