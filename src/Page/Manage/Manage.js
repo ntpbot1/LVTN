@@ -142,7 +142,7 @@ function Manage() {
       {property && (
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Sửa tin</Modal.Title>
+            <Modal.Title>Chi Tiết</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form>
