@@ -17,6 +17,7 @@ function Content() {
   const dispatch = useDispatch();
   const { id, name, img, token1, token2 } = useParams();
   const [listProperty, setListProperty] = useState([]);
+
   if (id && name && img && token1 && token2) {
     dispatch(
       isLogin({
@@ -25,6 +26,8 @@ function Content() {
         img: img.replaceAll("!", "/"),
       })
     );
+    console.log(img.replaceAll("!", "/"));
+
     sessionStorage.setItem("token", token2);
   }
   useEffect(() => {
