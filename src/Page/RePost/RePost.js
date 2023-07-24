@@ -60,7 +60,7 @@ function RePost() {
         formDaTa.append("bankCode", "");
         formDaTa.append("language", "vn");
         formDaTa.append("language", "vn");
-        formDaTa3.append("real_easte_id", id);
+        formDaTa.append("real_easte_id", id);
 
         try {
           const res1 = await paymentApi.getPayment(formDaTa);
