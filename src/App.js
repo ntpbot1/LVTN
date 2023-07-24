@@ -58,7 +58,7 @@ function App() {
           <Route path="quen-mat-khau" element={<ForgetPass />}></Route>
           <Route path="chi-tiet-tin-tuc" element={<DetailNew />}></Route>
           <Route
-            path="user/fb-gg/:id/:email/:name/:img/:token1/:token2"
+            path="user/fb-gg/:id/:name/:img/:token1/:token2"
             element={<Content />}
           ></Route>
           <Route index element={<Content />}></Route>
