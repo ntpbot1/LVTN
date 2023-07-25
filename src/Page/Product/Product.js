@@ -1299,12 +1299,78 @@ function Product() {
       const listPrice = listProperty.filter((e) => {
         return parseInt(e.Info.price) < parseInt(price);
       });
-      return <ProductItem list={listPrice} handleGetDetail={handleGetDetail} />;
+      if (acreage !== "undefined") {
+        if (acreage === "30") {
+          const listAcreage = listPrice.filter((e) => {
+            return e.Info.acreage < parseInt(acreage);
+          });
+          return (
+            <ProductItem list={listAcreage} handleGetDetail={handleGetDetail} />
+          );
+        } else if (acreage === "500") {
+          const listAcreage = listPrice.filter((e) => {
+            return e.Info.acreage > parseInt(acreage);
+          });
+          return (
+            <ProductItem list={listAcreage} handleGetDetail={handleGetDetail} />
+          );
+        } else {
+          const post = acreage.indexOf("-");
+          const start = acreage.slice(0, post);
+          const end = acreage.slice(post + 1);
+          const listAcreage = listPrice.filter((e) => {
+            return (
+              e.Info.acreage >= parseInt(start) &&
+              e.Info.acreage <= parseInt(end)
+            );
+          });
+          return (
+            <ProductItem list={listAcreage} handleGetDetail={handleGetDetail} />
+          );
+        }
+      } else {
+        return (
+          <ProductItem list={listPrice} handleGetDetail={handleGetDetail} />
+        );
+      }
     } else if (price === "60000000000") {
       const listPrice = listProperty.filter((e) => {
         return parseInt(e.Info.price) > parseInt(price);
       });
-      return <ProductItem list={listPrice} handleGetDetail={handleGetDetail} />;
+      if (acreage !== "undefined") {
+        if (acreage === "30") {
+          const listAcreage = listPrice.filter((e) => {
+            return e.Info.acreage < parseInt(acreage);
+          });
+          return (
+            <ProductItem list={listAcreage} handleGetDetail={handleGetDetail} />
+          );
+        } else if (acreage === "500") {
+          const listAcreage = listPrice.filter((e) => {
+            return e.Info.acreage > parseInt(acreage);
+          });
+          return (
+            <ProductItem list={listAcreage} handleGetDetail={handleGetDetail} />
+          );
+        } else {
+          const post = acreage.indexOf("-");
+          const start = acreage.slice(0, post);
+          const end = acreage.slice(post + 1);
+          const listAcreage = listPrice.filter((e) => {
+            return (
+              e.Info.acreage >= parseInt(start) &&
+              e.Info.acreage <= parseInt(end)
+            );
+          });
+          return (
+            <ProductItem list={listAcreage} handleGetDetail={handleGetDetail} />
+          );
+        }
+      } else {
+        return (
+          <ProductItem list={listPrice} handleGetDetail={handleGetDetail} />
+        );
+      }
     } else {
       const post = price.indexOf("-");
       const start = price.slice(0, post);
@@ -1315,7 +1381,40 @@ function Product() {
           parseInt(e.Info.price) <= parseInt(end)
         );
       });
-      return <ProductItem list={listPrice} handleGetDetail={handleGetDetail} />;
+      if (acreage !== "undefined") {
+        if (acreage === "30") {
+          const listAcreage = listPrice.filter((e) => {
+            return e.Info.acreage < parseInt(acreage);
+          });
+          return (
+            <ProductItem list={listAcreage} handleGetDetail={handleGetDetail} />
+          );
+        } else if (acreage === "500") {
+          const listAcreage = listPrice.filter((e) => {
+            return e.Info.acreage > parseInt(acreage);
+          });
+          return (
+            <ProductItem list={listAcreage} handleGetDetail={handleGetDetail} />
+          );
+        } else {
+          const post = acreage.indexOf("-");
+          const start = acreage.slice(0, post);
+          const end = acreage.slice(post + 1);
+          const listAcreage = listPrice.filter((e) => {
+            return (
+              e.Info.acreage >= parseInt(start) &&
+              e.Info.acreage <= parseInt(end)
+            );
+          });
+          return (
+            <ProductItem list={listAcreage} handleGetDetail={handleGetDetail} />
+          );
+        }
+      } else {
+        return (
+          <ProductItem list={listPrice} handleGetDetail={handleGetDetail} />
+        );
+      }
     }
   }
   //Search By Acreage

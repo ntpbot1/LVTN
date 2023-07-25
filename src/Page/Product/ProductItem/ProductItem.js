@@ -56,13 +56,23 @@ function ProductItem(props) {
                               ? `${pro.Info.price.slice(
                                   0,
                                   2
-                                )},${pro.Info.price.slice(2, 3)} Tỷ`
+                                )},${pro.Info.price.slice(2, 3)} tỷ`
                               : pro.Info.price.length == 10
                               ? `${pro.Info.price[0]},${pro.Info.price.slice(
                                   1,
                                   2
-                                )} Tỷ`
-                              : ""}
+                                )} tỷ`
+                              : pro.Info.price.length == 8
+                              ? `${pro.Info.price.slice(
+                                  0,
+                                  2
+                                )},${pro.Info.price.slice(2, 3)} triệu/tháng`
+                              : pro.Info.price.length == 7
+                              ? `${pro.Info.price[0]},${pro.Info.price.slice(
+                                  1,
+                                  2
+                                )} triệu/tháng`
+                              : pro.Info.price}
                             {/* {pro.Info.price && pro.Info.price.length >= 10
                               ? `${pro.Info.price[0]},${pro.Info.price.slice(
                                   1,
@@ -162,13 +172,23 @@ function ProductItem(props) {
                                 ? `${pro.Info.price.slice(
                                     0,
                                     2
-                                  )},${pro.Info.price.slice(2, 3)} Tỷ`
+                                  )},${pro.Info.price.slice(2, 3)} tỷ`
                                 : pro.Info.price.length == 10
                                 ? `${pro.Info.price[0]},${pro.Info.price.slice(
                                     1,
                                     2
-                                  )} Tỷ`
-                                : ""}
+                                  )} tỷ`
+                                : pro.Info.price.length == 8
+                                ? `${pro.Info.price.slice(
+                                    0,
+                                    2
+                                  )},${pro.Info.price.slice(2, 3)} triệu/tháng`
+                                : pro.Info.price.length == 7
+                                ? `${pro.Info.price[0]},${pro.Info.price.slice(
+                                    1,
+                                    2
+                                  )} triệu/tháng`
+                                : pro.Info.price}
                             </div>
                             <div className="text-danger  ps-3">
                               {`${pro.Info.acreage} `} m<sup>2</sup>
@@ -263,13 +283,23 @@ function ProductItem(props) {
                                 ? `${pro.Info.price.slice(
                                     0,
                                     2
-                                  )},${pro.Info.price.slice(2, 3)} Tỷ`
+                                  )},${pro.Info.price.slice(2, 3)} tỷ`
                                 : pro.Info.price.length == 10
                                 ? `${pro.Info.price[0]},${pro.Info.price.slice(
                                     1,
                                     2
-                                  )} Tỷ`
-                                : ""}
+                                  )} tỷ`
+                                : pro.Info.price.length == 8
+                                ? `${pro.Info.price.slice(
+                                    0,
+                                    2
+                                  )},${pro.Info.price.slice(2, 3)} triệu/tháng`
+                                : pro.Info.price.length == 7
+                                ? `${pro.Info.price[0]},${pro.Info.price.slice(
+                                    1,
+                                    2
+                                  )} triệu/tháng`
+                                : pro.Info.price}
                             </div>
                             <div className="text-danger  ps-3">
                               {`${pro.Info.acreage} `} m<sup>2</sup>
@@ -317,13 +347,23 @@ function ProductItem(props) {
                                 ? `${pro.Info.price.slice(
                                     0,
                                     2
-                                  )},${pro.Info.price.slice(2, 3)} Tỷ`
+                                  )},${pro.Info.price.slice(2, 3)} tỷ`
                                 : pro.Info.price.length == 10
                                 ? `${pro.Info.price[0]},${pro.Info.price.slice(
                                     1,
                                     2
-                                  )} Tỷ`
-                                : ""}
+                                  )} tỷ`
+                                : pro.Info.price.length == 8
+                                ? `${pro.Info.price.slice(
+                                    0,
+                                    2
+                                  )},${pro.Info.price.slice(2, 3)} triệu/tháng`
+                                : pro.Info.price.length == 7
+                                ? `${pro.Info.price[0]},${pro.Info.price.slice(
+                                    1,
+                                    2
+                                  )} triệu/tháng`
+                                : pro.Info.price}
                             </div>
                             <div className="text-danger  ps-3">
                               {`${pro.Info.acreage} `} m<sup>2</sup>

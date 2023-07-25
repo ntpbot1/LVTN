@@ -3,9 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 import propertyApi from "../../api/propertyApi";
-import approvePost from "../../api/approvePostApi";
-import paymentApi from "../../api/paymentApi";
 import { ToastContainer, toast } from "react-toastify";
+import * as Yup from "yup";
+import { useFormik } from "formik";
 import "react-toastify/dist/ReactToastify.css";
 import "./Manage.scss";
 import { useNavigate } from "react-router-dom";
@@ -37,10 +37,14 @@ function Manage() {
   let stt = 1;
   const [show, setShow] = useState(false);
   const [property, setProperty] = useState();
+  const [title, setTitle] = useState();
+  const [content, setContent] = useState();
   const [img, setImg] = useState();
   const handleShow = (property) => {
     setShow(true);
     setProperty(property);
+    setTitle(property.real_easte_news.title);
+    setContent(property.real_easte_news.content);
   };
   const handleClose = () => {
     setShow(false);
@@ -48,6 +52,17 @@ function Manage() {
   };
   const handleRePost = (id, slug) => {
     navigate(`/gia-han/${id}/${slug}`);
+  };
+  const handleChange = async (id) => {
+    const formDaTa = new FormData();
+    formDaTa.append("content", content);
+    formDaTa.append("title", title);
+    try {
+      const res = propertyApi.editNew(id, formDaTa);
+      getAllProperty();
+    } catch (error) {
+      console.log(error);
+    }
   };
   useEffect(() => {
     getAllProperty();
@@ -60,6 +75,17 @@ function Manage() {
       console.log("err", err);
     }
   };
+  // const formik = useFormik({
+  //   initialValues: {
+  //     title: property && property.real_easte_news.title,
+  //     content: property && property.real_easte_news.content,
+  //   },
+  //   validationSchema: Yup.object({
+  //     title: Yup.string().required("Chưa nhập tiêu đề"),
+  //     content: Yup.string().required("Chưa nhập nội dung"),
+  //   }),
+  //   onSubmit: async (values) => {},
+  // });
   return (
     <>
       <Row className="detail-content">
@@ -95,19 +121,23 @@ function Manage() {
                             : "Loại 4"}
                         </td>
                         <td>
-                          {item.real_easte_news.approval_date &&
-                            `${item.real_easte_news.approval_date.slice(
+                          {item.real_easte_news.created_date &&
+                            `${item.real_easte_news.created_date.slice(
                               8,
                               10
-                            )}/${item.real_easte_news.approval_date.slice(
+                            )}/${item.real_easte_news.created_date.slice(
                               6,
                               7
-                            )}/${item.real_easte_news.approval_date.slice(
+                            )}/${item.real_easte_news.created_date.slice(
                               0,
                               4
                             )}`}
                         </td>
-                        <td>{item.real_easte_news.status}</td>
+                        <td>
+                          {item.real_easte_news.status
+                            ? item.real_easte_news.status
+                            : "Pending"}
+                        </td>
 
                         <td>
                           <div className="d-flex">
@@ -151,22 +181,39 @@ function Manage() {
                 <Form.Control
                   as="textarea"
                   style={{ height: "80px" }}
-                  value={property.real_easte_news.title}
+                  name="title"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  isInvalid={title == "" ? true : false}
                 />
+
+                <Form.Control.Feedback type="invalid">
+                  Chưa nhập tiêu đề
+                </Form.Control.Feedback>
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Nội dung</Form.Label>
                 <Form.Control
                   as="textarea"
+                  name="content"
                   style={{ height: "200px" }}
-                  value={property.real_easte_news.content}
+                  value={content}
+                  onChange={(e) => setContent(e.target.value)}
+                  isInvalid={content == "" ? true : false}
                 />
+
+                <Form.Control.Feedback type="invalid">
+                  Chưa nhập tiêu đề
+                </Form.Control.Feedback>
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Ngày đăng</Form.Label>
                 <Form.Control
                   type="date"
-                  value={property.real_easte_news.approval_date.slice(0, 10)}
+                  value={
+                    property.real_easte_news.created_date &&
+                    property.real_easte_news.created_date.slice(0, 10)
+                  }
                 />
               </Form.Group>
 
@@ -175,11 +222,11 @@ function Manage() {
                 <Form.Control
                   type="text"
                   value={
-                    property.real_easte_news.approval_date.type == 1
+                    property.real_easte_news.type == 1
                       ? "Loại 1"
-                      : property.real_easte_news.approval_date.type == 2
+                      : property.real_easte_news.type == 2
                       ? "Loại 2"
-                      : property.real_easte_news.approval_date.type == 3
+                      : property.real_easte_news.type == 3
                       ? "Loại 3"
                       : "Loại 4"
                   }
@@ -208,17 +255,27 @@ function Manage() {
             <Button variant="secondary" onClick={handleClose}>
               Thoát
             </Button>
-            <Button
-              variant="primary"
-              onClick={() =>
-                handleRePost(
-                  property.real_easte_news.id,
-                  property.real_easte_news.slug
-                )
-              }
-            >
-              Gia hạn
-            </Button>
+            {property.real_easte_news.status === "" && (
+              <Button
+                variant="primary"
+                onClick={() => handleChange(property.real_easte_news.id)}
+              >
+                Sửa tin
+              </Button>
+            )}
+            {property.real_easte_news.status === "Expiration" && (
+              <Button
+                variant="primary"
+                onClick={() =>
+                  handleRePost(
+                    property.real_easte_news.id,
+                    property.real_easte_news.slug
+                  )
+                }
+              >
+                Gia hạn
+              </Button>
+            )}
           </Modal.Footer>
         </Modal>
       )}

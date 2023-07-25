@@ -29,7 +29,7 @@ function DetailProduct() {
   const [save, setSave] = useState(false);
   useEffect(() => {
     getDetailProperty();
-  }, [propertyId]);
+  }, []);
   const getDetailProperty = async () => {
     try {
       const res = await propertyApi.getDetailNew(propertyId);
@@ -54,7 +54,6 @@ function DetailProduct() {
     try {
       const res = await propertyApi.getAllUserSeen();
       setListUserSeen(res.data);
-      console.log(res);
     } catch (err) {
       console.log("err", err);
     }
@@ -256,7 +255,7 @@ function DetailProduct() {
                 {property && property.info.address}
               </div>
               <Row className="py-3 d-flex detail-info">
-                <Col md={2} className="d-flex flex-column">
+                <Col md={3} className="d-flex flex-column">
                   <div className="detail-info-title">Mức giá</div>
                   <div className="detail-info-value">
                     {property && property.info.price.length >= 10
@@ -265,17 +264,29 @@ function DetailProduct() {
                           2
                         )} Tỷ`
                       : ""}
-                    {/* {property && property.info.price.length > 10
+                    {/* {property &&
+                    property.info.price &&
+                    property.info.price.length > 10
                       ? `${property.info.price.slice(
                           0,
                           2
-                        )},${property.info.price.slice(2, 3)} Tỷ`
+                        )},${property.info.price.slice(2, 3)} tỷ`
                       : property.info.price.length == 10
                       ? `${property.info.price[0]},${property.info.price.slice(
                           1,
                           2
-                        )} Tỷ`
-                      : ""} */}
+                        )} tỷ`
+                      : property.info.price.length == 8
+                      ? `${property.info.price.slice(
+                          0,
+                          2
+                        )},${property.info.price.slice(2, 3)} triệu/tháng`
+                      : property.info.price.length == 7
+                      ? `${property.info.price[0]},${property.info.price.slice(
+                          1,
+                          2
+                        )} triệu/tháng`
+                      : property.info.price} */}
                   </div>
                 </Col>
                 <Col md={2} className=" d-flex flex-column">
@@ -290,7 +301,7 @@ function DetailProduct() {
                     {property && property.info.number_bedrooms}
                   </div>
                 </Col>
-                <Col md={4}></Col>
+                <Col md={3}></Col>
                 <Col
                   md={2}
                   className="d-flex align-items-center detail-info-save"

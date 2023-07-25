@@ -61,6 +61,7 @@ function App() {
             path="user/fb-gg/:id/:name/:img/:token1/:token2"
             element={<Content />}
           ></Route>
+          {/* <Route path="user/fb-gg/:img" element={<Content />}></Route> */}
           <Route index element={<Content />}></Route>
         </Route>
 

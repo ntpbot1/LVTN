@@ -16,20 +16,33 @@ function Content() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id, name, img, token1, token2 } = useParams();
+  // const { img } = useParams();
+
   const [listProperty, setListProperty] = useState([]);
 
   if (id && name && img && token1 && token2) {
+    const img1 = img.replaceAll("!", "/");
+    const img2 = img1.replaceAll("|", "?");
     dispatch(
       isLogin({
         id: id,
         name: name,
-        img: img.replaceAll("!", "/"),
+        img: img2,
       })
     );
     console.log(img.replaceAll("!", "/"));
 
     sessionStorage.setItem("token", token2);
   }
+  // if (img) {
+
+  //   console.log(img2);
+  //   dispatch(
+  //     isLogin({
+  //       img: img2,
+  //     })
+  //   );
+  // }
   useEffect(() => {
     getAllProperty();
   }, []);
@@ -100,12 +113,27 @@ function Content() {
                               ? `${post.info_real_easte.price.slice(
                                   0,
                                   2
-                                )},${post.info_real_easte.price.slice(2, 3)} Tỷ`
+                                )},${post.info_real_easte.price.slice(2, 3)} tỷ`
                               : post.info_real_easte.price.length == 10
                               ? `${
                                   post.info_real_easte.price[0]
-                                },${post.info_real_easte.price.slice(1, 2)} Tỷ`
-                              : ""}
+                                },${post.info_real_easte.price.slice(1, 2)} tỷ`
+                              : post.info_real_easte.price.length == 8
+                              ? `${post.info_real_easte.price.slice(
+                                  0,
+                                  2
+                                )},${post.info_real_easte.price.slice(
+                                  2,
+                                  3
+                                )} triệu/tháng`
+                              : post.info_real_easte.price.length == 7
+                              ? `${
+                                  post.info_real_easte.price[0]
+                                },${post.info_real_easte.price.slice(
+                                  1,
+                                  2
+                                )} triệu/tháng`
+                              : post.info_real_easte.price}
                           </div>
                           <div className="text-danger  ps-3">
                             {`${post.info_real_easte.acreage} `}m<sup>2</sup>

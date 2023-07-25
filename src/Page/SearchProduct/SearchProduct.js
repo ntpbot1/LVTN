@@ -27,13 +27,23 @@ function SearchProduct() {
   const [category, setCategory] = useState();
   const [price, setPrice] = useState();
   const [acreage, setAcreage] = useState();
-
-  const [hinhThuc, setHinhThuc] = useState("nha-dat-ban");
+  const [listCategory2, setListCategory2] = useState();
+  const [hinhThuc, setHinhThuc] = useState(true);
   const handleHinhThuc = (value) => {
     if (value == 1) {
-      setHinhThuc("nha-dat-ban");
+      setHinhThuc(true);
+      setListCategory2(
+        listCategory.filter((e) => {
+          return e.type === true;
+        })
+      );
     } else if (value == 2) {
-      setHinhThuc("nha-dat-cho-thue");
+      setHinhThuc(false);
+      setListCategory2(
+        listCategory.filter((e) => {
+          return e.type === false;
+        })
+      );
     }
   };
   const [loaiBDS, setLoaiBDS] = useState("");
@@ -224,6 +234,11 @@ function SearchProduct() {
     try {
       let res = await categoryApi.getAll();
       setListCategory(res.data);
+      setListCategory2(
+        res.data.filter((e) => {
+          return e.type === true;
+        })
+      );
     } catch (err) {
       console.log("err", err);
     }
@@ -354,7 +369,7 @@ function SearchProduct() {
       <div className="search-product-content">
         <Container>
           <Row className="pt-5">
-            {/* <Col md={8}>
+            <Col md={8}>
               <ToggleButtonGroup
                 type="radio"
                 name="abc"
@@ -379,7 +394,7 @@ function SearchProduct() {
                   Nhà đất cho thuê
                 </ToggleButton>
               </ToggleButtonGroup>
-            </Col> */}
+            </Col>
             <Col md={4}></Col>
           </Row>
           <div className="search-product py-2 ">
@@ -395,8 +410,8 @@ function SearchProduct() {
                         {loaiBDS ? loaiBDS : "Loại nhà đất"}
                       </DropdownToggle>
                       <DropdownMenu className="">
-                        {listCategory &&
-                          listCategory.map((cat, index) => (
+                        {listCategory2 &&
+                          listCategory2.map((cat, index) => (
                             <DropdownItem key={index} eventKey={cat.id}>
                               {cat.name}
                             </DropdownItem>

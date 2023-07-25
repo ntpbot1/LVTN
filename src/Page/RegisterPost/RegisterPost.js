@@ -37,6 +37,8 @@ function RegisterPost() {
   const [status, setStatus] = useState("");
   const [thumbnail, setThumbnail] = useState();
   const [listCategory, setListCategory] = useState([]);
+  const [listCategory2, setListCategory2] = useState([]);
+  const [category, setCategory] = useState(true);
   const [categoryName, setCategoryName] = useState();
   const [categoryId, setCategoryId] = useState("");
   const [address, setAddress] = useState("");
@@ -70,9 +72,23 @@ function RegisterPost() {
   const [district, setDistrict] = useState("");
   const resultTitle = title.replace(",", "");
 
-  // const handleCategory = (value) => {
-  //   setCategory(value);
-  // };
+  const handleCategory = (value) => {
+    if (value === true) {
+      setCategory(true);
+      setListCategory2(
+        listCategory.filter((e) => {
+          return e.type === true;
+        })
+      );
+    } else if (value === false) {
+      setCategory(false);
+      setListCategory2(
+        listCategory.filter((e) => {
+          return e.type === false;
+        })
+      );
+    }
+  };
 
   //Lấy danh sách tỉnh thành
   useEffect(() => {
@@ -225,7 +241,11 @@ function RegisterPost() {
     try {
       const res = await categoryApi.getAll();
       setListCategory(res.data);
-      // setCategoryName(listCategory[0].name);
+      setListCategory2(
+        res.data.filter((e) => {
+          return e.type === true;
+        })
+      );
     } catch (err) {
       console.log("err", err);
     }
@@ -495,13 +515,13 @@ function RegisterPost() {
                   <div className="fs-3 register-post-title">
                     Thông tin cơ bản
                   </div>
-                  {/* <div className="py-2">
+                  <div className="py-2">
                     <ToggleButtonGroup
                       className="w-100"
                       type="radio"
                       name="sdasd"
                       defaultValue={11}
-                      // onChange={handleCategory}
+                      onChange={handleCategory}
                     >
                       <ToggleButton
                         id="11"
@@ -521,7 +541,7 @@ function RegisterPost() {
                         Nhà đất cho thuê
                       </ToggleButton>
                     </ToggleButtonGroup>
-                  </div> */}
+                  </div>
                   <div className="py-2">
                     <div className="py-2 register-post-sub-title">
                       Loại bất động sản<sup className="text-danger fs-7">*</sup>
@@ -541,13 +561,14 @@ function RegisterPost() {
                             {categoryName}
                           </DropdownToggle>
                           <DropdownMenu className="w-100">
-                            {listCategory.map((cat) => (
-                              <DropdownItem
-                                eventKey={`${cat.name}-${cat.slug}`}
-                              >
-                                {cat.name}
-                              </DropdownItem>
-                            ))}
+                            {listCategory2 &&
+                              listCategory2.map((cat) => (
+                                <DropdownItem
+                                  eventKey={`${cat.name}-${cat.slug}`}
+                                >
+                                  {cat.name}
+                                </DropdownItem>
+                              ))}
                           </DropdownMenu>
                         </Dropdown>
 
