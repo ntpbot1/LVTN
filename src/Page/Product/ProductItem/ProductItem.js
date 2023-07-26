@@ -3,7 +3,12 @@ import { Container, Row, Col, Image } from "react-bootstrap";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot, faPhone } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
 function ProductItem(props) {
+  const [listImg, setListImg] = useState();
+  // const handleImg = ()=>{
+  //   setListImg(...list)
+  // }
   return (
     <>
       <div className="py-5 product-container">
@@ -26,7 +31,7 @@ function ProductItem(props) {
                       >
                         <Col
                           xs={8}
-                          className="h-100 position-relative product-col"
+                          className="h-100 position-relative product-col-4"
                         >
                           <Image
                             className="w-100 h-100 product-img-4"
@@ -36,15 +41,40 @@ function ProductItem(props) {
                             <div className="card-title">TIN VIP 4</div>
                           </div>
                         </Col>
-                        <Col xs={4} className="product-content">
-                          {/* <div className="d-flex h-50">
-                          <Image
-                            className="w-100 h-100 product-img-4"
-                            src={pro.Real_Easte.thumbnail}
-                          ></Image>
-                          </div>
-                          <div></div> */}
-                        </Col>
+                        {/* <Col
+                          xs={4}
+                          className="d-flex flex-column product-col-4"
+                        >
+                          {pro.Images &&
+                            pro.Images.map((img, index) =>
+                              img.real_easte_id === pro.Info.id ? (
+                                <>
+                                  <div className="d-flex h-50">
+                                    <Image
+                                      height={150}
+                                      className="w-100 "
+                                      src={img.images}
+                                    ></Image>
+                                  </div>
+                                  <div className="d-flex h-50">
+                                    <Image
+                                      height={150}
+                                      className="w-50"
+                                      src={img.images}
+                                    ></Image>
+                                    <Image
+                                      height={150}
+                                      className="w-50"
+                                      src={img.images}
+                                    ></Image>
+                                  </div>
+                                </>
+                              
+                              ) : (
+                                ""
+                              )
+                            )}
+                        </Col> */}
                       </Row>
                       <Row className=" h-75 pt-3 d-flex flex-column justify-content-between ">
                         <div className="fs-6 home-product-title">

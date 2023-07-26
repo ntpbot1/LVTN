@@ -7,6 +7,7 @@ import propertyApi from "../../api/propertyApi";
 import approvePost from "../../api/approvePostApi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import commentApi from "../../api/commentApi";
 function Property() {
   const notify = () =>
     toast.success("Ẩn thành công", {
@@ -46,12 +47,18 @@ function Property() {
   const [info, setInfo] = useState("");
   const [listProperty, setListProperty] = useState([]);
   const handleClose = () => setShow(false);
-  const handleShow = (property, propertyInfo) => {
-    setShow(true);
-    setType(property.type);
-    setProperty(property);
-    setInfo(propertyInfo);
-    setId(property.id);
+  const handleShow = async (property, propertyInfo) => {
+    // setShow(true);
+    // setType(property.type);
+    // setProperty(property);
+    // setInfo(propertyInfo);
+    // setId(property.id);
+    try {
+      const res = commentApi.getListComment(propertyInfo.id);
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
   const handleUpdate = () => {
     console.log("acb");
@@ -147,13 +154,13 @@ function Property() {
                             }
                           ></FontAwesomeIcon>
                         </div>
-                        <div className="ps-3 category-icon">
+                        {/* <div className="ps-3 category-icon">
                           <FontAwesomeIcon
                             icon={faCircleXmark}
                             style={{ color: "#dc3545" }}
                             onClick={() => handleDelete(item.real_easte_id)}
                           ></FontAwesomeIcon>
-                        </div>
+                        </div> */}
                       </div>
                     </td>
                   </tr>
@@ -163,20 +170,13 @@ function Property() {
         </div>
         {/* </div> */}
       </div>
-      <Modal show={show} onHide={handleClose}>
+      {/* <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Chi tiết</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
-            {/* <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Người đăng</Form.Label>
-              <Form.Control type="text" disabled value={"Nguyễn văn A"} />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Người duyệt</Form.Label>
-              <Form.Control type="text" disabled value={"Nguyễn văn B"} />
-            </Form.Group> */}
+       
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Tiêu đề</Form.Label>
               <Form.Control
@@ -203,10 +203,7 @@ function Property() {
                 value={property && property.approval_date.slice(0, 10)}
               />
             </Form.Group>
-            {/* <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Ngày hết hạn</Form.Label>
-              <Form.Control type="date" value={"2023-05-30"} />
-            </Form.Group> */}
+          
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Loại tin</Form.Label>
               <Form.Control
@@ -355,7 +352,7 @@ function Property() {
                     <Image
                       className="w-100"
                       roundedCircle={false}
-                      // width={200}
+                
                       height={200}
                       src={property && property.thumbnail}
                     ></Image>
@@ -373,11 +370,9 @@ function Property() {
           <Button variant="danger" onClick={() => handleHidden(id)}>
             Ẩn
           </Button>
-          {/* <Button variant="primary" onClick={handleClose}>
-            Sửa
-          </Button> */}
+      
         </Modal.Footer>
-      </Modal>
+      </Modal> */}
       <ToastContainer
         position="top-right"
         autoClose={5000}

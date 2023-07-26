@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChartLine,
+  faComment,
   faHouse,
   faList,
   faNewspaper,
@@ -134,8 +135,25 @@ function Sidebar() {
               </Link>
             </Accordion.Body>
           </Accordion.Item>
+          {/* <Accordion.Item eventKey="4">
+            <Accordion.Button className="bg-light sidebar-button">
+              <FontAwesomeIcon
+                icon={faComment}
+                className="pe-2"
+              ></FontAwesomeIcon>
+              Quản lý bình luận
+            </Accordion.Button>
+            <Accordion.Body className="px-0 py-0">
+              <Link
+                className="text-decoration-none text-dark bg-transparent"
+                to={"/admin/comment"}
+              >
+                <div className="ps-4 py-3 bg-light">Danh sách bình luận</div>
+              </Link>
+            </Accordion.Body>
+          </Accordion.Item> */}
           <Accordion.Item
-            eventKey="4"
+            eventKey="5"
             onClick={handleLogoutAdmin}
             className="sidebar-accordion-item"
           >

@@ -18,5 +18,11 @@
     .register-direction {
       border: none;
     }
+    .dropdown-province {
+      .dropdown-menu-province {
+        max-height: 260px;
+        overflow-x: auto;
+      }
+    }
   }
 }

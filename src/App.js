@@ -23,6 +23,7 @@ import HiddenComponent from "./Admin/Property/Hidden/Hidden.js";
 import Statistical from "./Admin/Statistical/Statistical.js";
 import Payment from "./Page/Payment/Payment.js";
 import RePost from "./Page/RePost/RePost.js";
+import Comment from "./Admin/Comment/Comment.js";
 
 function App() {
   return (
@@ -74,6 +75,8 @@ function App() {
 
           <Route path="news" element={<News />}></Route>
           <Route path="news/add" element={<AddNew />}></Route>
+          <Route path="comment" element={<Comment />}></Route>
+
           <Route index element={<Statistical />}></Route>
         </Route>
 

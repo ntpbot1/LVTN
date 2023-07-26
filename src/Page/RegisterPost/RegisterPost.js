@@ -596,14 +596,17 @@ function RegisterPost() {
                         );
                       })}
                     </select> */}
-                      <Dropdown onSelect={handleSelectProvince}>
+                      <Dropdown
+                        onSelect={handleSelectProvince}
+                        className="dropdown-province"
+                      >
                         <DropdownToggle
                           variant="light"
                           className="w-100 text-start"
                         >
                           {nameProvince ? nameProvince : "Tỉnh/Thành Phố"}
                         </DropdownToggle>
-                        <DropdownMenu className="w-100">
+                        <DropdownMenu className="w-100 dropdown-menu-province">
                           {listProvinces.map((item, index) => {
                             return (
                               <DropdownItem eventKey={item.code}>
@@ -620,14 +623,17 @@ function RegisterPost() {
                         Quận, huyện<sup className="text-danger fs-7">*</sup>
                       </div>
 
-                      <Dropdown onSelect={handleSelectDistrict}>
+                      <Dropdown
+                        onSelect={handleSelectDistrict}
+                        className="dropdown-province"
+                      >
                         <DropdownToggle
                           variant="light"
                           className="w-100 text-start"
                         >
                           {nameDistrict ? nameDistrict : "Quận/Huyện"}
                         </DropdownToggle>
-                        <DropdownMenu className="w-100">
+                        <DropdownMenu className="w-100 dropdown-menu-province">
                           {listDistrict &&
                             listDistrict.length > 0 &&
                             listDistrict.map((item, index) => {
@@ -645,14 +651,17 @@ function RegisterPost() {
                         Phường, xã<sup className="text-danger fs-7">*</sup>
                       </div>
 
-                      <Dropdown onSelect={handleSelectWards}>
+                      <Dropdown
+                        onSelect={handleSelectWards}
+                        className="dropdown-province"
+                      >
                         <DropdownToggle
                           variant="light"
                           className="w-100 text-start"
                         >
                           {nameWards ? nameWards : "Phường/Xã"}
                         </DropdownToggle>
-                        <DropdownMenu className="w-100">
+                        <DropdownMenu className="w-100 dropdown-menu-province">
                           {listWards &&
                             listWards.length > 0 &&
                             listWards.map((item, index) => {

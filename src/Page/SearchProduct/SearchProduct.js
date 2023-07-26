@@ -459,14 +459,17 @@ function SearchProduct() {
                         );
                       })}
                     </select> */}
-                <Dropdown onSelect={handleSelectProvince}>
+                <Dropdown
+                  onSelect={handleSelectProvince}
+                  className="dropdown-province"
+                >
                   <DropdownToggle
                     variant="light"
-                    className="w-100 text-start d-flex align-items-center justify-content-between"
+                    className="w-100 text-start d-flex align-items-center justify-content-between "
                   >
                     {nameProvince ? nameProvince : "Tỉnh/Thành phố"}
                   </DropdownToggle>
-                  <DropdownMenu className="w-100">
+                  <DropdownMenu className="w-100 dropdown-menu-province">
                     {listProvinces.map((item, index) => {
                       return (
                         <DropdownItem eventKey={item.code}>
@@ -483,14 +486,17 @@ function SearchProduct() {
                   Quận, huyện<sup className="text-danger fs-7">*</sup>
                 </div> */}
 
-                <Dropdown onSelect={handleSelectDistrict}>
+                <Dropdown
+                  onSelect={handleSelectDistrict}
+                  className="dropdown-province"
+                >
                   <DropdownToggle
                     variant="light"
                     className="w-100 text-start d-flex align-items-center justify-content-between"
                   >
                     {nameDistrict ? nameDistrict : "Quận/Huyện"}
                   </DropdownToggle>
-                  <DropdownMenu className="w-100">
+                  <DropdownMenu className="w-100 dropdown-menu-province">
                     {listDistrict &&
                       listDistrict.length > 0 &&
                       listDistrict.map((item, index) => {
@@ -508,14 +514,17 @@ function SearchProduct() {
                   Phường, xã<sup className="text-danger fs-7">*</sup>
                 </div> */}
 
-                <Dropdown onSelect={handleSelectWards}>
+                <Dropdown
+                  onSelect={handleSelectWards}
+                  className="dropdown-province"
+                >
                   <DropdownToggle
                     variant="light"
                     className="w-100 text-start d-flex align-items-center justify-content-between"
                   >
                     {nameWards ? nameWards : "Phường/Xã"}
                   </DropdownToggle>
-                  <DropdownMenu className="w-100">
+                  <DropdownMenu className="w-100 dropdown-menu-province">
                     {listWards &&
                       listWards.length > 0 &&
                       listWards.map((item, index) => {
@@ -531,14 +540,17 @@ function SearchProduct() {
             </Row>
             <Row className="mx-1 ">
               <Col lg={3} md={4} className="py-2">
-                <Dropdown onSelect={handleSelectLoaiGia}>
+                <Dropdown
+                  onSelect={handleSelectLoaiGia}
+                  className="dropdown-province"
+                >
                   <DropdownToggle
                     variant="light"
                     className="w-100 text-start d-flex align-items-center justify-content-between search-select "
                   >
                     {loaiGia ? loaiGia : "Mức giá"}
                   </DropdownToggle>
-                  <DropdownMenu className="">
+                  <DropdownMenu className="dropdown-menu-province">
                     <DropdownItem eventKey={"500000000"}>
                       Dưới 500 triệu
                     </DropdownItem>
@@ -583,14 +595,17 @@ function SearchProduct() {
                 </Dropdown>
               </Col>
               <Col lg={3} md={4} className="py-2">
-                <Dropdown onSelect={handleSelectLoaiDienTich}>
+                <Dropdown
+                  onSelect={handleSelectLoaiDienTich}
+                  className="dropdown-province"
+                >
                   <DropdownToggle
                     variant="light"
                     className="w-100 text-start d-flex align-items-center justify-content-between search-select "
                   >
                     {loaiDienTich ? loaiDienTich : "Diện tích"}
                   </DropdownToggle>
-                  <DropdownMenu className="">
+                  <DropdownMenu className="dropdown-menu-province">
                     <DropdownItem eventKey={"30"}>
                       Dưới 30 m<sup>2</sup>
                     </DropdownItem>

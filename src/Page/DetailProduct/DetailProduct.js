@@ -29,7 +29,7 @@ function DetailProduct() {
   const [save, setSave] = useState(false);
   useEffect(() => {
     getDetailProperty();
-  }, []);
+  }, [propertyId]);
   const getDetailProperty = async () => {
     try {
       const res = await propertyApi.getDetailNew(propertyId);
@@ -258,35 +258,46 @@ function DetailProduct() {
                 <Col md={3} className="d-flex flex-column">
                   <div className="detail-info-title">Mức giá</div>
                   <div className="detail-info-value">
-                    {property && property.info.price.length >= 10
-                      ? `${property.info.price[0]},${property.info.price.slice(
-                          1,
-                          2
-                        )} Tỷ`
-                      : ""}
                     {/* {property &&
-                    property.info.price &&
-                    property.info.price.length > 10
-                      ? `${property.info.price.slice(
-                          0,
-                          2
-                        )},${property.info.price.slice(2, 3)} tỷ`
-                      : property.info.price.length == 10
-                      ? `${property.info.price[0]},${property.info.price.slice(
-                          1,
-                          2
-                        )} tỷ`
-                      : property.info.price.length == 8
-                      ? `${property.info.price.slice(
-                          0,
-                          2
-                        )},${property.info.price.slice(2, 3)} triệu/tháng`
-                      : property.info.price.length == 7
-                      ? `${property.info.price[0]},${property.info.price.slice(
-                          1,
-                          2
-                        )} triệu/tháng`
-                      : property.info.price} */}
+                      (property.info.price.length >= 10
+                        ? `${
+                            property.info.price[0]
+                          },${property.info.price.slice(1, 2)} Tỷ`
+                        : property.info.price.length == 10
+                        ? `${
+                            property.info.price[0]
+                          },${property.info.price.slice(1, 2)} tỷ`
+                        : property.info.price.length == 8
+                        ? `${property.info.price.slice(
+                            0,
+                            2
+                          )},${property.info.price.slice(2, 3)} triệu/tháng`
+                        : property.info.price.length == 7
+                        ? `${
+                            property.info.price[0]
+                          },${property.info.price.slice(1, 2)} triệu/tháng`
+                        : property.info.price)} */}
+
+                    {property &&
+                      (property.info.price.length > 10
+                        ? `${property.info.price.slice(
+                            0,
+                            2
+                          )},${property.info.price.slice(2, 3)} tỷ`
+                        : property.info.price.length == 10
+                        ? `${
+                            property.info.price[0]
+                          },${property.info.price.slice(1, 2)} tỷ`
+                        : property.info.price.length == 8
+                        ? `${property.info.price.slice(
+                            0,
+                            2
+                          )},${property.info.price.slice(2, 3)} triệu/tháng`
+                        : property.info.price.length == 7
+                        ? `${
+                            property.info.price[0]
+                          },${property.info.price.slice(1, 2)} triệu/tháng`
+                        : property.info.price)}
                   </div>
                 </Col>
                 <Col md={2} className=" d-flex flex-column">
@@ -306,19 +317,20 @@ function DetailProduct() {
                   md={2}
                   className="d-flex align-items-center detail-info-save"
                 >
-                  {save == true ? (
-                    <FontAwesomeIcon
-                      icon={faHeart}
-                      style={{ color: "#E03C31" }}
-                      onClick={() => handleUnSave(news.id)}
-                    ></FontAwesomeIcon>
-                  ) : (
-                    <FontAwesomeIcon
-                      icon={faHeart}
-                      style={{ color: "#ddd" }}
-                      onClick={() => handleSave(news.id)}
-                    ></FontAwesomeIcon>
-                  )}
+                  {infoUser.userName &&
+                    (save == true ? (
+                      <FontAwesomeIcon
+                        icon={faHeart}
+                        style={{ color: "#E03C31" }}
+                        onClick={() => handleUnSave(news.id)}
+                      ></FontAwesomeIcon>
+                    ) : (
+                      <FontAwesomeIcon
+                        icon={faHeart}
+                        style={{ color: "#ddd" }}
+                        onClick={() => handleSave(news.id)}
+                      ></FontAwesomeIcon>
+                    ))}
                 </Col>
               </Row>
               <div className="py-3 detail-descriptions">
@@ -407,11 +419,37 @@ function DetailProduct() {
                               Mức giá
                             </div>
                             <div className="col-6 detail-characterize-item-value">
-                              {property && property.info.price.length >= 10
+                              {/* {property && property.info.price.length >= 10
                                 ? `${
                                     property.info.price[0]
                                   },${property.info.price.slice(1, 2)} Tỷ`
-                                : ""}
+                                : ""} */}
+                              {property &&
+                                (property.info.price.length > 10
+                                  ? `${property.info.price.slice(
+                                      0,
+                                      2
+                                    )},${property.info.price.slice(2, 3)} tỷ`
+                                  : property.info.price.length == 10
+                                  ? `${
+                                      property.info.price[0]
+                                    },${property.info.price.slice(1, 2)} tỷ`
+                                  : property.info.price.length == 8
+                                  ? `${property.info.price.slice(
+                                      0,
+                                      2
+                                    )},${property.info.price.slice(
+                                      2,
+                                      3
+                                    )} triệu/tháng`
+                                  : property.info.price.length == 7
+                                  ? `${
+                                      property.info.price[0]
+                                    },${property.info.price.slice(
+                                      1,
+                                      2
+                                    )} triệu/tháng`
+                                  : property.info.price)}
                             </div>
                           </div>
                         </ListGroup.Item>
@@ -572,7 +610,7 @@ function DetailProduct() {
                                           )},${post.info_real_easte.price.slice(
                                             2,
                                             3
-                                          )} Tỷ`
+                                          )} tỷ`
                                         : post.info_real_easte.price.length ==
                                           10
                                         ? `${
@@ -580,7 +618,22 @@ function DetailProduct() {
                                           },${post.info_real_easte.price.slice(
                                             1,
                                             2
-                                          )} Tỷ`
+                                          )} tỷ`
+                                        : post.info_real_easte.price.length == 8
+                                        ? `${post.info_real_easte.price.slice(
+                                            0,
+                                            2
+                                          )},${post.info_real_easte.price.slice(
+                                            2,
+                                            3
+                                          )} triệu/tháng`
+                                        : post.info_real_easte.price.length == 7
+                                        ? `${
+                                            post.info_real_easte.price[0]
+                                          },${post.info_real_easte.price.slice(
+                                            1,
+                                            2
+                                          )} triệu/tháng`
                                         : post.info_real_easte.price}
                                     </div>
                                     <div className="text-danger  ps-3">
@@ -603,10 +656,25 @@ function DetailProduct() {
                                 </Card.Text>
                                 <Card.Text className="home-product-date">
                                   {post.real_easte_news.approval_date &&
-                                    post.real_easte_news.approval_date.slice(
-                                      0,
+                                    `${post.real_easte_news.approval_date.slice(
+                                      8,
                                       10
-                                    )}
+                                    )}/${post.real_easte_news.approval_date.slice(
+                                      5,
+                                      7
+                                    )}/${post.real_easte_news.approval_date.slice(
+                                      0,
+                                      4
+                                    )}`}
+                                  {/* {news &&
+                          news.approval_date &&
+                          `${news.approval_date.slice(
+                            8,
+                            10
+                          )}/${news.approval_date.slice(
+                            5,
+                            7
+                          )}/${news.approval_date.slice(0, 4)}`} */}
                                 </Card.Text>
                               </Card.Body>
                             </Card>

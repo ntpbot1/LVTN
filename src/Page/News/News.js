@@ -39,9 +39,9 @@ function News() {
     try {
       let res = await newsApi.getAll();
       setListNews(res.data);
-      setTitle(res.data.title);
-      setDate(res.data.created_date);
-      setThumbnail(res.data.thumbnail);
+      setTitle(res.data[0].title);
+      setDate(res.data[0].created_date);
+      setThumbnail(res.data[0].thumbnail);
     } catch (err) {
       console.log("err", err);
     }
@@ -60,9 +60,9 @@ function News() {
                   roundedCircle={false}
                   //   width={450}
                   height={300}
-                  src={thumbnail}
+                  src={thumbnail && thumbnail}
                 ></Image>
-                <div className="pt-2">{title}</div>
+                <div className="pt-2">{title && title}</div>
                 <div>
                   {date &&
                     `${date.slice(8, 10)}/${date.slice(5, 7)}/${date.slice(

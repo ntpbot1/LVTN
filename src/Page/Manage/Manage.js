@@ -45,6 +45,7 @@ function Manage() {
     setProperty(property);
     setTitle(property.real_easte_news.title);
     setContent(property.real_easte_news.content);
+    console.log(property.info_real_easte.id);
   };
   const handleClose = () => {
     setShow(false);
@@ -148,7 +149,7 @@ function Manage() {
                                 onClick={() => handleShow(item)}
                               ></FontAwesomeIcon>
                             </div>
-                            <div className="ps-3 category-icon">
+                            {/* <div className="ps-3 category-icon">
                               <FontAwesomeIcon
                                 icon={faCircleXmark}
                                 style={{ color: "#dc3545" }}
@@ -156,7 +157,7 @@ function Manage() {
                                 //   handleDelete(item.real_easte_news)
                                 // }
                               ></FontAwesomeIcon>
-                            </div>
+                            </div> */}
                           </div>
                         </td>
                       </tr>
@@ -176,7 +177,7 @@ function Manage() {
           </Modal.Header>
           <Modal.Body>
             <Form>
-              <Form.Group className="mb-3" controlId="formBasicEmail">
+              {/* <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Tiêu đề</Form.Label>
                 <Form.Control
                   as="textarea"
@@ -190,7 +191,7 @@ function Manage() {
                 <Form.Control.Feedback type="invalid">
                   Chưa nhập tiêu đề
                 </Form.Control.Feedback>
-              </Form.Group>
+              </Form.Group> */}
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Nội dung</Form.Label>
                 <Form.Control
@@ -209,6 +210,7 @@ function Manage() {
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Ngày đăng</Form.Label>
                 <Form.Control
+                  disabled
                   type="date"
                   value={
                     property.real_easte_news.created_date &&

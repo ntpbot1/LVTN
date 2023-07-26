@@ -63,6 +63,7 @@ function Content() {
   // };
   const handleClick = (slug) => {
     navigate(`/chi-tiet/${slug}`);
+    window.scrollTo(0, 0);
   };
 
   return (
