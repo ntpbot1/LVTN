@@ -49,9 +49,6 @@ function ChangProperty() {
     width,
     usableArea,
   } = useParams();
-  if (s.indexOf("-") > -1) {
-    s.replace("-", "/");
-  }
   const vt = a.indexOf(",");
   const address = a.slice(0, vt);
   const navigate = useNavigate();

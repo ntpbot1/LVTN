@@ -336,7 +336,7 @@ function RegisterPost() {
   const handleStatus = (value) => {
     switch (value) {
       case "1":
-        setStatus("Sổ đỏ/ Sổ hồng");
+        setStatus("Sổ đỏ - Sổ hồng");
         break;
       case "2":
         setStatus("Hợp đồng mua bán");
