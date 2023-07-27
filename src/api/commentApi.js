@@ -86,11 +86,15 @@ const commentApi = {
   },
   hidden(id) {
     const url = `/comment/hidden-comment/${id}`;
-    return axiosClient.put(url, {
-      headers: {
-        Authorization: `token ${sessionStorage.getItem("tokenAdmin")}`,
-      },
-    });
+    return axiosClient.put(
+      url,
+      {},
+      {
+        headers: {
+          Authorization: `token ${sessionStorage.getItem("tokenAdmin")}`,
+        },
+      }
+    );
   },
   reply(idNew, idComment, payload) {
     const url = `/comment/reply/${idNew}/${idComment}`;
