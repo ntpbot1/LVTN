@@ -25,6 +25,7 @@ import Payment from "./Page/Payment/Payment.js";
 import RePost from "./Page/RePost/RePost.js";
 import Comment from "./Admin/Comment/Comment.js";
 import ChangProperty from "./Page/ChangeProperty/ChangeProperty.js";
+import Pay from "./Page/Pay/Pay.js";
 
 function App() {
   return (
@@ -59,6 +60,8 @@ function App() {
             element={<ChangProperty />}
           ></Route>
           <Route path="gia-han/:id/:slug" element={<RePost />}></Route>
+          <Route path="thanh-toan/:id" element={<Pay />}></Route>
+
           <Route path="doi-mat-khau" element={<ChangePass />}></Route>
           <Route path="doi-thong-tin" element={<ChangeInfo />}></Route>
           <Route path="quen-mat-khau" element={<ForgetPass />}></Route>

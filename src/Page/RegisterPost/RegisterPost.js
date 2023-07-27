@@ -471,24 +471,8 @@ function RegisterPost() {
       formDaTa2.append("district", nameDistrict);
       formDaTa2.append("city", nameProvince);
       formDaTa2.append("status", status);
-
-      const formDaTa3 = new FormData();
-      formDaTa3.append("amount", totalCost);
-      formDaTa3.append("bankCode", "");
-      formDaTa3.append("language", "vn");
       try {
         const res = await registerPost.create(formDaTa);
-        if (res.data.id) {
-          formDaTa3.append("real_easte_id", res.data.id);
-          try {
-            const res3 = await paymentApi.getPayment(formDaTa3);
-            if (res3.data) {
-              window.open(res3.data);
-            }
-          } catch (error) {
-            console.log(error);
-          }
-        }
         if (res.data.slug) {
           formDaTa2.append("real_easte_id", res.data.slug);
           try {
@@ -497,7 +481,7 @@ function RegisterPost() {
             console.log(error);
           }
         }
-        // navigate("/");
+        navigate("/quan-ly-tin-dang");
       } catch (error) {
         console.log(error);
       }
@@ -1257,6 +1241,15 @@ function RegisterPost() {
                         )}
                       </Form.Group>
                     </div>
+                    <div className="py-2">
+                      <Button
+                        type="submit"
+                        className="fs-4 bg-primary "
+                        // onClick={handleRegisterPost}
+                      >
+                        Đăng ký tin
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1264,7 +1257,7 @@ function RegisterPost() {
             <Col sm={12} md={2}></Col>
           </Row>
         </div>
-        <div className="register-post-container ">
+        {/* <div className="register-post-container ">
           <Row>
             <Col sm={12} md={2}></Col>
             <Col sm={12} md={8}>
@@ -1398,27 +1391,14 @@ function RegisterPost() {
                       </Row>
                     </div>
                   </div>
-                  {/* <div className="py-2">
-                  <div className="py-2 register-post-sub-title">
-                    Ngày bắt đầu
-                  </div>
-                  <div className="py-2">
-                    <input
-                      type="date"
-                      min="2023-03-06"
-                      // className="w-100 py-2 px-2"
-                      // placeholder="Nhập email"
-                    />
-                  </div>
-                </div> */}
                 </div>
               </div>
             </Col>
             <Col sm={12} md={2}></Col>
           </Row>
-        </div>
+        </div> */}
 
-        <div className="register-post-container ">
+        {/* <div className="register-post-container ">
           <Row>
             <Col sm={12} md={2}></Col>
             <Col sm={12} md={8}>
@@ -1465,21 +1445,13 @@ function RegisterPost() {
                       <div>{totalCost ? VND.format(totalCost) : ""}</div>
                     </div>
                   </div>
-                  <div className="">
-                    <Button
-                      type="submit"
-                      className="fs-4 bg-danger "
-                      // onClick={handleRegisterPost}
-                    >
-                      Thanh Toán
-                    </Button>
-                  </div>
+                  
                 </div>
               </div>
             </Col>
             <Col sm={12} md={2}></Col>
           </Row>
-        </div>
+        </div> */}
       </Form>
     </>
   );
