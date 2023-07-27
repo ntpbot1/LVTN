@@ -23,7 +23,7 @@ function SignIn() {
   const dispatch = useDispatch();
   const [message, setMessage] = useState("");
   const handleFB = async () => {
-    window.open("http://lvtn-bds.onrender.com/user/facebook");
+    window.open("https://lvtn-bds.onrender.com/user/facebook");
     // try {
     //   const res = await SignUpApi.signUpWithFB();
     //   console.log(res);
@@ -33,7 +33,7 @@ function SignIn() {
   };
 
   const handleGG = async () => {
-    window.open("http://lvtn-bds.onrender.com/user/google");
+    window.open("https://lvtn-bds.onrender.com/user/google");
 
     // try {
     //   const res = await SignUpApi.signUpWithGG();
