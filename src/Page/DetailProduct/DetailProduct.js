@@ -26,8 +26,10 @@ function DetailProduct() {
   const [listComment, setListComment] = useState([]);
   const [idNew, setIdNew] = useState();
   const [listReply, setListReply] = useState([]);
+  const [shareURL, setShareURL] = useState('');
   const [save, setSave] = useState(false);
   useEffect(() => {
+    setShareURL(window.location.href)
     getDetailProperty();
   }, [propertyId]);
   const getDetailProperty = async () => {
@@ -312,7 +314,9 @@ function DetailProduct() {
                     {property && property.info.number_bedrooms}
                   </div>
                 </Col>
-                <Col md={3}></Col>
+                <Col md={3}>
+                <Button outline color="primary" class="fb-share-button" data-href={shareURL} data-layout="" data-size=""><a target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=${shareURL}%2Fplugins%2F&src=sdkpreparse`} class="fb-xfbml-parse-ignore text-decoration-none text-white">Share</a></Button>
+                </Col>
                 <Col
                   md={2}
                   className="d-flex align-items-center detail-info-save"
