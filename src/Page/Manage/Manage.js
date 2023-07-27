@@ -55,6 +55,9 @@ function Manage() {
     navigate(`/gia-han/${id}/${slug}`);
   };
   const handleChange = (property) => {
+    if (property.info_real_easte.status.indexOf("/") > -1) {
+      property.info_real_easte.status.replace("/", "-");
+    }
     navigate(
       `/sua-tin-dang/${property.info_real_easte.id}/${property.info_real_easte.city}/${property.info_real_easte.ward}/${property.info_real_easte.district}/${property.info_real_easte.address}/${property.info_real_easte.acreage}/${property.info_real_easte.price}/${property.info_real_easte.status}/${property.info_real_easte.interior}/${property.info_real_easte.direction}/${property.info_real_easte.balcony_direction}/${property.info_real_easte.number_bedrooms}/${property.info_real_easte.number_bathrooms}/${property.info_real_easte.number_floors}/${property.info_real_easte.facade}/${property.info_real_easte.road_width}/${property.info_real_easte.length}/${property.info_real_easte.width}/${property.info_real_easte.total_usable_area}`
     );
