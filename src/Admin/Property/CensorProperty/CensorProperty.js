@@ -138,7 +138,7 @@ function CensorProperty() {
                 <th>Người đăng</th>
                 <th>Ngày đăng</th>
                 <th>Loại tin</th>
-
+                <th>Trạng thái</th>
                 <th>Thao tác</th>
               </tr>
             </thead>
@@ -161,7 +161,11 @@ function CensorProperty() {
                       )}`}
                     </td>
                     <td>{propertyNew.Real_Easte_News.type}</td>
-
+                    <td>
+                      {propertyNew.Real_Easte_News.isPay == "paid"
+                        ? "Đã thanh toán"
+                        : "Chưa thanh toán"}
+                    </td>
                     <td>
                       <div className="d-flex">
                         <div className="category-icon">
