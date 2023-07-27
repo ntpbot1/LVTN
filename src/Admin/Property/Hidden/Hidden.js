@@ -115,13 +115,13 @@ function Hidden() {
                             onClick={() => handleShow(item)}
                           ></FontAwesomeIcon>
                         </div>
-                        <div className="ps-3 category-icon">
+                        {/* <div className="ps-3 category-icon">
                           <FontAwesomeIcon
                             icon={faCircleXmark}
                             style={{ color: "#dc3545" }}
                             onClick={() => handleDelete(item)}
                           ></FontAwesomeIcon>
-                        </div>
+                        </div> */}
                       </div>
                     </td>
                   </tr>

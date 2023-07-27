@@ -8,6 +8,14 @@ const commentApi = {
       },
     });
   },
+  getAll() {
+    const url = `/comment/get-all`;
+    return axiosClient.get(url, {
+      headers: {
+        Authorization: `token ${sessionStorage.getItem("tokenAdmin")}`,
+      },
+    });
+  },
   getListReply(id) {
     const url = `/comment/list-reply/${id}`;
     return axiosClient.get(url, {
@@ -75,6 +83,14 @@ const commentApi = {
         },
       }
     );
+  },
+  hidden(id) {
+    const url = `/comment/hidden-comment/${id}`;
+    return axiosClient.put(url, {
+      headers: {
+        Authorization: `token ${sessionStorage.getItem("tokenAdmin")}`,
+      },
+    });
   },
   reply(idNew, idComment, payload) {
     const url = `/comment/reply/${idNew}/${idComment}`;

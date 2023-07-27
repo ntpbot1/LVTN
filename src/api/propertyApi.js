@@ -92,6 +92,14 @@ const propertyApi = {
       },
     });
   },
+  editInfoNew(id, payload) {
+    const url = `real-easte/edit-info/${id}`;
+    return axiosClient.put(url, payload, {
+      headers: {
+        Authorization: `token ${sessionStorage.getItem("token")}`,
+      },
+    });
+  },
   hidden(id) {
     const url = `real-easte/hidden/${id}`;
     return axiosClient.put(

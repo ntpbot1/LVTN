@@ -41,40 +41,30 @@ function ProductItem(props) {
                             <div className="card-title">TIN VIP 4</div>
                           </div>
                         </Col>
-                        {/* <Col
+                        <Col
                           xs={4}
                           className="d-flex flex-column product-col-4"
                         >
-                          {pro.Images &&
-                            pro.Images.map((img, index) =>
-                              img.real_easte_id === pro.Info.id ? (
-                                <>
-                                  <div className="d-flex h-50">
-                                    <Image
-                                      height={150}
-                                      className="w-100 "
-                                      src={img.images}
-                                    ></Image>
-                                  </div>
-                                  <div className="d-flex h-50">
-                                    <Image
-                                      height={150}
-                                      className="w-50"
-                                      src={img.images}
-                                    ></Image>
-                                    <Image
-                                      height={150}
-                                      className="w-50"
-                                      src={img.images}
-                                    ></Image>
-                                  </div>
-                                </>
-                              
-                              ) : (
-                                ""
-                              )
-                            )}
-                        </Col> */}
+                          <div className="d-flex h-50">
+                            <Image
+                              height={150}
+                              className="w-100 "
+                              src={pro.Images[0].images}
+                            ></Image>
+                          </div>
+                          <div className="d-flex h-50">
+                            <Image
+                              height={150}
+                              className="w-50"
+                              src={pro.Images[1].images}
+                            ></Image>
+                            <Image
+                              height={150}
+                              className="w-50"
+                              src={pro.Images[2].images}
+                            ></Image>
+                          </div>
+                        </Col>
                       </Row>
                       <Row className=" h-75 pt-3 d-flex flex-column justify-content-between ">
                         <div className="fs-6 home-product-title">

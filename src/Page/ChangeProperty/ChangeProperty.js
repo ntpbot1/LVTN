@@ -1,4 +1,4 @@
-import "./RegisterPost.scss";
+import "./ChangeProperty.scss";
 import {
   Row,
   Col,
@@ -22,73 +22,87 @@ import { useState, useEffect } from "react";
 import categoryApi from "../../api/categoryApi";
 import registerPost from "../../api/registerPostApi";
 import paymentApi from "../../api/paymentApi";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import propertyApi from "../../api/propertyApi";
 
-function RegisterPost() {
+function ChangProperty() {
   // Chọn loại BĐS
   // Mã thẻ : 9704198526191432198
+  const {
+    idInfo,
+    p,
+    d,
+    w,
+    a,
+    ac,
+    pr,
+    s,
+    i,
+    di,
+    bd,
+    bedroom,
+    bathroom,
+    floor,
+    facade,
+    roadWidth,
+    length,
+    width,
+    usableArea,
+  } = useParams();
+
+  const vt = a.indexOf(",");
+  const address = a.slice(0, vt);
+
   const navigate = useNavigate();
   const id = Date.now().toString();
   const VND = new Intl.NumberFormat("vi-VN", {
     style: "currency",
     currency: "VND",
   });
-  const status1 = "xuat ban";
-  const [status, setStatus] = useState("");
-  const [thumbnail, setThumbnail] = useState();
+
+  const [status, setStatus] = useState(s);
+
   const [listCategory, setListCategory] = useState([]);
-  const [listCategory2, setListCategory2] = useState([]);
-  const [category, setCategory] = useState(true);
-  const [categoryName, setCategoryName] = useState();
+
   const [categoryId, setCategoryId] = useState("");
-  const [address, setAddress] = useState("");
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+
   const [listProvinces, setListProvinces] = useState([]);
   const [listDistrict, setListDistrict] = useState([]);
   const [listWards, setListWards] = useState([]);
-  const [nameProvince, setNameProvince] = useState("");
-  const [nameDistrict, setNameDistrict] = useState("");
-  const [nameWards, setNameWards] = useState("");
+  const [nameProvince, setNameProvince] = useState(p);
+  const [nameDistrict, setNameDistrict] = useState(d);
+  const [nameWards, setNameWards] = useState(w);
   const [type, setType] = useState("");
   const [expiration, setExpiration] = useState("");
   const [cost, setCost] = useState("");
-  const [bedroom, setBedroom] = useState("");
-  const [bathroom, setBathroom] = useState("");
-  const [floor, setFloor] = useState("");
-  const [direction, setDirection] = useState("");
-  const [balconyDirection, setBalconyDirection] = useState("");
-  const [facade, setFacade] = useState("");
-  const [roadWidth, setRoadWidth] = useState("");
-  const [interior, setInterior] = useState("");
-  // const [address, setAddress] = useState("");
-  const [length, setLength] = useState("");
-  const [width, setWidth] = useState("");
-  const [totalUsableArea, setTotalUsableArea] = useState("");
-  const [img, setImg] = useState([]);
-  // const [realEasteId, setRealEasteId] = useState("");
-  const [acreage, setAcreage] = useState("");
-  const [price, setPrice] = useState("");
-  const [district, setDistrict] = useState("");
-  const resultTitle = title.replace(",", "");
 
-  const handleCategory = (value) => {
-    if (value === true) {
-      setCategory(true);
-      setListCategory2(
-        listCategory.filter((e) => {
-          return e.type === true;
-        })
-      );
-    } else if (value === false) {
-      setCategory(false);
-      setListCategory2(
-        listCategory.filter((e) => {
-          return e.type === false;
-        })
-      );
-    }
-  };
+  const [direction, setDirection] = useState(di);
+  const [balconyDirection, setBalconyDirection] = useState(bd);
+
+  const [interior, setInterior] = useState(i);
+  // const [address, setAddress] = useState("");
+
+  // const [realEasteId, setRealEasteId] = useState("");
+
+  const [district, setDistrict] = useState("");
+
+  // const handleCategory = (value) => {
+  //   if (value === true) {
+  //     setCategory(true);
+  //     setListCategory2(
+  //       listCategory.filter((e) => {
+  //         return e.type === true;
+  //       })
+  //     );
+  //   } else if (value === false) {
+  //     setCategory(false);
+  //     setListCategory2(
+  //       listCategory.filter((e) => {
+  //         return e.type === false;
+  //       })
+  //     );
+  //   }
+  // };
 
   //Lấy danh sách tỉnh thành
   useEffect(() => {
@@ -234,29 +248,29 @@ function RegisterPost() {
         break;
     }
   };
-  useEffect(() => {
-    getAllCategory();
-  }, []);
-  const getAllCategory = async () => {
-    try {
-      const res = await categoryApi.getAll();
-      setListCategory(res.data);
-      setListCategory2(
-        res.data.filter((e) => {
-          return e.type === true;
-        })
-      );
-    } catch (err) {
-      console.log("err", err);
-    }
-  };
-  const handleCategoryName = (value) => {
-    const index = value.indexOf("-");
-    const nameCat = value.slice(0, index);
-    const idCat = value.slice(index + 1);
-    setCategoryName(nameCat);
-    setCategoryId(idCat);
-  };
+  // useEffect(() => {
+  //   getAllCategory();
+  // }, []);
+  // const getAllCategory = async () => {
+  //   try {
+  //     const res = await categoryApi.getAll();
+  //     setListCategory(res.data);
+  //     setListCategory2(
+  //       res.data.filter((e) => {
+  //         return e.type === true;
+  //       })
+  //     );
+  //   } catch (err) {
+  //     console.log("err", err);
+  //   }
+  // };
+  // const handleCategoryName = (value) => {
+  //   const index = value.indexOf("-");
+  //   const nameCat = value.slice(0, index);
+  //   const idCat = value.slice(index + 1);
+  //   setCategoryName(nameCat);
+  //   setCategoryId(idCat);
+  // };
   const handleDirection = (value) => {
     switch (value) {
       case "1":
@@ -351,27 +365,27 @@ function RegisterPost() {
   };
   const formik = useFormik({
     initialValues: {
-      address: "",
-      acreage: "",
-      title: "",
-      content: "",
-      price: "",
-      floor: "",
-      bedroom: "",
-      bathroom: "",
-      facade: "",
-      roadWidth: "",
-      length: "",
-      width: "",
-      totalUsableArea: "",
+      address: address,
+      acreage: ac,
+      // title: "",
+      // content: "",
+      price: pr,
+      floor: floor,
+      bedroom: bedroom,
+      bathroom: bathroom,
+      facade: facade,
+      roadWidth: roadWidth,
+      length: length,
+      width: width,
+      totalUsableArea: usableArea,
       // categoryName: categoryName,
-      thumbnail: "",
-      img: "",
+      // thumbnail: "",
+      // img: "",
     },
     validationSchema: Yup.object({
       address: Yup.string().required("Cần nhập địa chỉ"),
-      title: Yup.string().required("Cần nhập tiêu đề"),
-      content: Yup.string().required("Cần nhập mô tả"),
+      // title: Yup.string().required("Cần nhập tiêu đề"),
+      // content: Yup.string().required("Cần nhập mô tả"),
       price: Yup.number()
         .label("Phải là số")
         .integer("Phải là số nguyên")
@@ -435,24 +449,12 @@ function RegisterPost() {
         .max(200, "Tối đa là 200")
         .required("Cần nhập diện tích sử dụng"),
       // categoryName: Yup.string().required("Cần nhập "),
-      thumbnail: Yup.mixed().required("Chưa chọn ảnh chính"),
-      img: Yup.mixed().required("Chưa chọn ảnh phụ"),
+      // thumbnail: Yup.mixed().required("Chưa chọn ảnh chính"),
+      // img: Yup.mixed().required("Chưa chọn ảnh phụ"),
     }),
     onSubmit: async (values) => {
       // setMessage("");
-      const formDaTa = new FormData();
-      formDaTa.append("content", values.content);
-      formDaTa.append("title", values.title);
-      formDaTa.append("expiration", expiration);
-      formDaTa.append("type", type);
-      formDaTa.append("thumbnail", values.thumbnail);
-      formDaTa.append("status", status);
-      formDaTa.append("category", categoryId);
-      formDaTa.append("id", id);
       const formDaTa2 = new FormData();
-      Array.from(values.img).forEach((image) => {
-        formDaTa2.append("images", image);
-      });
       formDaTa2.append("acreage", parseInt(values.acreage));
       formDaTa2.append("price", parseInt(values.price));
       formDaTa2.append("number_bedrooms", parseInt(values.bedroom));
@@ -471,33 +473,9 @@ function RegisterPost() {
       formDaTa2.append("district", nameDistrict);
       formDaTa2.append("city", nameProvince);
       formDaTa2.append("status", status);
-
-      const formDaTa3 = new FormData();
-      formDaTa3.append("amount", totalCost);
-      formDaTa3.append("bankCode", "");
-      formDaTa3.append("language", "vn");
       try {
-        const res = await registerPost.create(formDaTa);
-        if (res.data.id) {
-          formDaTa3.append("real_easte_id", res.data.id);
-          try {
-            const res3 = await paymentApi.getPayment(formDaTa3);
-            if (res3.data) {
-              window.open(res3.data);
-            }
-          } catch (error) {
-            console.log(error);
-          }
-        }
-        if (res.data.slug) {
-          formDaTa2.append("real_easte_id", res.data.slug);
-          try {
-            const res2 = await registerPost.createInfo(formDaTa2);
-          } catch (error) {
-            console.log(error);
-          }
-        }
-        // navigate("/");
+        const res = propertyApi.editInfoNew(idInfo, formDaTa2);
+        // navigate("/quan-ly-tin-dang");
       } catch (error) {
         console.log(error);
       }
@@ -515,7 +493,7 @@ function RegisterPost() {
                   <div className="fs-3 register-post-title">
                     Thông tin cơ bản
                   </div>
-                  <div className="py-2">
+                  {/* <div className="py-2">
                     <ToggleButtonGroup
                       className="w-100"
                       type="radio"
@@ -549,10 +527,9 @@ function RegisterPost() {
                     <div>
                       <Form.Group>
                         <Dropdown
-                          // name="categoryName"
-                          // value={formik.values.categoryName}
+                      
                           onSelect={handleCategoryName}
-                          // isInvalid={!!formik.errors.categoryName}
+               
                         >
                           <DropdownToggle
                             variant="light"
@@ -571,16 +548,9 @@ function RegisterPost() {
                               ))}
                           </DropdownMenu>
                         </Dropdown>
-
-                        {/* {formik.errors.categoryName &&
-                          formik.touched.categoryName && (
-                            <Form.Control.Feedback type="invalid">
-                              {formik.errors.categoryName}
-                            </Form.Control.Feedback>
-                          )} */}
                       </Form.Group>
                     </div>
-                  </div>
+                  </div> */}
                   <Row className="py-2">
                     <Col md={4} sm={12} className="py-2">
                       <div className="py-2 register-post-sub-title">
@@ -699,7 +669,7 @@ function RegisterPost() {
             <Col sm={12} md={2}></Col>
           </Row>
         </div>
-        <div className="register-post-container ">
+        {/* <div className="register-post-container ">
           <Row>
             <Col sm={12} md={2}></Col>
             <Col sm={12} md={8}>
@@ -715,9 +685,6 @@ function RegisterPost() {
                     <div className="py-2">
                       <FloatingLabel
                         controlId="floatingTextarea"
-
-                        //   label="Comments"
-                        //   className="mb-3"
                       >
                         <Form.Control
                           name="title"
@@ -766,7 +733,7 @@ function RegisterPost() {
             </Col>
             <Col sm={12} md={2}></Col>
           </Row>
-        </div>
+        </div> */}
         <div className="register-post-container ">
           <Row>
             <Col sm={12} md={2}></Col>
@@ -1156,6 +1123,14 @@ function RegisterPost() {
                         )}
                       </Form.Group>
                     </Col>
+                    <div className="">
+                      <Button
+                        type="submit"
+                        className="mt-3 bg-primary float-end"
+                      >
+                        Sửa
+                      </Button>
+                    </div>
                   </Row>
                 </div>
               </div>
@@ -1163,7 +1138,7 @@ function RegisterPost() {
             <Col sm={12} md={2}></Col>
           </Row>
         </div>
-        <div className="register-post-container ">
+        {/* <div className="register-post-container ">
           <Row>
             <Col sm={12} md={2}></Col>
             <Col sm={12} md={8}>
@@ -1176,7 +1151,7 @@ function RegisterPost() {
                     </div>
                     <div className="py-2">
                       <Form.Group className="mb-3">
-                        {/* <Form.Label>Multiple files input example</Form.Label> */}
+                        
                         <Form.Control
                           type="file"
                           name="thumbnail"
@@ -1191,7 +1166,7 @@ function RegisterPost() {
                           }}
                           isInvalid={!!formik.errors.thumbnail}
 
-                          // onChange={(e) => setThumbnail(e.target.files[0])}
+                 
                         />
                         {formik.errors.thumbnail && (
                           <Form.Control.Feedback type="invalid">
@@ -1204,7 +1179,7 @@ function RegisterPost() {
                               {
                                 <Col lg={3} md={3} sm={3}>
                                   <Image
-                                    // roundedCircle={true}
+                   
                                     height={120}
                                     src={URL.createObjectURL(thumbnail)}
                                     className="pt-3  w-100"
@@ -1221,7 +1196,7 @@ function RegisterPost() {
                     </div>
                     <div className="py-2">
                       <Form.Group controlId="formFileMultiple" className="mb-3">
-                        {/* <Form.Label>Multiple files input example</Form.Label> */}
+                   
                         <Form.Control
                           type="file"
                           multiple
@@ -1263,8 +1238,8 @@ function RegisterPost() {
             </Col>
             <Col sm={12} md={2}></Col>
           </Row>
-        </div>
-        <div className="register-post-container ">
+        </div> */}
+        {/* <div className="register-post-container ">
           <Row>
             <Col sm={12} md={2}></Col>
             <Col sm={12} md={8}>
@@ -1282,7 +1257,7 @@ function RegisterPost() {
                         <ToggleButtonGroup
                           type="radio"
                           name="abc"
-                          // defaultValue={1}
+                   
                           onChange={handleType}
                         >
                           <ToggleButton
@@ -1339,7 +1314,7 @@ function RegisterPost() {
                           type="radio"
                           name="xyz"
                           id="2"
-                          // defaultValue={1}
+                
                           onChange={handleMucGia}
                         >
                           <ToggleButton
@@ -1398,26 +1373,14 @@ function RegisterPost() {
                       </Row>
                     </div>
                   </div>
-                  {/* <div className="py-2">
-                  <div className="py-2 register-post-sub-title">
-                    Ngày bắt đầu
-                  </div>
-                  <div className="py-2">
-                    <input
-                      type="date"
-                      min="2023-03-06"
-                      // className="w-100 py-2 px-2"
-                      // placeholder="Nhập email"
-                    />
-                  </div>
-                </div> */}
+             
                 </div>
               </div>
             </Col>
             <Col sm={12} md={2}></Col>
           </Row>
-        </div>
-
+        </div> */}
+        {/*         
         <div className="register-post-container ">
           <Row>
             <Col sm={12} md={2}></Col>
@@ -1465,24 +1428,16 @@ function RegisterPost() {
                       <div>{totalCost ? VND.format(totalCost) : ""}</div>
                     </div>
                   </div>
-                  <div className="">
-                    <Button
-                      type="submit"
-                      className="fs-4 bg-danger "
-                      // onClick={handleRegisterPost}
-                    >
-                      Thanh Toán
-                    </Button>
-                  </div>
+                  
                 </div>
               </div>
             </Col>
             <Col sm={12} md={2}></Col>
           </Row>
-        </div>
+        </div> */}
       </Form>
     </>
   );
 }
 
-export default RegisterPost;
+export default ChangProperty;

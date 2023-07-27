@@ -24,6 +24,7 @@ import Statistical from "./Admin/Statistical/Statistical.js";
 import Payment from "./Page/Payment/Payment.js";
 import RePost from "./Page/RePost/RePost.js";
 import Comment from "./Admin/Comment/Comment.js";
+import ChangProperty from "./Page/ChangeProperty/ChangeProperty.js";
 
 function App() {
   return (
@@ -53,6 +54,10 @@ function App() {
           ></Route>
           <Route path="dang-tin" element={<RegisterPost />}></Route>
           <Route path="quan-ly-tin-dang" element={<Manage />}></Route>
+          <Route
+            path="sua-tin-dang/:idInfo/:p/:d/:w/:a/:ac/:pr/:s/:i/:di/:bd/:bedroom/:bathroom/:floor/:facade/:roadWidth/:length/:width/:usableArea"
+            element={<ChangProperty />}
+          ></Route>
           <Route path="gia-han/:id/:slug" element={<RePost />}></Route>
           <Route path="doi-mat-khau" element={<ChangePass />}></Route>
           <Route path="doi-thong-tin" element={<ChangeInfo />}></Route>

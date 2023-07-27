@@ -54,16 +54,19 @@ function Manage() {
   const handleRePost = (id, slug) => {
     navigate(`/gia-han/${id}/${slug}`);
   };
-  const handleChange = async (id) => {
-    const formDaTa = new FormData();
-    formDaTa.append("content", content);
-    formDaTa.append("title", title);
-    try {
-      const res = propertyApi.editNew(id, formDaTa);
-      getAllProperty();
-    } catch (error) {
-      console.log(error);
-    }
+  const handleChange = (property) => {
+    navigate(
+      `/sua-tin-dang/${property.info_real_easte.id}/${property.info_real_easte.city}/${property.info_real_easte.ward}/${property.info_real_easte.district}/${property.info_real_easte.address}/${property.info_real_easte.acreage}/${property.info_real_easte.price}/${property.info_real_easte.status}/${property.info_real_easte.interior}/${property.info_real_easte.direction}/${property.info_real_easte.balcony_direction}/${property.info_real_easte.number_bedrooms}/${property.info_real_easte.number_bathrooms}/${property.info_real_easte.number_floors}/${property.info_real_easte.facade}/${property.info_real_easte.road_width}/${property.info_real_easte.length}/${property.info_real_easte.width}/${property.info_real_easte.total_usable_area}`
+    );
+    // const formDaTa = new FormData();
+    // formDaTa.append("content", content);
+    // formDaTa.append("title", title);
+    // try {
+    //   const res = propertyApi.editNew(id, formDaTa);
+    //   getAllProperty();
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
   useEffect(() => {
     getAllProperty();
@@ -173,13 +176,14 @@ function Manage() {
       {property && (
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Chi Tiết</Modal.Title>
+            <Modal.Title>Thông Tin Cơ Bản</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form>
-              {/* <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Tiêu đề</Form.Label>
                 <Form.Control
+                  disabled
                   as="textarea"
                   style={{ height: "80px" }}
                   name="title"
@@ -191,12 +195,13 @@ function Manage() {
                 <Form.Control.Feedback type="invalid">
                   Chưa nhập tiêu đề
                 </Form.Control.Feedback>
-              </Form.Group> */}
+              </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Nội dung</Form.Label>
                 <Form.Control
                   as="textarea"
                   name="content"
+                  disabled
                   style={{ height: "200px" }}
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
@@ -258,11 +263,8 @@ function Manage() {
               Thoát
             </Button>
             {property.real_easte_news.status === "" && (
-              <Button
-                variant="primary"
-                onClick={() => handleChange(property.real_easte_news.id)}
-              >
-                Sửa tin
+              <Button variant="primary" onClick={() => handleChange(property)}>
+                Sửa
               </Button>
             )}
             {property.real_easte_news.status === "Expiration" && (

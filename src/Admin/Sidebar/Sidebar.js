@@ -135,7 +135,7 @@ function Sidebar() {
               </Link>
             </Accordion.Body>
           </Accordion.Item>
-          {/* <Accordion.Item eventKey="4">
+          <Accordion.Item eventKey="4">
             <Accordion.Button className="bg-light sidebar-button">
               <FontAwesomeIcon
                 icon={faComment}
@@ -151,7 +151,7 @@ function Sidebar() {
                 <div className="ps-4 py-3 bg-light">Danh sách bình luận</div>
               </Link>
             </Accordion.Body>
-          </Accordion.Item> */}
+          </Accordion.Item>
           <Accordion.Item
             eventKey="5"
             onClick={handleLogoutAdmin}
