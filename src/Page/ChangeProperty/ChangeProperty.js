@@ -52,20 +52,15 @@ function ChangProperty() {
 
   const vt = a.indexOf(",");
   const address = a.slice(0, vt);
-
   const navigate = useNavigate();
   const id = Date.now().toString();
   const VND = new Intl.NumberFormat("vi-VN", {
     style: "currency",
     currency: "VND",
   });
-
   const [status, setStatus] = useState(s);
-
   const [listCategory, setListCategory] = useState([]);
-
   const [categoryId, setCategoryId] = useState("");
-
   const [listProvinces, setListProvinces] = useState([]);
   const [listDistrict, setListDistrict] = useState([]);
   const [listWards, setListWards] = useState([]);
@@ -75,10 +70,8 @@ function ChangProperty() {
   const [type, setType] = useState("");
   const [expiration, setExpiration] = useState("");
   const [cost, setCost] = useState("");
-
   const [direction, setDirection] = useState(di);
   const [balconyDirection, setBalconyDirection] = useState(bd);
-
   const [interior, setInterior] = useState(i);
   // const [address, setAddress] = useState("");
 
