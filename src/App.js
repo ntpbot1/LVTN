@@ -60,7 +60,10 @@ function App() {
             element={<ChangProperty />}
           ></Route>
           <Route path="gia-han/:id/:slug" element={<RePost />}></Route>
-          <Route path="thanh-toan/:id" element={<Pay />}></Route>
+          <Route
+            path="thanh-toan/:id/:expiration/:type"
+            element={<Pay />}
+          ></Route>
 
           <Route path="doi-mat-khau" element={<ChangePass />}></Route>
           <Route path="doi-thong-tin" element={<ChangeInfo />}></Route>

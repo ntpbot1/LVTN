@@ -342,7 +342,7 @@ function ChangProperty() {
   const handleStatus = (value) => {
     switch (value) {
       case "1":
-        setStatus("Sổ đỏ/ Sổ hồng");
+        setStatus("Sổ đỏ - Sổ hồng");
         break;
       case "2":
         setStatus("Hợp đồng mua bán");
@@ -467,7 +467,8 @@ function ChangProperty() {
       formDaTa2.append("status", status);
       try {
         const res = propertyApi.editInfoNew(idInfo, formDaTa2);
-        // navigate("/quan-ly-tin-dang");
+        navigate("/");
+        window.scrollTo(0, 0);
       } catch (error) {
         console.log(error);
       }

@@ -481,7 +481,7 @@ function RegisterPost() {
             console.log(error);
           }
         }
-        navigate("/quan-ly-tin-dang");
+        // navigate("/quan-ly-tin-dang");
       } catch (error) {
         console.log(error);
       }
@@ -1241,15 +1241,6 @@ function RegisterPost() {
                         )}
                       </Form.Group>
                     </div>
-                    <div className="py-2">
-                      <Button
-                        type="submit"
-                        className="fs-4 bg-primary "
-                        // onClick={handleRegisterPost}
-                      >
-                        Đăng ký tin
-                      </Button>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -1257,7 +1248,7 @@ function RegisterPost() {
             <Col sm={12} md={2}></Col>
           </Row>
         </div>
-        {/* <div className="register-post-container ">
+        <div className="register-post-container ">
           <Row>
             <Col sm={12} md={2}></Col>
             <Col sm={12} md={8}>
@@ -1390,15 +1381,24 @@ function RegisterPost() {
                         </ToggleButtonGroup>
                       </Row>
                     </div>
+                    <div className="py-4">
+                      <Button
+                        type="submit"
+                        className="fs-4 bg-primary float-end"
+                        // onClick={handleRegisterPost}
+                      >
+                        Đăng ký tin
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </div>
             </Col>
             <Col sm={12} md={2}></Col>
           </Row>
-        </div> */}
-
-        {/* <div className="register-post-container ">
+        </div>
+        {/* 
+        <div className="register-post-container ">
           <Row>
             <Col sm={12} md={2}></Col>
             <Col sm={12} md={8}>
@@ -1445,7 +1445,6 @@ function RegisterPost() {
                       <div>{totalCost ? VND.format(totalCost) : ""}</div>
                     </div>
                   </div>
-                  
                 </div>
               </div>
             </Col>

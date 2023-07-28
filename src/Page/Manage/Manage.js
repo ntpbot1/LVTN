@@ -54,8 +54,8 @@ function Manage() {
   const handleRePost = (id, slug) => {
     navigate(`/gia-han/${id}/${slug}`);
   };
-  const handlePayment = (id) => {
-    navigate(`/thanh-toan/${id}`);
+  const handlePayment = (id, expiration, type) => {
+    navigate(`/thanh-toan/${id}/${expiration}/${type}`);
   };
   const handleChange = (property) => {
     navigate(
@@ -82,6 +82,10 @@ function Manage() {
       console.log("err", err);
     }
   };
+  const VND = new Intl.NumberFormat("vi-VN", {
+    style: "currency",
+    currency: "VND",
+  });
   // const formik = useFormik({
   //   initialValues: {
   //     title: property && property.real_easte_news.title,
@@ -231,17 +235,176 @@ function Manage() {
                 <Form.Label>Loại tin</Form.Label>
                 <Form.Control
                   type="text"
+                  disabled
                   value={
                     property.real_easte_news.type == 1
-                      ? "Loại 1"
+                      ? "Tin thường"
                       : property.real_easte_news.type == 2
-                      ? "Loại 2"
+                      ? "Tin VIP 2"
                       : property.real_easte_news.type == 3
-                      ? "Loại 3"
-                      : "Loại 4"
+                      ? "Tin VIP 3"
+                      : "Tin VIP 4"
                   }
                 />
               </Form.Group>
+              <Row>
+                <Col>
+                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>Mức giá</Form.Label>
+                    <Form.Control
+                      disabled
+                      type="text"
+                      value={VND.format(property.info_real_easte.price)}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>Tình trạng pháp lý</Form.Label>
+                    <Form.Control
+                      disabled
+                      type="text"
+                      value={property.info_real_easte.status}
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>Tỉnh/Thành phố</Form.Label>
+                    <Form.Control
+                      disabled
+                      type="text"
+                      value={property.info_real_easte.city}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>Quận/Huyện</Form.Label>
+                    <Form.Control
+                      disabled
+                      type="text"
+                      value={property.info_real_easte.district}
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>Phường/Xã</Form.Label>
+                    <Form.Control
+                      disabled
+                      type="text"
+                      value={property.info_real_easte.ward}
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>Nội thất</Form.Label>
+                    <Form.Control
+                      disabled
+                      type="text"
+                      value={property.info_real_easte.interior}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>Hướng nhà</Form.Label>
+                    <Form.Control
+                      disabled
+                      type="text"
+                      value={property.info_real_easte.direction}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>Hướng ban công</Form.Label>
+                    <Form.Control
+                      disabled
+                      type="text"
+                      value={property.info_real_easte.balcony_direction}
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>Số phòng ngủ</Form.Label>
+                    <Form.Control
+                      disabled
+                      type="text"
+                      value={property.info_real_easte.number_bedrooms}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>Số phòng tắm</Form.Label>
+                    <Form.Control
+                      disabled
+                      type="text"
+                      value={property.info_real_easte.number_bathrooms}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>Số tầng</Form.Label>
+                    <Form.Control
+                      disabled
+                      type="text"
+                      value={property.info_real_easte.number_floors}
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>
+                      Chiều dài m<sup>2</sup>
+                    </Form.Label>
+                    <Form.Control
+                      disabled
+                      type="text"
+                      value={property.info_real_easte.length}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>
+                      Chiều rộng m<sup>2</sup>
+                    </Form.Label>
+                    <Form.Control
+                      disabled
+                      type="text"
+                      value={property.info_real_easte.width}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>
+                      Tổng diện tích m<sup>2</sup>
+                    </Form.Label>
+                    <Form.Control
+                      disabled
+                      type="text"
+                      value={property.info_real_easte.acreage}
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Hình ảnh</Form.Label>
                 <div>
@@ -275,7 +438,13 @@ function Manage() {
                 </Button>
                 <Button
                   variant="danger"
-                  onClick={() => handlePayment(property.real_easte_news.id)}
+                  onClick={() =>
+                    handlePayment(
+                      property.real_easte_news.id,
+                      property.real_easte_news.expiration,
+                      property.real_easte_news.type
+                    )
+                  }
                 >
                   Thanh Toán
                 </Button>
