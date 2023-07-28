@@ -16,7 +16,8 @@ import DropdownItem from "react-bootstrap/esm/DropdownItem";
 import DropdownToggle from "react-bootstrap/esm/DropdownToggle";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useState, useEffect } from "react";
 // import paymentApi from "../../api/paymentApi";
 import categoryApi from "../../api/categoryApi";
@@ -49,6 +50,28 @@ function ChangProperty() {
     width,
     usableArea,
   } = useParams();
+  const notify = () =>
+    toast.success("Sửa thành công", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  const notify2 = () =>
+    toast.error("Sửa thất bại", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   const vt = a.indexOf(",");
   const address = a.slice(0, vt);
   const navigate = useNavigate();
@@ -467,10 +490,11 @@ function ChangProperty() {
       formDaTa2.append("status", status);
       try {
         const res = propertyApi.editInfoNew(idInfo, formDaTa2);
-        navigate("/");
+        notify();
         window.scrollTo(0, 0);
       } catch (error) {
         console.log(error);
+        notify2();
       }
     },
   });
@@ -482,7 +506,7 @@ function ChangProperty() {
             <Col sm={12} md={2}></Col>
             <Col sm={12} md={8}>
               <div className="mt-4 mb-2 shadow-sm rounded register-post-content">
-                <div className="px-4  py-4 ">
+                <div className="px-4 py-4">
                   <div className="fs-3 register-post-title">
                     Thông tin cơ bản
                   </div>
@@ -730,9 +754,9 @@ function ChangProperty() {
         <div className="register-post-container ">
           <Row>
             <Col sm={12} md={2}></Col>
-            <Col sm={12} md={8}>
+            <Col sm={12} md={8} className="mb-4">
               <div className="mb-2 shadow-sm rounded register-post-content">
-                <div className="px-4  py-4 ">
+                <div className="px-4 py-4 ">
                   <div className="fs-3 register-post-title">
                     Thông tin bất động sản
                   </div>
@@ -1429,6 +1453,19 @@ function ChangProperty() {
           </Row>
         </div> */}
       </Form>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      <ToastContainer />
     </>
   );
 }

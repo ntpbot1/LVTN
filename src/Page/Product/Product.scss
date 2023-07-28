@@ -1,5 +1,10 @@
 .product-container {
   background-color: var(--bg-content);
+  min-height: 400px;
+  .color-not-found {
+    color: #999999;
+    font-size: 14px;
+  }
   .product-list {
     .product-item {
       box-shadow: 0 0.125rem 0.25rem rgba(#000000, 0.075);

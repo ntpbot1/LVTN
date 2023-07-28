@@ -400,10 +400,49 @@ function Manage() {
                     <Form.Control
                       disabled
                       type="text"
-                      value={property.info_real_easte.acreage}
+                      value={property.info_real_easte.facade}
                     />
                   </Form.Group>
                 </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>
+                      Mặt tiền m<sup>2</sup>
+                    </Form.Label>
+                    <Form.Control
+                      disabled
+                      type="text"
+                      value={property.info_real_easte.road_width}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>Đường vào</Form.Label>
+                    <Form.Control
+                      disabled
+                      type="text"
+                      value={property.info_real_easte.width}
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>
+                      Diện tích sử dụng m<sup>2</sup>
+                    </Form.Label>
+                    <Form.Control
+                      disabled
+                      type="text"
+                      value={property.info_real_easte.total_usable_area}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col></Col>
               </Row>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Hình ảnh</Form.Label>

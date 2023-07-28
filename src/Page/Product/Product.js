@@ -1448,6 +1448,7 @@ function Product() {
     }
   } else {
     //Result By Content
+
     return (
       <ProductItem list={listProperty} handleGetDetail={handleGetDetail} />
     );

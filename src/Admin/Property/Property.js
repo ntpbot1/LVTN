@@ -345,7 +345,37 @@ function Property() {
                 </Form.Group>
               </Col>
             </Row>
-
+            <Row>
+              <Col>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>
+                    Mặt tiền m<sup>2</sup>
+                  </Form.Label>
+                  <Form.Control disabled type="text" value={info.road_width} />
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Đường vào</Form.Label>
+                  <Form.Control disabled type="text" value={info.width} />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>
+                    Diện tích sử dụng m<sup>2</sup>
+                  </Form.Label>
+                  <Form.Control
+                    disabled
+                    type="text"
+                    value={info.total_usable_area}
+                  />
+                </Form.Group>
+              </Col>
+              <Col></Col>
+            </Row>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Hình ảnh</Form.Label>
               <div>

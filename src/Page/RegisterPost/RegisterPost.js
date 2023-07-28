@@ -23,10 +23,33 @@ import categoryApi from "../../api/categoryApi";
 import registerPost from "../../api/registerPostApi";
 import paymentApi from "../../api/paymentApi";
 import { useNavigate } from "react-router-dom";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function RegisterPost() {
   // Chọn loại BĐS
   // Mã thẻ : 9704198526191432198
+  const notify = () =>
+    toast.success("Đăng tin thành công", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  const notify2 = () =>
+    toast.error("Đăng tin thất bại", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   const navigate = useNavigate();
   const id = Date.now().toString();
   const VND = new Intl.NumberFormat("vi-VN", {
@@ -477,8 +500,11 @@ function RegisterPost() {
           formDaTa2.append("real_easte_id", res.data.slug);
           try {
             const res2 = await registerPost.createInfo(formDaTa2);
+            notify();
+            window.scrollTo(0, 0);
           } catch (error) {
             console.log(error);
+            notify2();
           }
         }
         // navigate("/quan-ly-tin-dang");
@@ -1387,7 +1413,7 @@ function RegisterPost() {
                         className="fs-4 bg-primary float-end"
                         // onClick={handleRegisterPost}
                       >
-                        Đăng ký tin
+                        Đăng tin
                       </Button>
                     </div>
                   </div>
@@ -1452,6 +1478,19 @@ function RegisterPost() {
           </Row>
         </div> */}
       </Form>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      <ToastContainer />
     </>
   );
 }

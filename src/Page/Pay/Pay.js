@@ -7,10 +7,11 @@ import {
   ToggleButtonGroup,
 } from "react-bootstrap";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import propertyApi from "../../api/propertyApi";
 import paymentApi from "../../api/paymentApi";
 function Pay() {
+  const navigate = useNavigate();
   const { id, expiration, type } = useParams();
   const VND = new Intl.NumberFormat("vi-VN", {
     style: "currency",
@@ -54,6 +55,8 @@ function Pay() {
       const res1 = await paymentApi.getPayment(formDaTa);
       if (res1.data) {
         window.open(res1.data);
+        navigate("/");
+        window.scrollTo(0, 0);
       }
     } catch (error) {
       console.log(error);
